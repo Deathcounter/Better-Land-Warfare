@@ -1,0 +1,134 @@
+from genieutils.datfile import DatFile
+from genieutils.task import Task
+from genieutils.civ import Civ
+from genieutils.effect import Effect, EffectCommand
+from genieutils.tech import ResearchResourceCost, Tech
+from genieutils.unit import *
+import logging
+
+logging.getLogger(__name__)
+NAME = "helpers"
+
+
+
+# finds the (make avail)-able or upgrade effect (not tech) of a unit with the id
+def find_unit_avail_or_upgrade (df: DatFile, unit_id: int) -> int:
+    for effect in df.effects:
+        for command in effect.effect_commands:
+            if (command.type == 2 and command.b == 1 and command.a == unit_id) or (command.type == 3 and command.b == unit_id and command.c == -1): 
+                # if (Command type = enable/disable unit, and Mode = 1 = enabled and unit = unit id) OR
+                # (commandy type = Upgrade Unit and any Unit is upgraded to the searched unit with Mode -1 = all)
+                unit_avail_effect = df.effects.index(effect)
+                logging.debug(f"found unit avail of unit {unit_id} at id {unit_avail_effect}")
+                return unit_avail_effect
+    logging.debug("No Unit avail effect found for")
+    return -1
+
+# finds the tech that contains the (make avail)-able effect
+def find_tech_of_unit_avail (df: DatFile, effect_id: int) -> int:
+    if (effect_id != -1):
+        for tech in df.techs:
+            if tech.effect_id == effect_id:
+                # if the tech that executes the effect make avail is equal to the searched effect
+                tech_avail_of_effect = df.techs.index(tech)
+                logging.debug(f"found tech avail of effect {effect_id} at id {tech_avail_of_effect}")
+                return tech_avail_of_effect
+        logging.debug("No Tech avail effect found")
+    return -1
+
+# Returns true or false based on whether civ has a certain unit by looking if the make avail tech is disabled or not
+# Doesnt work with Winged Hussar due to different structure. Camel hardcoded because Camel scout is ruining the function
+def does_civ_have_unit (df: DatFile, civilization: int, unit_id: int) -> bool:
+    tech_tree_id = df.civs[civilization].tech_tree_id # storing tech tree ID 
+    if unit_id == 329:
+        unit_avail_tech = 235 #hardcoding CamelCase
+    else:
+        unit_avail_tech = find_tech_of_unit_avail(df, find_unit_avail_or_upgrade(df, unit_id))
+    # finds the Tech that makes the unit available by using the other two helpers
+    civ_has_unit = True
+    if (df.civs[civilization].units[unit_id].enabled == 1):
+        for train_location in df.civs[civilization].units[unit_id].creatable.train_locations:
+            if (train_location.unit_id != -1):
+                # Unit is available from Dark Age onwards and has a train location.
+                return True
+        # Unit is available from Dark Age onwards, but has no train locations
+        return False
+    
+    if (unit_avail_tech == -1):
+        # if there is no make avail tech
+        return False
+    
+    if (df.techs[unit_avail_tech].civ == civilization):
+        # checks if an tech available has one specific civilization, AKA Unique Units
+        # e.g If Plumed Archer (make avail) tech is only available for (Mayans == Mayans) - then Mayans have Plumed Archer
+        civ_has_unit = True
+
+    elif (df.techs[unit_avail_tech].civ != -1):
+        #Unit is Unique Unit, but not of the searched civ
+        civ_has_unit = False
+
+    elif (len(df.civs[civilization].units[unit_id].creatable.train_locations) == 0 or df.civs[civilization].units[unit_id].disabled == 1):
+        # unit of that civ has no train locations or unit is disabled
+        civ_has_unit = False
+
+    else:
+        for command in df.effects[tech_tree_id].effect_commands: # looping through all effect commands of the tech tree effect
+            if (command.type == 102 and command.d == unit_avail_tech):
+                    # if command.type == disable tech (102) and the tech == tech that makes the unit avail
+                    # Unit is specifically disabled in tech tree
+                    civ_has_unit = False
+                    break    
+                    
+    if(civ_has_unit):
+        logging.debug(f"{df.techs[unit_avail_tech].name} is available for {df.civs[civilization].name}")
+        return civ_has_unit
+    else:
+        logging.debug(f"The upgrade or avail tech {unit_avail_tech} {df.techs[unit_avail_tech].name}, is disabled for {df.civs[civilization].name}")
+        return civ_has_unit 
+   
+
+# Function that finds the base unit of any unit, returns ID of the unit e.g Paladin returns Knight, Plumed Archer returns Plumed Archer, Imperial Camel returns Camel Scout
+def find_base_unit (df: DatFile, unit_id: int) -> int:
+    effect_id = find_unit_avail_or_upgrade (df, unit_id)
+    if effect_id == -1:
+      return unit_id
+    for command in df.effects[effect_id].effect_commands:
+      if (command.type == 3 and command.b == unit_id and command.c == -1):
+        # if command type == upgrade unit, and the unit is upgraded to the searched unit
+        return find_base_unit(df, command.a)    
+    return unit_id
+
+
+def find_units_with_3_combined_armor (df: DatFile) -> list[Unit]:
+    units_with_3_combined_armor: list[Unit] = []
+    for unit in df.civs[0].units:
+        if (unit and unit.type == 70 and unit.class_ in (0, 4, 6, 12, 18, 23, 24, 25, 26, 35, 43, 44)): 
+            # if Unit is not None and is Combatant (70) or in one of the soldier classes (excludes siege, ships)
+            unit_armor = 0
+            base_unit_id = find_base_unit(df, unit.id) # does the !!BASE!! unit have 3 combined armor?
+            for armor in df.civs[0].units[base_unit_id].type_50.armours:
+                if (armor.class_== 4 or armor.class_ == 3): # if armor class is pierce or melee
+                    unit_armor += armor.amount
+            if (unit_armor >= 3):
+                units_with_3_combined_armor.append(unit) # Append to unit list
+    return units_with_3_combined_armor   
+
+# Hello, Deathcounter here, I stole this from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples - Credits to him, thank you <3
+
+# EffectCommands D value is always a float, meaning it can only hold one value
+# However, for EffectCommands that alter armors or attacks, one float must hold both the AttackOrArmor's class and amount
+# This helper function will convert an amount and attack/armor type into a float that can be used for a D value in an EffectCommand
+def amount_type_to_d(value: int, type: int) -> float:
+    # Ensure the input is within the range of an 8-bit signed integer
+    value = value & 0xFF  # Mask to 8 bits
+    if value & 0x80:  # Handle sign extension for negative numbers
+        value -= 0x100
+
+    # Ensure the type is within the range of an 8-bit unsigned integer
+    type = type & 0xFF
+
+    # Combine value and type into a 32-bit integer
+    NewD = (type << 8) | (value & 0xFF)
+
+    # Convert to float and return
+    return float(NewD)
