@@ -76,7 +76,7 @@ def add_Billman_line(df: DatFile):
     attack_list_flail_warrior = (AttackOrArmor(4,7), AttackOrArmor(8,7), AttackOrArmor(5,19), AttackOrArmor(27,3), AttackOrArmor(30,3))
 
                                 # melee,                pierce,         infantry,     shock infantry (eagle)
-    armor_list_billman  = (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
+    armor_list_billman  = (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
     armor_list_scyteman = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
     armor_list_flail_warrior = (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,3), AttackOrArmor(29,0))
 
@@ -107,7 +107,8 @@ def add_Billman_line(df: DatFile):
         billman_variant.type_50.displayed_attack = displayed_attack_list [idx]
         billman_variant.type_50.displayed_melee_armour = displayed_m_armor_list [idx]
 
-       
+        if idx == 0:
+            billman_variant.creatable.train_locations[0] = TrainLocation(40, 3, 13, 16735) #billman is 40s in Feudal, then 17 in Castle Age
 
         for index in range(len(attack_list_billman)):
             if idx == 0:

@@ -17,8 +17,9 @@ NAME = "add_effects"
 
 def run_add_effects (df: DatFile):
     make_avail_effect (df)
-    unit_upgrades (df)
-    thrower_upgrades (df)
+    unit_upgrades_e (df)
+    thrower_upgrades_e (df)
+    billman_auto_upgrade (df)
 
 
 
@@ -45,7 +46,7 @@ def make_avail_effect (df: DatFile):
     logging.debug (f"Added Flamethrower avail effect at {storage.flamethrowerAvailID}")
     logging.info ("Successfully added (make avail) effects for all units")
 
-def unit_upgrades (df: DatFile):
+def unit_upgrades_e (df: DatFile):
 
                                                                                 #Upgrade Unit (3), Billman [0], Scytheman [1], Mode -1, -1
     scyteman_upgrade_effect: Effect = Effect ("Scytheman", [EffectCommand (3, storage.BillmanIDs[0], storage.BillmanIDs[1], -1, -1)]) 
@@ -80,7 +81,7 @@ def unit_upgrades (df: DatFile):
     logging.debug (f"Added Hatchet Thrower upgrade effect at {storage.throwerUpgradeIDs[1]}")
 
 
-def thrower_upgrades (df: DatFile):
+def thrower_upgrades_e (df: DatFile):
     #blacksmith upgrades and throwing techniques
 
     #Throwing techniques: Thrower-line +1 attack; Missed thrown weapons deal full damage. 
@@ -93,7 +94,7 @@ def thrower_upgrades (df: DatFile):
                                                     #Attr. Modifier Set (0), Projectiles Unit (ID), Class (-1), Attr. Smart Projectile (19), = 2
         throwing_techniques_ec.append(EffectCommand (0, storage.ThrowerProjectileIDs[thrower_projectile], -1, 19, 2)) # 2 = No Balistics, but full damage on miss, like Arambai
     
-    storage.thrower_techniquesID = len(df.effects)
+    storage.throwingTechniquesId = len(df.effects)
 
     throwing_techniques_effect: Effect = Effect ("Throwing techniques", throwing_techniques_ec)        
     df.effects.append(throwing_techniques_effect)    
@@ -114,7 +115,7 @@ def thrower_upgrades (df: DatFile):
                                 # Attr. Modifier Multiply (5), Thrower Unit (ID), Class (-1), Attr. attack dispersion (64), Amount (0.5 = halved)
         wooden_grip_ec.append(EffectCommand(5, storage.ThrowerIDs[thrower_id], -1, 64, 0.5)) 
 
-    storage.thrower_blacksmithIDs.append(len(df.effects))
+    storage.throwerBlacksmithIDs.append(len(df.effects))
 
     wooden_grip_effect: Effect = Effect ("Wooden Grip", wooden_grip_ec)
     df.effects.append(wooden_grip_effect)
@@ -130,7 +131,7 @@ def thrower_upgrades (df: DatFile):
                                   # Attr. Modifier Set (0), Thrower Unit (ID), Class (-1), Attr. Min Range (20), Amount (0)  
         holster_ec.append(EffectCommand(0, storage.ThrowerIDs[thrower_id], -1, 20, 0))
 
-    storage.thrower_blacksmithIDs.append(len(df.effects))
+    storage.throwerBlacksmithIDs.append(len(df.effects))
 
     holster_effect: Effect = Effect ("Holster", holster_ec)
     df.effects.append(holster_effect)
@@ -148,7 +149,14 @@ def thrower_upgrades (df: DatFile):
                                                     #Attr. Modifier +-(4), Projectiles Unit (ID), Class (-1), Attr. Speed (19), = 2 -> increases speed from 6 to 8
         balanced_weaponry_ec.append(EffectCommand (4, storage.ThrowerProjectileIDs[thrower_projectile], -1, 5, 2))
 
-    storage.thrower_blacksmithIDs.append(len(df.effects))
+    storage.throwerBlacksmithIDs.append(len(df.effects))
 
     balanced_weaponry_effect: Effect = Effect ("Balanced Weaponry", balanced_weaponry_ec)
     df.effects.append(balanced_weaponry_effect)
+
+def billman_auto_upgrade (df):
+                                                    #Attr. Modifier Multiply(5), Billman (ID), Class (-1), Attr. Train Time (101), * 0.425 = 40s -> 17s
+    billman_auto_upgrade_effect: Effect = Effect ("Upgrade Billman in Age3", [EffectCommand (5, storage.BillmanIDs[0], -1, 101, 0.425)]) 
+    storage.billmanAutoUpgradeAge3 = len(df.effects)
+    df.effects.append(billman_auto_upgrade_effect)
+    

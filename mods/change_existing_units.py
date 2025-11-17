@@ -6,8 +6,9 @@ from genieutils.tech import ResearchResourceCost, Tech
 from genieutils.unit import *
 import logging
 
+
 logging.getLogger(__name__)
-NAME = "change_exisitng_units"
+NAME = "change_existing_units"
 
 def run_change_existing_units(df: DatFile):
     give_scorpion_lancer_damage (df)
@@ -34,3 +35,4 @@ def give_steppelancers_lancer_class (df: DatFile):
         civ.units[1370].type_50.armours.append(lancer_class)
         civ.units[1372].type_50.armours.append(lancer_class)
     logging.info("Gave Steppelancer-line the lancer class")
+

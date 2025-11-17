@@ -8,10 +8,12 @@ from pathlib import Path
 
 from genieutils.datfile import DatFile
 
-from mods import add_units
-from mods import change_existing_units
 from mods import add_projectiles
+from mods import add_units
 from mods import add_effects
+from mods import add_technologies
+from mods import change_existing_units
+from mods import change_existing_techs
 
 
 # Overall, genieutils works by loading a .dat file into memory and constructing a DatFile object
@@ -32,8 +34,10 @@ def main():
     # Comment out / remove the previous two lines to run only your modifications
     add_projectiles.run_add_projectiles (dfBase)
     add_units.run_add_units(dfBase)
-    change_existing_units.run_change_existing_units (dfBase)
     add_effects.run_add_effects (dfBase)
+    add_technologies.run_add_technologies (dfBase)
+    change_existing_units.run_change_existing_units (dfBase)
+    change_existing_techs.run_change_existing_techs (dfBase)
     print("Modifications completed")
 
     # You can save it as whatever filename.dat you want, but when it is in a mod you will need it to be named empires2_x2_p1.dat

@@ -1,6 +1,7 @@
 from genieutils.datfile import DatFile
 from genieutils.task import Task
 from genieutils.civ import Civ
+from genieutils.tech import ResearchLocation
 from genieutils.effect import Effect, EffectCommand
 from genieutils.tech import ResearchResourceCost, Tech
 from genieutils.unit import *
@@ -113,7 +114,9 @@ def find_units_with_3_combined_armor (df: DatFile) -> list[Unit]:
                 units_with_3_combined_armor.append(unit) # Append to unit list
     return units_with_3_combined_armor   
 
-# Hello, Deathcounter here, I stole this from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples - Credits to him, thank you <3
+# Hello, Deathcounter here, I stole all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
+# - Credits to him, thank you <3
+
 
 # EffectCommands D value is always a float, meaning it can only hold one value
 # However, for EffectCommands that alter armors or attacks, one float must hold both the AttackOrArmor's class and amount
@@ -132,3 +135,24 @@ def amount_type_to_d(value: int, type: int) -> float:
 
     # Convert to float and return
     return float(NewD)
+
+# Create a technology with default values -- no requirements, time to research, etc.
+def create_empty_tech() -> Tech:
+    empty_cost: ResearchResourceCost = ResearchResourceCost(-1, 0, 0)
+    return Tech(
+        required_techs=(-1, -1, -1, -1, -1, -1),
+        resource_costs=(empty_cost, empty_cost, empty_cost),
+        required_tech_count=0,
+        civ=-1,
+        full_tech_mode=0,
+        language_dll_name=7000,
+        language_dll_description=8000,
+        effect_id=-1,
+        type=0,
+        icon_id=-1,
+        language_dll_help=107000,
+        language_dll_tech_tree=150000,
+        name="",
+        repeatable=0,
+        research_locations=[ResearchLocation(-1,0,0,-1)],
+    )
