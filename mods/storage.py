@@ -22,6 +22,8 @@ throwerUpgradeIDs = []
 throwerBlacksmithIDs = []
 throwingTechniquesId: int
 
+shieldBossId: int
+
 billmanAutoUpgradeAge3: int
 
 #technologies
@@ -31,3 +33,4 @@ dartthrowerAvailTechID: int
 flamethrowerAvailTechID: int
 
 billmanUpgradeTechs = []
+lancerUpgradeTech = int
