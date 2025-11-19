@@ -19,8 +19,8 @@ billmanUpgradeIDs = []
 lancerUpgradeID: int
 throwerUpgradeIDs = []
 
+throwingTechniquesID: int
 throwerBlacksmithIDs = []
-throwingTechniquesId: int
 
 shieldBossId: int
 
@@ -32,5 +32,12 @@ lancerAvailTechID: int
 dartthrowerAvailTechID: int 
 flamethrowerAvailTechID: int
 
+armenian_scyteman_req_ID = int
+armenian_flailWarrior_req_ID = int
+
 billmanUpgradeTechs = []
 lancerUpgradeTech = int
+throwerUpgradeTechs = []
+
+throwingTechniquesTechID: int
+throwerBlacksmithTechIDs = []

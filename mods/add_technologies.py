@@ -12,11 +12,11 @@ from mods import storage
 logging.getLogger(__name__)
 NAME = "helpers"
 
-def run_add_technologies(df: DatFile):
+def run_add_technologies (df: DatFile):
     make_avail_techs (df)
+    armenian_barrack_req (df)
     unit_upgrades_t (df)
-    # thrower_upgrades_t (df)
-
+    thrower_upgrades_t (df)
 
 def make_avail_techs (df: DatFile):
     storage.billmanAvailTechID = len(df.techs)
@@ -60,6 +60,30 @@ def make_avail_techs (df: DatFile):
     logging.debug (f"Added Flamethrower (make avail) tech at ID {storage.flamethrowerAvailTechID}")
 
 
+def armenian_barrack_req (df: DatFile):
+    #make extra requirement techs for Armenians
+    #since Armenians have Barrack Upgrades available one age earlier, they need extra trickery to be enabled earlier compared to any other civ.
+    #doing what other "requirement" civs do in A.G.E, you will understand how they work. You are smart after all
+    storage.armenian_scyteman_req_ID = len(df.techs)
+    armenian_scyteman_req_tech = helpers.create_empty_tech()
+    armenian_scyteman_req_tech.repeatable = 1
+    armenian_scyteman_req_tech.required_techs = (101, storage.billmanAvailTechID, -1, -1, -1, -1) 
+    armenian_scyteman_req_tech.required_tech_count = 2
+    armenian_scyteman_req_tech.name = "Scytheman requirement"
+    armenian_scyteman_req_tech.civ = 44 #Armenians
+    df.techs.append(armenian_scyteman_req_tech)
+    logging.debug
+    
+    storage.armenian_flailWarrior_req_ID = len(df.techs)
+    armenian_flailWarrior_req_ID = helpers.create_empty_tech()
+    armenian_flailWarrior_req_ID.repeatable = 1
+    armenian_flailWarrior_req_ID.required_techs = (102, -1, -1, -1, -1, -1) #this should actually read 102 = Castle Age and in Slot 2 contain the Scytheman Upgrade, which doesnt exist yet ***
+    armenian_flailWarrior_req_ID.required_tech_count = 2
+    armenian_flailWarrior_req_ID.name = "Flail Warrior requirement"
+    armenian_flailWarrior_req_ID.civ = 44 #Armenians
+    df.techs.append(armenian_flailWarrior_req_ID)
+
+
 def unit_upgrades_t (df: DatFile):
 
     storage.billmanUpgradeTechs.append(len(df.techs))
@@ -67,10 +91,10 @@ def unit_upgrades_t (df: DatFile):
     scytheman_upgrade_tech.repeatable = 1
     scytheman_upgrade_tech.icon_id = 999 #need to fix later
     scytheman_upgrade_tech.effect_id = storage.billmanUpgradeIDs[0]
-    scytheman_upgrade_tech.required_techs = (102, 950, -1, -1, -1, -1)
-    scytheman_upgrade_tech.required_tech_count = 1
+    scytheman_upgrade_tech.required_techs = (102, storage.billmanAvailTechID, storage.armenian_scyteman_req_ID, -1, -1, -1)
+    scytheman_upgrade_tech.required_tech_count = 2
     scytheman_upgrade_tech.name = "Scytheman"
-    scytheman_upgrade_tech.research_locations[0] = ResearchLocation(12, 200, 8, 18260) # 12 in Barracks, 85 seconds ResearchtTime, Button 8 und Hotkey ID of Legionary
+    scytheman_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 18096) # 12 in Barracks, 85 seconds ResearchtTime, Button 8 und Hotkey ID of Capped Ram
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 250, 1) # 0 food storage, 250 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 175, 1) # 3 gold storage, 175 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  4 population headroom, 1 cost, 0 deduct no
@@ -84,6 +108,12 @@ def unit_upgrades_t (df: DatFile):
     logging.debug (f"Added Scytheman Upgrade tech at ID {storage.billmanUpgradeTechs[0]}")
 
 
+    #*** now that the Scytheman Upgrade exists, I can add it as a required tech to the Flail Warrior requirement tech
+    #since tuples are immutable, I also have to convert them again into a temp list, change them, and then change them back
+    armenianTech: Tech = df.techs[storage.armenian_flailWarrior_req_ID]
+    temp = list(armenianTech.required_techs)
+    temp[1] = storage.billmanUpgradeTechs[0] #changes the Flail Warrior Requirement from just Castle Age, to require Castle Age [0] and Scytheman Upgrade [1]
+    armenianTech.required_techs = tuple(temp)
 
 
     storage.billmanUpgradeTechs.append(len(df.techs))
@@ -91,19 +121,19 @@ def unit_upgrades_t (df: DatFile):
     flailWarrior_upgrade_tech.repeatable = 1
     flailWarrior_upgrade_tech.icon_id = 999 #need to fix later
     flailWarrior_upgrade_tech.effect_id = storage.billmanUpgradeIDs[0]
-    flailWarrior_upgrade_tech.required_techs = (103, 950, -1, -1, -1, -1)
+    flailWarrior_upgrade_tech.required_techs = (103, storage.billmanUpgradeTechs[0], storage.armenian_flailWarrior_req_ID, -1, -1, -1)
     flailWarrior_upgrade_tech.required_tech_count = 1
     flailWarrior_upgrade_tech.name = "Flail Warrior"
-    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation(12, 200, 8, 18260) # 12 in Barracks, 200 seconds ResearchtTime, Button 8 und Hotkey ID of Legionary
+    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 18096) # 12 in Barracks, 200 seconds ResearchTime, Button 8 und Hotkey ID of Capped Ram
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 775, 1) # 0 food storage, 775 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 450, 1) # 3 gold storage, 450 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  4 population headroom, 1 cost, 0 deduct no
     flailWarrior_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 
-    string_start_scytheman_tech = 32331
-    flailWarrior_upgrade_tech.language_dll_name = string_start_scytheman_tech
-    flailWarrior_upgrade_tech.language_dll_description = string_start_scytheman_tech + 1000
-    flailWarrior_upgrade_tech.language_dll_help = string_start_scytheman_tech + 100000
+    string_start_flailWarrior_tech = 32331
+    flailWarrior_upgrade_tech.language_dll_name = string_start_flailWarrior_tech
+    flailWarrior_upgrade_tech.language_dll_description = string_start_flailWarrior_tech + 1000
+    flailWarrior_upgrade_tech.language_dll_help = string_start_flailWarrior_tech + 100000
     df.techs.append(flailWarrior_upgrade_tech)
     logging.debug (f"Added Flail Warrior Upgrade tech at ID {storage.billmanUpgradeTechs[1]}")
 
@@ -117,16 +147,177 @@ def unit_upgrades_t (df: DatFile):
     heavyLancer_upgrade_tech.required_techs = (103, -1, -1, -1, -1, -1)
     heavyLancer_upgrade_tech.required_tech_count = 1
     heavyLancer_upgrade_tech.name = "Heavy Lancer"
-    heavyLancer_upgrade_tech.research_locations[0] = ResearchLocation(101, 115, 13, 18260) # 101 in Stable, 115 seconds ResearchtTime, Button 13 und Hotkey ID of Savar
+    heavyLancer_upgrade_tech.research_locations[0] = ResearchLocation (101, 115, 13, 18244) # 101 in Stable, 115 seconds ResearchTime, Button 13 und Hotkey ID of Heavy Scorpion
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 1075, 1) # 0 food storage, 975 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 450, 1) # 3 gold storage, 550 cost, 1 deduct yes
-    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  4 population headroom, 1 cost, 0 deduct no
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, nothing, nothing
     heavyLancer_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 
-    string_start_scytheman_tech = 32332
-    heavyLancer_upgrade_tech.language_dll_name = string_start_scytheman_tech
-    heavyLancer_upgrade_tech.language_dll_description = string_start_scytheman_tech + 1000
-    heavyLancer_upgrade_tech.language_dll_help = string_start_scytheman_tech + 100000
+    string_start_heavyLancer_tech = 32332
+    heavyLancer_upgrade_tech.language_dll_name = string_start_heavyLancer_tech
+    heavyLancer_upgrade_tech.language_dll_description = string_start_heavyLancer_tech + 1000
+    heavyLancer_upgrade_tech.language_dll_help = string_start_heavyLancer_tech + 100000
     df.techs.append (heavyLancer_upgrade_tech)
     logging.debug (f"Added Heavy Lancer Upgrade tech at ID {storage.lancerUpgradeTech}")
+    
+
+    storage.throwerUpgradeTechs.append(len(df.techs))
+    knifeThrower_upgrade_tech = helpers.create_empty_tech()
+    knifeThrower_upgrade_tech.repeatable = 1
+    knifeThrower_upgrade_tech.icon_id = 999 #need to fix later
+    knifeThrower_upgrade_tech.effect_id = storage.throwerUpgradeIDs[0]
+    knifeThrower_upgrade_tech.required_techs = (102, -1, -1, -1, -1, -1)
+    knifeThrower_upgrade_tech.required_tech_count = 1
+    knifeThrower_upgrade_tech.name = "Knife Thrower"
+    knifeThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 25, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 120, 1) # 0 food storage, 120 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 225, 1) # 3 gold storage, 225 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, nothing², nothing³
+    knifeThrower_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_knifeThrower_tech = 32333
+    knifeThrower_upgrade_tech.language_dll_name = string_start_knifeThrower_tech
+    knifeThrower_upgrade_tech.language_dll_description = string_start_knifeThrower_tech + 1000
+    knifeThrower_upgrade_tech.language_dll_help = string_start_knifeThrower_tech + 100000
+    df.techs.append (knifeThrower_upgrade_tech)
+    logging.debug (f"Added Knife Thrower Upgrade tech at ID {storage.throwerUpgradeTechs[0]}")
+
+
+    storage.throwerUpgradeTechs.append(len(df.techs))
+    hatchetThrower_upgrade_tech = helpers.create_empty_tech()
+    hatchetThrower_upgrade_tech.repeatable = 1
+    hatchetThrower_upgrade_tech.icon_id = 999 #need to fix later
+    hatchetThrower_upgrade_tech.effect_id = storage.throwerUpgradeIDs[1]
+    hatchetThrower_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
+    hatchetThrower_upgrade_tech.required_tech_count = 2
+    hatchetThrower_upgrade_tech.name = "Hatchet Thrower"
+    hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, yep, still nothing
+    hatchetThrower_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_hatchetThrower_tech = 32334
+    hatchetThrower_upgrade_tech.language_dll_name = string_start_hatchetThrower_tech
+    hatchetThrower_upgrade_tech.language_dll_description = string_start_hatchetThrower_tech + 1000
+    hatchetThrower_upgrade_tech.language_dll_help = string_start_hatchetThrower_tech + 100000
+    df.techs.append (hatchetThrower_upgrade_tech)
+    logging.debug (f"Added Hatchet Thrower Upgrade tech at ID {storage.throwerUpgradeTechs[1]}")
+
+
+    storage.throwerUpgradeTechs.append(len(df.techs))
+    ninja_upgrade_tech = helpers.create_empty_tech()
+    ninja_upgrade_tech.repeatable = 1
+    ninja_upgrade_tech.icon_id = 999 #need to fix later
+    ninja_upgrade_tech.effect_id = storage.throwerUpgradeIDs[2]
+    ninja_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
+    ninja_upgrade_tech.required_tech_count = 2
+    ninja_upgrade_tech.name = "Ninja"
+    ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # thanks for keep reading this, not many will
+    ninja_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_ninja_tech = 32335
+    ninja_upgrade_tech.language_dll_name = string_start_ninja_tech
+    ninja_upgrade_tech.language_dll_description = string_start_ninja_tech + 1000
+    ninja_upgrade_tech.language_dll_help = string_start_ninja_tech + 100000
+    df.techs.append (ninja_upgrade_tech)
+    logging.debug (f"Added Ninja Upgrade tech at ID {storage.throwerUpgradeTechs[2]}")
+
+
+
+def thrower_upgrades_t (df: DatFile):
+
+    storage.throwingTechniquesTechID = len(df.techs)
+    throwing_techniques_tech = helpers.create_empty_tech()
+    throwing_techniques_tech.repeatable = 1
+    throwing_techniques_tech.icon_id = 999 #need to fix later
+    throwing_techniques_tech.effect_id = storage.throwingTechniquesID
+    throwing_techniques_tech.required_techs = (101, -1, -1, -1, -1, -1)
+    throwing_techniques_tech.required_tech_count = 1
+    throwing_techniques_tech.name = "Throwing techniques"
+    throwing_techniques_tech.research_locations[0] = ResearchLocation (87, 20, 11, 18210) # 87 in Archery Range, 20 seconds ResearchTime, Button 11 und Hotkey ID of Squires
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 45, 1) # 0 food storage, 45 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 145, 1) # 3 gold storage, 145 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # you see, you might expect something here... WRONG
+    throwing_techniques_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_throwing_techniques_tech = 32336
+    throwing_techniques_tech.language_dll_name = string_start_throwing_techniques_tech
+    throwing_techniques_tech.language_dll_description = string_start_throwing_techniques_tech + 1000
+    throwing_techniques_tech.language_dll_help = string_start_throwing_techniques_tech + 100000
+    df.techs.append (throwing_techniques_tech)
+    logging.debug (f"Added Throwing techniques tech at ID {storage.throwingTechniquesTechID}")
+
+
+    storage.throwerBlacksmithTechIDs.append(len(df.techs))
+    wooden_grip_tech = helpers.create_empty_tech()
+    wooden_grip_tech.repeatable = 1
+    wooden_grip_tech.icon_id = 999 #need to fix later
+    wooden_grip_tech.effect_id = storage.throwerBlacksmithIDs[0]
+    wooden_grip_tech.required_techs = (101, -1, -1, -1, -1, -1)
+    wooden_grip_tech.required_tech_count = 1
+    wooden_grip_tech.name = "Wooden Grip"
+    wooden_grip_tech.research_locations[0] = ResearchLocation (103, 20, 8, 18163) # 103 in Blacksmith, 20 seconds ResearchTime, Button 8 und Hotkey ID of Fortified Wall
+    foodcost: ResearchResourceCost = ResearchResourceCost (1, 120, 1) # 1 wood storage, 120 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 30, 1) # 3 gold storage, 30 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # still reading these huh? ... really dedicated
+    wooden_grip_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_wooden_grip_tech = 32337
+    wooden_grip_tech.language_dll_name = string_start_wooden_grip_tech
+    wooden_grip_tech.language_dll_description = string_start_wooden_grip_tech + 1000
+    wooden_grip_tech.language_dll_help = string_start_wooden_grip_tech + 100000
+    df.techs.append (wooden_grip_tech)
+    logging.debug (f"Added Wooden Grip tech at ID {storage.throwerBlacksmithTechIDs[0]}")
+
+
+
+
+    storage.throwerBlacksmithTechIDs.append(len(df.techs))
+    holster_tech = helpers.create_empty_tech()
+    holster_tech.repeatable = 1
+    holster_tech.icon_id = 999 #need to fix later
+    holster_tech.effect_id = storage.throwerBlacksmithIDs[1]
+    holster_tech.required_techs = (102, storage.throwerBlacksmithTechIDs[0], -1, -1, -1, -1)
+    holster_tech.required_tech_count = 2
+    holster_tech.name = "Holster"
+    holster_tech.research_locations[0] = ResearchLocation (103, 25, 8, 18163) # 103 in Blacksmith, 25 seconds ResearchTime, Button 8 und Hotkey ID of Fortified Wall
+    foodcost: ResearchResourceCost = ResearchResourceCost (1, 225, 1) # 1 wood storage, 225 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 75, 1) # 3 gold storage, 75 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # you should call your mom or dad and ask them how they are. Have a nice chat with them/him/her
+    holster_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_holster_tech = 32338
+    holster_tech.language_dll_name = string_start_holster_tech
+    holster_tech.language_dll_description = string_start_holster_tech + 1000
+    holster_tech.language_dll_help = string_start_holster_tech + 100000
+    df.techs.append (holster_tech)
+    logging.debug (f"Added Holster tech at ID {storage.throwerBlacksmithTechIDs[1]}")
+
+
+
+    storage.throwerBlacksmithTechIDs.append(len(df.techs))
+    balanced_weaponry_tech = helpers.create_empty_tech()
+    balanced_weaponry_tech.repeatable = 1
+    balanced_weaponry_tech.icon_id = 999 #need to fix later
+    balanced_weaponry_tech.effect_id = storage.throwerBlacksmithIDs[2]
+    balanced_weaponry_tech.required_techs = (103, storage.throwerBlacksmithTechIDs[1], -1, -1, -1, -1)
+    balanced_weaponry_tech.required_tech_count = 2
+    balanced_weaponry_tech.name = "Balanced Weaponry"
+    balanced_weaponry_tech.research_locations[0] = ResearchLocation (103, 30, 8, 18163) # 103 in Blacksmith, 30 seconds ResearchTime, Button 8 und Hotkey ID of Fortified Wall
+    foodcost: ResearchResourceCost = ResearchResourceCost (1, 350, 1) # 1 wood storage, 350 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 175, 1) # 3 gold storage, 175 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # man, I have probably worked a total of 16 hours already on this? - damn if only I wouldn't procrastinate so much
+    balanced_weaponry_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_balanced_weaponry = 32339
+    balanced_weaponry_tech.language_dll_name = string_start_balanced_weaponry
+    balanced_weaponry_tech.language_dll_description = string_start_balanced_weaponry + 1000
+    balanced_weaponry_tech.language_dll_help = string_start_balanced_weaponry + 100000
+    df.techs.append (balanced_weaponry_tech)
+    logging.debug (f"Added Balanced Weaponry tech at ID {storage.throwerBlacksmithTechIDs[2]}")
+
     

@@ -21,7 +21,7 @@ def run_add_effects (df: DatFile):
     thrower_upgrades_e (df)
     shield_boss_e (df)
     billman_auto_upgrade (df)
-    logging.info("added all new effects sucessfully")
+    logging.info("Added all new effects sucessfully")
 
 
 def make_avail_effect (df: DatFile):
@@ -80,6 +80,14 @@ def unit_upgrades_e (df: DatFile):
     storage.throwerUpgradeIDs.append(len(df.effects))
     df.effects.append(hatchet_thrower_upgrade_effect)
     logging.debug (f"Added Hatchet Thrower upgrade effect at ID {storage.throwerUpgradeIDs[1]}")
+    logging.info ("Successfully added all unit Upgrades")
+
+                                                                                 #Upgrade Unit (3), Knife Thrower [1], Ninja [3], Mode -1, -1
+    ninja_upgrade_effect: Effect = Effect ("Ninja", [EffectCommand (3, storage.ThrowerIDs[1], storage.ThrowerIDs[3], -1, -1)]) 
+    storage.throwerUpgradeIDs.append(len(df.effects))
+    df.effects.append(ninja_upgrade_effect)
+    logging.debug (f"Added Ninja upgrade effect at ID {storage.throwerUpgradeIDs[2]}")
+    logging.info ("Successfully added all unit Upgrades")
 
 
 def thrower_upgrades_e (df: DatFile):
@@ -95,11 +103,11 @@ def thrower_upgrades_e (df: DatFile):
                                                     #Attr. Modifier Set (0), Projectiles Unit (ID), Class (-1), Attr. Smart Projectile (19), = 2
         throwing_techniques_ec.append(EffectCommand (0, storage.ThrowerProjectileIDs[thrower_projectile], -1, 19, 2)) # 2 = No Balistics, but full damage on miss, like Arambai
     
-    storage.throwingTechniquesId = len(df.effects)
+    storage.throwingTechniquesID = len(df.effects)
 
     throwing_techniques_effect: Effect = Effect ("Throwing techniques", throwing_techniques_ec)        
     df.effects.append(throwing_techniques_effect)    
-    logging.debug (f"Added Throwing techniques effect at ID {storage.throwingTechniquesId}")
+    logging.debug (f"Added Throwing techniques effect at ID {storage.throwingTechniquesID}")
     
 
 
@@ -155,9 +163,9 @@ def thrower_upgrades_e (df: DatFile):
     balanced_weaponry_effect: Effect = Effect ("Balanced Weaponry", balanced_weaponry_ec)
     df.effects.append(balanced_weaponry_effect)
     logging.debug (f"Added Balanced Weaponry effect at ID {storage.throwerBlacksmithIDs[2]}")
+    logging.info ("Successfully added all Thrower Blacksmith Upgrades")
 
-
-def shield_boss_e (df):
+def shield_boss_e (df: DatFile):
     affected_vanilla_unit_list = [74,75,77,473,567,1793]
     shield_boss_ec: EffectCommand = []
 
@@ -171,9 +179,10 @@ def shield_boss_e (df):
     storage.shieldBossId = len(df.effects)  
     shield_boss_effect: Effect = Effect ("Shield Boss", shield_boss_ec)
     df.effects.append(shield_boss_effect)
-    logging.debug (f"Added Shield Boss effect at ID {storage.shieldBossId}")
+    logging.info (f"Successfully added Shield Boss effect at ID {storage.shieldBossId}")
+   
 
-def billman_auto_upgrade (df):
+def billman_auto_upgrade (df: DatFile):
                                                 #Attr. Modifier Multiply(5), Billman (ID), Class (-1), Attr. Train Time (101), * 0.425 = 40s -> 17s
     billman_auto_upgrade_effect: Effect = Effect ("Upgrade Billman in Age3", [EffectCommand (5, storage.BillmanIDs[0], -1, 101, 0.425)]) 
     storage.billmanAutoUpgradeAge3 = len(df.effects)

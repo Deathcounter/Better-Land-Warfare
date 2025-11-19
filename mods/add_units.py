@@ -311,7 +311,7 @@ def add_Thrower_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(30, 87, 13, 16743) # train time, archery range (87), button 13, hotkey ID (Slinger)
+    train_location_final: TrainLocation = TrainLocation(30, 87, 14, 16743) # train time, archery range (87), button 14, hotkey ID (Slinger)
     base.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, militia has correct values.... for now
