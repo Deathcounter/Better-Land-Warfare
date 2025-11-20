@@ -5,18 +5,21 @@ from genieutils.effect import Effect, EffectCommand
 from genieutils.tech import ResearchResourceCost, ResearchLocation, Tech
 from genieutils.unit import *
 import logging
+import copy
 
 from mods import helpers
 from mods import storage
 
 logging.getLogger(__name__)
-NAME = "helpers"
+NAME = "add_technologies"
 
 def run_add_technologies (df: DatFile):
     make_avail_techs (df)
     armenian_barrack_req (df)
     unit_upgrades_t (df)
     thrower_upgrades_t (df)
+    shield_boss_t (df)
+    billman_auto_upgrade (df)
 
 def make_avail_techs (df: DatFile):
     storage.billmanAvailTechID = len(df.techs)
@@ -70,18 +73,27 @@ def armenian_barrack_req (df: DatFile):
     armenian_scyteman_req_tech.required_techs = (101, storage.billmanAvailTechID, -1, -1, -1, -1) 
     armenian_scyteman_req_tech.required_tech_count = 2
     armenian_scyteman_req_tech.name = "Scytheman requirement"
-    armenian_scyteman_req_tech.civ = 44 #Armenians
+    armenian_scyteman_req_tech.civ = 44 # Armenians
     df.techs.append(armenian_scyteman_req_tech)
     logging.debug
     
     storage.armenian_flailWarrior_req_ID = len(df.techs)
-    armenian_flailWarrior_req_ID = helpers.create_empty_tech()
-    armenian_flailWarrior_req_ID.repeatable = 1
-    armenian_flailWarrior_req_ID.required_techs = (102, -1, -1, -1, -1, -1) #this should actually read 102 = Castle Age and in Slot 2 contain the Scytheman Upgrade, which doesnt exist yet ***
-    armenian_flailWarrior_req_ID.required_tech_count = 2
-    armenian_flailWarrior_req_ID.name = "Flail Warrior requirement"
-    armenian_flailWarrior_req_ID.civ = 44 #Armenians
-    df.techs.append(armenian_flailWarrior_req_ID)
+    armenian_flailWarrior_req_tech = helpers.create_empty_tech()
+    armenian_flailWarrior_req_tech.repeatable = 1
+    armenian_flailWarrior_req_tech.required_techs = (101, -1, -1, -1, -1, -1) # this should actually read 102 = Castle Age and in Slot 2 contain the Scytheman Upgrade, which doesnt exist yet ***
+    armenian_flailWarrior_req_tech.required_tech_count = 2
+    armenian_flailWarrior_req_tech.name = "Flail Warrior requirement"
+    armenian_flailWarrior_req_tech.civ = 44 # Armenians
+    df.techs.append(armenian_flailWarrior_req_tech)
+
+    storage.armenian_shieldBoss_req_ID = len(df.techs)
+    armenian_shieldBoss_req_tech = helpers.create_empty_tech()
+    armenian_shieldBoss_req_tech.repeatable = 1
+    armenian_shieldBoss_req_tech.required_techs = (102, 875, -1, -1, -1, -1) # Feudal Age
+    armenian_shieldBoss_req_tech.required_tech_count = 2
+    armenian_shieldBoss_req_tech.name = "Shield Boss requirement"
+    armenian_shieldBoss_req_tech.civ = 44 # Armenians
+    df.techs.append(armenian_shieldBoss_req_tech)
 
 
 def unit_upgrades_t (df: DatFile):
@@ -94,7 +106,7 @@ def unit_upgrades_t (df: DatFile):
     scytheman_upgrade_tech.required_techs = (102, storage.billmanAvailTechID, storage.armenian_scyteman_req_ID, -1, -1, -1)
     scytheman_upgrade_tech.required_tech_count = 2
     scytheman_upgrade_tech.name = "Scytheman"
-    scytheman_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 18096) # 12 in Barracks, 85 seconds ResearchtTime, Button 8 und Hotkey ID of Capped Ram
+    scytheman_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 418013) # 12 in Barracks, 85 seconds ResearchtTime, Button 8 und Hotkey ID of Battle Drills
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 250, 1) # 0 food storage, 250 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 175, 1) # 3 gold storage, 175 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  4 population headroom, 1 cost, 0 deduct no
@@ -124,7 +136,7 @@ def unit_upgrades_t (df: DatFile):
     flailWarrior_upgrade_tech.required_techs = (103, storage.billmanUpgradeTechs[0], storage.armenian_flailWarrior_req_ID, -1, -1, -1)
     flailWarrior_upgrade_tech.required_tech_count = 1
     flailWarrior_upgrade_tech.name = "Flail Warrior"
-    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 18096) # 12 in Barracks, 200 seconds ResearchTime, Button 8 und Hotkey ID of Capped Ram
+    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 418013) # 12 in Barracks, 200 seconds ResearchTime, Button 8 und Hotkey ID of Battle Drills
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 775, 1) # 0 food storage, 775 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 450, 1) # 3 gold storage, 450 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  4 population headroom, 1 cost, 0 deduct no
@@ -147,7 +159,7 @@ def unit_upgrades_t (df: DatFile):
     heavyLancer_upgrade_tech.required_techs = (103, -1, -1, -1, -1, -1)
     heavyLancer_upgrade_tech.required_tech_count = 1
     heavyLancer_upgrade_tech.name = "Heavy Lancer"
-    heavyLancer_upgrade_tech.research_locations[0] = ResearchLocation (101, 115, 13, 18244) # 101 in Stable, 115 seconds ResearchTime, Button 13 und Hotkey ID of Heavy Scorpion
+    heavyLancer_upgrade_tech.research_locations[0] = ResearchLocation (101, 115, 13, 418120) # 101 in Stable, 115 seconds ResearchTime, Button 13 und Hotkey ID of Elite Sannahya
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 1075, 1) # 0 food storage, 975 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 450, 1) # 3 gold storage, 550 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, nothing, nothing
@@ -169,7 +181,7 @@ def unit_upgrades_t (df: DatFile):
     knifeThrower_upgrade_tech.required_techs = (102, -1, -1, -1, -1, -1)
     knifeThrower_upgrade_tech.required_tech_count = 1
     knifeThrower_upgrade_tech.name = "Knife Thrower"
-    knifeThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 25, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
+    knifeThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 25, 15, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Cycle Recruitment Doctrine
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 120, 1) # 0 food storage, 120 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 225, 1) # 3 gold storage, 225 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, nothing², nothing³
@@ -191,7 +203,7 @@ def unit_upgrades_t (df: DatFile):
     hatchetThrower_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
     hatchetThrower_upgrade_tech.required_tech_count = 2
     hatchetThrower_upgrade_tech.name = "Hatchet Thrower"
-    hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
+    hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Cycle Recruitment Doctrine
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, yep, still nothing
@@ -320,4 +332,43 @@ def thrower_upgrades_t (df: DatFile):
     df.techs.append (balanced_weaponry_tech)
     logging.debug (f"Added Balanced Weaponry tech at ID {storage.throwerBlacksmithTechIDs[2]}")
 
-    
+
+
+def shield_boss_t (df: DatFile):
+    storage.shieldBossTechId = len(df.techs)
+    shield_boss_tech = helpers.create_empty_tech()
+    shield_boss_tech.repeatable = 1
+    shield_boss_tech.icon_id = 999 #need to fix later
+    shield_boss_tech.effect_id = storage.shieldBossId
+    shield_boss_tech.required_techs = (102, 875, storage.armenian_shieldBoss_req_ID, -1, -1, -1) #Castle Age and Gambesons are required or Armenians earlier techs
+    shield_boss_tech.required_tech_count = 2
+    shield_boss_tech.name = "Shield Boss"
+    shield_boss_tech.research_locations[0] = ResearchLocation (12, 30, 11, 418011) # 12 in Barracks, 30 seconds ResearchTime, Button 11 und Hotkey ID of Elite Hoplite
+    foodcost: ResearchResourceCost = ResearchResourceCost (1, 160, 1) # 1 wood storage, 160 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 95, 1) # 3 gold storage, 95 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # have a nice day
+    shield_boss_tech.resource_costs = (foodcost, goldcost, nothing)
+
+    string_start_shield_boss = 32340
+    shield_boss_tech.language_dll_name = string_start_shield_boss
+    shield_boss_tech.language_dll_description = string_start_shield_boss + 1000
+    shield_boss_tech.language_dll_help = string_start_shield_boss + 100000
+    df.techs.append (shield_boss_tech)
+    logging.debug (f"Added Shield Boss tech at ID {storage.shieldBossTechId}")
+
+
+
+    storage.shieldBossTechId2 = len(df.techs)
+    shield_boss_tech_2 = copy.deepcopy (shield_boss_tech) # This tech is for all civ that have Shield Boss but no Gambesons. Shield Boss will still be available for some, they just dont need Gambesons
+    shield_boss_tech_2.required_techs = (102, -1, -1, -1, -1, -1)
+    shield_boss_tech_2.required_tech_count = 1
+    df.techs.append (shield_boss_tech_2)
+    logging.debug (f"Added Shield Boss tech at ID {storage.shieldBossTechId2}")
+
+
+def billman_auto_upgrade (df: DatFile):
+    billman_auto_upgrade_tech = helpers.create_empty_tech()
+    billman_auto_upgrade_tech.required_techs = (102, storage.billmanAvailTechID, -1, -1, -1, -1)
+    billman_auto_upgrade_tech.effect_id = storage.billmanAutoUpgradeAge3
+    billman_auto_upgrade_tech.repeatable = 1
+    billman_auto_upgrade_tech.required_tech_count = 2

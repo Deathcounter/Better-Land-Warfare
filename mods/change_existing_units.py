@@ -26,8 +26,8 @@ def give_scorpion_lancer_damage (df: DatFile):
 
 def move_condo_trainbutton (df: DatFile):
     for civ in df.civs:
-        civ.units[882].creatable.train_locations[0].button_id = 13 # moves Condottiero train button to 13
-    logging.info("Moved Condo to Button 13")
+        civ.units[882].creatable.train_locations[0].button_id = 14 # moves Condottiero train button to 14
+    logging.info("Moved Condo to Button 14")
 
 def give_steppelancers_lancer_class (df: DatFile):
     lancer_class: AttackOrArmor = AttackOrArmor (51,0) #add lancer armor to Steppe Lancer
@@ -36,3 +36,8 @@ def give_steppelancers_lancer_class (df: DatFile):
         civ.units[1372].type_50.armours.append(lancer_class)
     logging.info("Gave Steppelancer-line the lancer class")
 
+def buff_iron_pagoda (df: DatFile):
+    # actually its a nerf, but since I change Jurchens Civ bonus, it's a buff. 2.28 -> 1.9 originally. Now 1.9 -> 2.0
+    for civ in df.civs:
+        civ.units[1908].type_50.reload_time = 2
+        civ.units[1908].type_50.displayed_reload_time = 2

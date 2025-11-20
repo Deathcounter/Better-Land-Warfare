@@ -17,6 +17,7 @@ NAME = "change_existing_techs"
 def run_change_existing_techs(df: DatFile):
     change_armenian_early_barracks_techs (df)
     move_elite_genitour_to_castle (df)
+    change_gambesons_to_give_HP (df)
 
 
 def change_armenian_early_barracks_techs (df: DatFile):
@@ -35,10 +36,20 @@ def change_armenian_early_barracks_techs (df: DatFile):
     df.techs[215].required_techs = tuple(temp) 
 
     temp = list(df.techs[875].required_techs) 
-    temp[1] = 950 #add 950 to Squires [215] in Slot 2 so its available in Feudal Age
+    temp[1] = 950 #add 950 to Gambesons [875] in Slot 2 so its available in Feudal Age
     df.techs[875].required_techs = tuple(temp) 
+
+
 
 def move_elite_genitour_to_castle (df: DatFile):
     #moving Elite Genitour Upgrade to Castle in order to make space for thrower line and upgrade
     df.effects[37].effect_commands[2].d = 9 #changes the Berber Teambonus [37] to move the research location to button 9 instead of 14
     df.techs[599].research_locations[0].location_id = 82 #changes the research location of Elite Genitour [599] from Archery Range to Castle (82)
+
+
+# technically should be in change_existing_effect.py but don't tell Police pls
+def change_gambesons_to_give_HP (df: DatFile):
+    #Change Gambesons to give +10 HP to Billman
+    for idx in storage.BillmanIDs:
+        add_10_HP_to_Billmen: EffectCommand = EffectCommand(4, idx, -1, 0, 10) # Attr. Modifier +-(4), BillmanID (idx), Class -1, Hitpoints (0), Amount (+10)
+        df.effects[886].effect_commands.append(add_10_HP_to_Billmen)

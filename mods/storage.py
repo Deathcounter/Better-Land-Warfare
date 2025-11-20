@@ -34,6 +34,7 @@ flamethrowerAvailTechID: int
 
 armenian_scyteman_req_ID = int
 armenian_flailWarrior_req_ID = int
+armenian_shieldBoss_req_ID = int
 
 billmanUpgradeTechs = []
 lancerUpgradeTech = int
@@ -41,3 +42,8 @@ throwerUpgradeTechs = []
 
 throwingTechniquesTechID: int
 throwerBlacksmithTechIDs = []
+
+shieldBossTechId: int
+shieldBossTechId2: int # Shield Boss tech for civs without gambesons
+
+billmanAutoUpgradeAge3: int

@@ -63,7 +63,7 @@ def add_Billman_line(df: DatFile):
     base.creatable.resource_costs = (foodcost, goldcost, headroom)
     
     name_list = ('Billman', 'Scyteman', 'Flail Warrior')
-    hp_list = (55, 65, 75)
+    hp_list = (50, 60, 70)
     speed_list = (1.05, 1.1, 1.2) 
 
     displayed_attack_list = (4, 6, 7)
@@ -450,7 +450,7 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.max_range = 6
     flame_thrower.type_50.displayed_range = 6
 
-    flame_thrower.type_50.min_range = 1.5
+    flame_thrower.type_50.min_range = 2
 
     flame_thrower.type_50.reload_time = 0.25
     flame_thrower.type_50.displayed_reload_time = 0.25
@@ -470,7 +470,7 @@ def add_FlameThrower(df: DatFile):
 
     flame_thrower.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(38, 49, 13, 16734) # train time, Siege Workshop (49), button 13, hotkey ID (Flaming Camel)
+    train_location_final: TrainLocation = TrainLocation(65, 49, 13, 16734) # train time, Siege Workshop (49), button 13, hotkey ID (Flaming Camel)
     flame_thrower.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, copy has correct values.... for now

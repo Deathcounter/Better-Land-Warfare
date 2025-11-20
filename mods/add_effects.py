@@ -166,7 +166,7 @@ def thrower_upgrades_e (df: DatFile):
     logging.info ("Successfully added all Thrower Blacksmith Upgrades")
 
 def shield_boss_e (df: DatFile):
-    affected_vanilla_unit_list = [74,75,77,473,567,1793]
+    affected_vanilla_unit_list = [74, 75, 77, 473, 567, 1793]
     shield_boss_ec: EffectCommand = []
 
     for unit_id in affected_vanilla_unit_list:

@@ -87,6 +87,16 @@ def does_civ_have_unit (df: DatFile, civilization: int, unit_id: int) -> bool:
         logging.debug(f"The upgrade or avail tech {unit_avail_tech} {df.techs[unit_avail_tech].name}, is disabled for {df.civs[civilization].name}")
         return civ_has_unit 
    
+def does_civ_has_gambesons (df: DatFile, civilization: int) -> bool:
+    # Yes, I could have added the logic to make "does_civ_has_tech"...could have
+    tech_tree_id = df.civs[civilization].tech_tree_id # storing tech tree ID 
+    
+    for command in df.effects[tech_tree_id].effect_commands:
+        if(command.type == 102 and command.d == 875):
+            return False
+    return True
+
+
 
 # Function that finds the base unit of any unit, returns ID of the unit e.g Paladin returns Knight, Plumed Archer returns Plumed Archer, Imperial Camel returns Camel Scout
 def find_base_unit (df: DatFile, unit_id: int) -> int:

@@ -14,6 +14,7 @@ from mods import add_effects
 from mods import add_technologies
 from mods import change_existing_units
 from mods import change_existing_techs
+from mods import change_existing_civs
 
 
 # Overall, genieutils works by loading a .dat file into memory and constructing a DatFile object
@@ -38,6 +39,7 @@ def main():
     add_technologies.run_add_technologies (dfBase)
     change_existing_units.run_change_existing_units (dfBase)
     change_existing_techs.run_change_existing_techs (dfBase)
+    change_existing_civs.run_change_existing_civs (dfBase)
     print("Modifications completed")
 
     # You can save it as whatever filename.dat you want, but when it is in a mod you will need it to be named empires2_x2_p1.dat
