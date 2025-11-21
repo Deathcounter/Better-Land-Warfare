@@ -17,8 +17,8 @@ def run_add_projectiles(df: DatFile):
     add_thrower_projectiles(df)
 
 def add_thrower_projectiles (df: DatFile):
-    #adds dart projectile, changing the graphics from knife to arambai dart
-    dart_thrower_projectile = copy.deepcopy (df.civs[0].units[1055]) #copy the knife projectiles from gbeto
+    # adds dart projectile, changing the graphics from knife to arambai dart
+    dart_thrower_projectile = copy.deepcopy (df.civs[0].units[1055]) # copy the knife projectiles from gbeto
     dart_thrower_projectile_id = len(df.civs[0].units)
     storage.ThrowerProjectileIDs.append(dart_thrower_projectile_id)
     dart_thrower_projectile.standing_graphic = [10251, -1]

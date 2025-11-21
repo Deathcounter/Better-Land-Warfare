@@ -124,7 +124,7 @@ def find_units_with_3_combined_armor (df: DatFile) -> list[Unit]:
                 units_with_3_combined_armor.append(unit) # Append to unit list
     return units_with_3_combined_armor   
 
-# Hello, Deathcounter here, I stole all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
+# Hello, Deathcounter here, I used all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
 # - Credits to him, thank you <3
 
 

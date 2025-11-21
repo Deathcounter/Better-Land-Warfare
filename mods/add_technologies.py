@@ -22,6 +22,7 @@ def run_add_technologies (df: DatFile):
     billman_auto_upgrade (df)
 
 def make_avail_techs (df: DatFile):
+    # @make available techs
     storage.billmanAvailTechID = len(df.techs)
     billman_avail_tech = helpers.create_empty_tech()
     billman_avail_tech.repeatable = 1
@@ -64,6 +65,7 @@ def make_avail_techs (df: DatFile):
 
 
 def armenian_barrack_req (df: DatFile):
+    # @Armenian requirements
     #make extra requirement techs for Armenians
     #since Armenians have Barrack Upgrades available one age earlier, they need extra trickery to be enabled earlier compared to any other civ.
     #doing what other "requirement" civs do in A.G.E, you will understand how they work. You are smart after all
@@ -97,7 +99,7 @@ def armenian_barrack_req (df: DatFile):
 
 
 def unit_upgrades_t (df: DatFile):
-
+    # @Unit Upgrade Techs
     storage.billmanUpgradeTechs.append(len(df.techs))
     scytheman_upgrade_tech = helpers.create_empty_tech()
     scytheman_upgrade_tech.repeatable = 1
@@ -225,6 +227,7 @@ def unit_upgrades_t (df: DatFile):
     ninja_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
     ninja_upgrade_tech.required_tech_count = 2
     ninja_upgrade_tech.name = "Ninja"
+    ninja_upgrade_tech.civ = 5 # Japanese
     ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
@@ -241,7 +244,7 @@ def unit_upgrades_t (df: DatFile):
 
 
 def thrower_upgrades_t (df: DatFile):
-
+    # @Thrower Upgrade Techs
     storage.throwingTechniquesTechID = len(df.techs)
     throwing_techniques_tech = helpers.create_empty_tech()
     throwing_techniques_tech.repeatable = 1
@@ -335,6 +338,7 @@ def thrower_upgrades_t (df: DatFile):
 
 
 def shield_boss_t (df: DatFile):
+    # @Shield boss Tech
     storage.shieldBossTechId = len(df.techs)
     shield_boss_tech = helpers.create_empty_tech()
     shield_boss_tech.repeatable = 1
@@ -367,6 +371,7 @@ def shield_boss_t (df: DatFile):
 
 
 def billman_auto_upgrade (df: DatFile):
+    # @Billman Auto Upgrade Tech in Castle Age
     billman_auto_upgrade_tech = helpers.create_empty_tech()
     billman_auto_upgrade_tech.required_techs = (102, storage.billmanAvailTechID, -1, -1, -1, -1)
     billman_auto_upgrade_tech.effect_id = storage.billmanAutoUpgradeAge3

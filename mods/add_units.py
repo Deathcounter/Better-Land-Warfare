@@ -30,7 +30,7 @@ def run_add_units(df: DatFile):
 
 
 def add_Billman_line(df: DatFile):
-    
+    # @Billman
     base = copy.deepcopy(df.civs[0].units[74]) # make a base unit that has all the stats that stay the same within the whole unit-line
     base.enabled = 0
 
@@ -56,7 +56,7 @@ def add_Billman_line(df: DatFile):
     base.creatable.train_locations.append(train_location_final)
 
     
-    # billman.resource_storages - not needed, militia has correct values.... for now
+    # base.resource_storages - not needed, militia has correct values.... for now
     foodcost: ResourceCost = ResourceCost (0, 45, 1) # 0 food storage, 45 cost, 1 deduct yes
     goldcost: ResourceCost = ResourceCost (3, 45, 1) # 3 gold storage, 45 cost, 1 deduct yes
     headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
@@ -157,6 +157,7 @@ def add_Billman_line(df: DatFile):
 
 
 def add_Lancer_line(df: DatFile):
+    # @Lancer
     base = copy.deepcopy(df.civs[0].units[40]) # copy cataphract
     base.enabled = 0
 
@@ -171,7 +172,7 @@ def add_Lancer_line(df: DatFile):
     
     base.creatable.idle_attack_graphic = -1
 
-    base.type_50.attacks.clear() #delete all info from cataphract to future proof
+    base.type_50.attacks.clear() # delete all info from cataphract to future proof
     base.type_50.armours.clear()
 
                             # adds the base attacks of Cavalry so that they can benefit from effects like "cavalry +2 attack vs siege, buildings etc." from various civ- and teambonuses
@@ -184,7 +185,7 @@ def add_Lancer_line(df: DatFile):
     base.creatable.train_locations.append(train_location_final)
 
     
-    # billman.resource_storages - not needed, cataphract has correct values.... for now
+    # base.resource_storages - not needed, cataphract has correct values.... for now
     foodcost: ResourceCost = ResourceCost (0, 90, 1) # 0 food storage, 90 cost, 1 deduct yes
     goldcost: ResourceCost = ResourceCost (3, 50, 1) # 3 gold storage, 50 cost, 1 deduct yes
     headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
@@ -198,7 +199,7 @@ def add_Lancer_line(df: DatFile):
     displayed_m_armor_list = (3, 5)
     displayed_p_armor_list = (0, 1)
 
-    #armored units are units whose combined base armor 3 or higher, new armor class needed
+    # armored units are units whose combined base armor 3 or higher, new armor class needed
                                 # melee,                camel               armored units
     attack_list_lancer      = (AttackOrArmor(4,8),  AttackOrArmor(30,2), AttackOrArmor(50,6)) 
     attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(50,9))
@@ -287,6 +288,7 @@ def add_Lancer_line(df: DatFile):
         logging.info(f"SUCCESS: {lancer_variant.name} added")       
 
 def add_Thrower_line(df: DatFile):
+    # @Thrower
     base = copy.deepcopy(df.civs[0].units[74]) # make a base unit that has all the stats that stay the same within the whole unit-line
     base.enabled = 0
 
@@ -434,6 +436,7 @@ def add_Thrower_line(df: DatFile):
 
 
 def add_FlameThrower(df: DatFile):
+    # @Flamethrower
     flame_thrower = copy.deepcopy(df.civs[0].units[188]) # copy flamethrower
 
     flame_thrower.name = "Flame Thrower BLL"
@@ -465,7 +468,7 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
 
 
-    flame_thrower.icon_id = 144 #not really needed cause the base flame thrower already has it
+    flame_thrower.icon_id = 144 # not really needed cause the base flame thrower already has it
 
 
     flame_thrower.creatable.train_locations.clear()

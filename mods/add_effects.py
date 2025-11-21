@@ -25,7 +25,7 @@ def run_add_effects (df: DatFile):
 
 
 def make_avail_effect (df: DatFile):
-                                                                        
+    # @make available effects                                                               
     make_billman_avail: Effect = Effect ("Billman (make avail)", [EffectCommand (2, storage.BillmanIDs[0], 1, -1, -1 )]) #Enable Unit (2), Billman ID, Mode 1, -1 -1
     storage.billmanAvailID = len(df.effects) #determining the ID and storing it
     df.effects.append (make_billman_avail) #add the effect
@@ -48,7 +48,7 @@ def make_avail_effect (df: DatFile):
     logging.info ("Successfully added (make avail) effects for all units")
 
 def unit_upgrades_e (df: DatFile):
-
+    # @Unit Upgrade Effects
                                                                                 #Upgrade Unit (3), Billman [0], Scytheman [1], Mode -1, -1
     scyteman_upgrade_effect: Effect = Effect ("Scytheman", [EffectCommand (3, storage.BillmanIDs[0], storage.BillmanIDs[1], -1, -1)]) 
     storage.billmanUpgradeIDs.append(len(df.effects)) #determining the ID and storing it
@@ -91,6 +91,7 @@ def unit_upgrades_e (df: DatFile):
 
 
 def thrower_upgrades_e (df: DatFile):
+    # @Thrower Upgrades
     #blacksmith upgrades and throwing techniques
 
     #Throwing techniques: Thrower-line +1 attack; Missed thrown weapons deal full damage. 
@@ -166,6 +167,7 @@ def thrower_upgrades_e (df: DatFile):
     logging.info ("Successfully added all Thrower Blacksmith Upgrades")
 
 def shield_boss_e (df: DatFile):
+    # @Shield boss Effect
     affected_vanilla_unit_list = [74, 75, 77, 473, 567, 1793]
     shield_boss_ec: EffectCommand = []
 
@@ -183,6 +185,7 @@ def shield_boss_e (df: DatFile):
    
 
 def billman_auto_upgrade (df: DatFile):
+    # @Billman Auto Upgrade Effect in Castle Age
                                                 #Attr. Modifier Multiply(5), Billman (ID), Class (-1), Attr. Train Time (101), * 0.425 = 40s -> 17s
     billman_auto_upgrade_effect: Effect = Effect ("Upgrade Billman in Age3", [EffectCommand (5, storage.BillmanIDs[0], -1, 101, 0.425)]) 
     storage.billmanAutoUpgradeAge3 = len(df.effects)

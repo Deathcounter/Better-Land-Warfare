@@ -19,6 +19,8 @@ def run_change_existing_civs (df: DatFile):
     french_change (df)
     jurchens_change (df)
     poles_change (df)
+    vietnamese_change (df)
+    vikings_change (df)
     logging.info("Successfully changed Civilizations")
 
 
@@ -95,16 +97,39 @@ def poles_change (df: DatFile):
 
     # first, loop through the polish (-> Civ 38, and it's tech tree ID) Tech tree
     tech_tree_id = df.civs[38].tech_tree_id
-    for idx, command in enumerate(df.effects[tech_tree_id].effect_commands):
-        # if the effect command is 101 Tech Cost Modifier, delete it
-        if command.type == 101:
-            df.effects[df.civs[38].tech_tree_id].effect_commands.pop(idx)
+    new_ec_list: EffectCommand = []
+    for command in df.effects[tech_tree_id].effect_commands:
+        # if the effect command is not 101 Tech Cost Modifier, add it to the new list
+        if command.type != 101:
+            new_ec_list.append(command)
 
     # afterwards add my reduction (Husbandry costs no gold)
-    stable_discounts = [[435, -75], [254, -38], [786, -600], [175, -225], [storage.lancerUpgradeTech, -338]]
+    stable_discounts = [[435, -75], [254, -38], [786, -600], [209, -225], [storage.lancerUpgradeTech, -338]]
 
     for discount in stable_discounts:
                      # Tech Cost Modifier (Set/+/-) (101), Technology (discount[0]), Gold Storage (3), Mode +-(1), Amount (discount[1])
         discount_ec: EffectCommand = EffectCommand (101, discount[0], 3, 1, discount[1])
-        df.effects[tech_tree_id].effect_commands.append(discount_ec)
+        new_ec_list.append(discount_ec)
+
+    df.effects[tech_tree_id].effect_commands.clear()
+    df.effects[tech_tree_id].effect_commands = new_ec_list
     logging.debug ("Successfully changed Poles")
+
+def vietnamese_change (df: DatFile):
+    # @Civ bonus Vietnamese
+    # Foot Archers and Fire Lancers +25% HP
+    affected_vanilla_unit_list = [4, 24, 492, 7, 6, 1129, 1131, 1155, 1901, 1903] # Archer-line, Skirmisher-line, Rattan Archers, Fire Lancers
+    df.effects[672].effect_commands.clear() # Current Vietnamese bonus is at ID 672
+    for vanilla_unit in affected_vanilla_unit_list:
+        df.effects[672].effect_commands.append (EffectCommand (5, vanilla_unit, -1, 0, 1.25)) # Attr. Modifier Multiply(5), vanilla unit, Class -1, Hitpoints (0), Amount (x1.2)
+
+    #Rattan Archers -5 HP in change_existing_units
+    logging.debug ("Successfully changed Vietnamese")
+
+
+def vikings_change (df: DatFile):
+    # @Civ bonus Vikings
+    # Feudal Age Warcost Discount -10% HP cost
+    for command in df.effects[394].effect_commands:
+        command.d = 0.9 #changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount.
+        logging.debug ("Successfully changed Vikings")
