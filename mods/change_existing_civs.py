@@ -15,9 +15,12 @@ NAME = "change_existing_civs"
 #As to why I change these civs, refer to the Game Design document of the mod
 def run_change_existing_civs (df: DatFile):
     armenians_change (df)
+    burgundian_change (df)
     burmese_change (df)
+    dravidian_change (df)
     french_change (df)
     jurchens_change (df)
+    malian_change (df)
     poles_change (df)
     vietnamese_change (df)
     vikings_change (df)
@@ -26,7 +29,7 @@ def run_change_existing_civs (df: DatFile):
 
 def armenians_change (df: DatFile):
     # Since the change of the barrack techs being avail one age earlier is already done, only Fereters is left. 
-    # @Fereters
+    # @UniqueTech Fereters
     df.effects[933].effect_commands.clear()
     affected_vanilla_unit_list = [74, 75, 77, 473, 567, 1793, 882, 93, 358, 359] #militia-line, condos, spearmen
     for vanilla_unit in affected_vanilla_unit_list:
@@ -45,28 +48,54 @@ def armenians_change (df: DatFile):
                                         # Attr. Modifier +-(4), warrior monk, Class -1, Armor (8), Amount (+5), Armorclass Monk (25)
         df.effects[933].effect_commands.append (EffectCommand (4, warrior_monk, -1, 8, helpers.amount_type_to_d(5, 25)))
     logging.debug ("Successfully changed Armenians")
-    
+
+def burgundian_change (df: DatFile):
+    # @CivBonus Burgundian
+    # Minor Change - Minor Changes are changes that must be made as the result of me adding these units, while keeping the bonus the same
+    # All Stable technologies cost -50% (must include Heavy Lancer tech)
+
+    # first, loop through the Burgundian (-> Civ 36, and it's tech tree ID) Tech tree
+    tech_tree_id = df.civs[36].tech_tree_id
+                        # Tech Cost Modifier (Set/+/-) (101), Technology (Heavy Lancer), Food Storage (0), Mode +-(1), Amount (1075 / 2)
+    df.effects[tech_tree_id].effect_commands.append(EffectCommand (101, storage.lancerUpgradeTech, 0, 1, -538))
+    df.effects[tech_tree_id].effect_commands.append(EffectCommand (101, storage.lancerUpgradeTech, 3, 1, -225)) # same with gold
+
 def burmese_change (df: DatFile):
-    # @Civbonus Burmese
+    # @CivBonus Burmese
+    # Barrack Units +1 attack per Age (instead of all of infantry)
     affected_effects = [686, 687, 688] # Civ Bonuses, give +1 attack per age
-    affected_vanilla_unit_list = [74, 75, 77, 473, 567, 1793, 882, 93, 358, 359] #militia-line, condos, spearmen
+    affected_vanilla_unit_list = [74, 75, 77, 473, 567, 1793, 882, 93, 358, 359] # militia-line, condos, spearmen
 
     for effect in affected_effects:
         df.effects[effect].effect_commands.clear()
         for vanilla_unit in affected_vanilla_unit_list:
-                                                            # Attr. Modifier +-(4), vanilla unit, Class -1, Attack (9), Amount (+1), Armorclass Infantry (1)
+                                                            # Attr. Modifier +-(4), vanilla unit, Class -1, Attack (9), Amount (+1), AttackClass Melee (4)
             df.effects[effect].effect_commands.append (EffectCommand (4, vanilla_unit , -1, 9, helpers.amount_type_to_d(1, 4)))
 
 
-        for billman in storage.BillmanIDs:         # Attr. Modifier +-(4), billman, Class -1, Attack (9), Amount (1), Armorclass Melee (4)
+        for billman in storage.BillmanIDs:         # Attr. Modifier +-(4), billman, Class -1, Attack (9), Amount (1), AttackClass Melee (4)
             df.effects[effect].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(1, 4)))
     logging.debug ("Successfully changed Burmese")
 
+def dravidian_change (df: DatFile):
+    # @CivBonus Dravidians
+    # Minor Change
+    # Barrack technologies cost -50% (must include Billman Upgrade techs and Shield Boss)
+
+    # Similar to the Burgundian Change 
+    tech_tree_id = df.civs[40].tech_tree_id
+                        # Tech Cost Modifier (Set/+/-) (101), Technology (Scytheman), Food Storage (0), Mode +-(1), Amount (foodcost -50%)
+    scytheman_foodcost = df.techs[storage.billmanUpgradeTechs[0]].resource_costs[0] 
+    scytheman_goldcost = df.techs[storage.billmanUpgradeTechs[0]].resource_costs[1] 
+    scytheman_foodcost /= 2
+    scytheman_goldcost /= 2
+    df.effects[tech_tree_id].effect_commands.append(EffectCommand (101, storage.billmanUpgradeTechs[0], 0, 1, scytheman_foodcost))
+    df.effects[tech_tree_id].effect_commands.append(EffectCommand (101, storage.billmanUpgradeTechs[0], 3, 1, scytheman_goldcost)) # same with gold
 
 def french_change (df: DatFile):
-    # @Civbonus French/Franks
+    # @CivBonus French/Franks
     # Knights and Lancers +20% HP
-    affected_vanilla_unit_list = [38, 283, 569] #knight-line
+    affected_vanilla_unit_list = [38, 283, 569] # knight-line
     df.effects[285].effect_commands.clear() # Current Franks bonus is at ID 285
     for vanilla_unit in affected_vanilla_unit_list:
         df.effects[285].effect_commands.append (EffectCommand (5, vanilla_unit, -1, 0, 1.2)) # Attr. Modifier Multiply(5), vanilla unit, Class -1, Hitpoints (0), Amount (x1.2)
@@ -78,9 +107,8 @@ def french_change (df: DatFile):
     df.effects[523].effect_commands[1].d = 1.20
     logging.debug ("Successfully changed Franks")
     
-
 def jurchens_change (df: DatFile):
-    # @Civbonus Jurchens
+    # @CivBonus Jurchens
     # All Lancer Units (Steppe-, Fire- and regular Lancer) attack +25% faster
     affected_vanilla_unit_list = [1370, 1372, 1901, 1903] # Steppe- and Firelancers
     df.effects[994].effect_commands.clear() # Current Jurchen bonus is at ID 994
@@ -90,14 +118,25 @@ def jurchens_change (df: DatFile):
         df.effects[994].effect_commands.append (EffectCommand (5, lancer, -1, 10, 0.8)) # Attr. Modifier Multiply(5), lancer, Class -1, Reload Time (10), Amount (x0.8)
     logging.debug ("Successfully changed Jurchens")
 
+def malian_change (df: DatFile):
+    # @CivBonus Malians
+    # Minor Change
+    # Barrack units +1 Pierce Armor per Age (add Billman)
+
+    affected_effects = [618, 619, 620] # Civ Bonuses, give +1 p-armor per age
+
+    for effect in affected_effects:
+        for billman in storage.BillmanIDs:     # Attr. Modifier +-(4), billman, Class -1, Attack (9), Amount (1), Armorclass Pierce (3)
+            df.effects[effect].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(1, 3)))
+    logging.debug ("Successfully changed Malians")
 
 def poles_change (df: DatFile):
-    # @Civbonus Poles
+    # @CivBonus Poles
     # All Stable technologies cost -75% less gold
 
     # first, loop through the polish (-> Civ 38, and it's tech tree ID) Tech tree
     tech_tree_id = df.civs[38].tech_tree_id
-    new_ec_list: EffectCommand = []
+    new_ec_list: list[EffectCommand] = []
     for command in df.effects[tech_tree_id].effect_commands:
         # if the effect command is not 101 Tech Cost Modifier, add it to the new list
         if command.type != 101:

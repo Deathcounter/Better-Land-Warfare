@@ -124,6 +124,27 @@ def find_units_with_3_combined_armor (df: DatFile) -> list[Unit]:
                 units_with_3_combined_armor.append(unit) # Append to unit list
     return units_with_3_combined_armor   
 
+def discount_tech (df: DatFile, tech: int, percentage: int, costtype = None) -> list [EffectCommand]:
+    if (df.techs[tech]):
+        ec_list: list[EffectCommand] = []
+        types: list[int] = [df.techs[tech].resource_costs[0].type, df.techs[tech].resource_costs[1].type]
+        amounts: list[int] = [df.techs[tech].resource_costs[0].amount, df.techs[tech].resource_costs[1].amount]
+        discount = lambda amt: -abs(amt * percentage / 100) # calculating discount, making it negative with -abs
+
+        if (costtype is None):
+            for idx in len(types):
+                                    # Tech Cost Modifier (Set/+/-) (101), Technology (Tech), Gold Storage (3), Mode +-(1), Amount (discount)
+                ec_list.append(EffectCommand (101, df.techs[tech], types[idx], -1, discount(amounts[idx])))
+        else:   
+            for idx, resources in enumerate(df.techs[tech].resource_costs):
+                if (resources.type == costtype):
+                    ec_list.append(EffectCommand (101, df.techs[tech], types[idx], -1, discount(df.techs[tech].resource_costs[idx].amount)))
+        
+        return ec_list            
+    else:           
+        print("Something wrong in helpers.discount_tech")
+        return None
+
 # Hello, Deathcounter here, I used all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
 # - Credits to him, thank you <3
 

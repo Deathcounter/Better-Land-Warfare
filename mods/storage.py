@@ -34,18 +34,18 @@ lancerAvailTechID: int
 dartthrowerAvailTechID: int 
 flamethrowerAvailTechID: int
 
-armenian_scyteman_req_ID = int
-armenian_flailWarrior_req_ID = int
-armenian_shieldBoss_req_ID = int
+armenian_scyteman_req_ID: int
+armenian_flailWarrior_req_ID: int
+armenian_shieldBoss_req_ID: int
 
 billmanUpgradeTechs = []
-lancerUpgradeTech = int
+lancerUpgradeTech: int
 throwerUpgradeTechs = []
 
-throwingTechniquesTechID: int
+throwingTechniquesTechID = int
 throwerBlacksmithTechIDs = []
 
 shieldBossTechId: int
-shieldBossTechId2: int # Shield Boss tech for civs without gambesons
+shieldBossTechId2: int
 
 billmanAutoUpgradeAge3: int

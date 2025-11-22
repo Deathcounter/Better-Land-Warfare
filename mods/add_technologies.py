@@ -365,6 +365,7 @@ def shield_boss_t (df: DatFile):
     storage.shieldBossTechId2 = len(df.techs)
     shield_boss_tech_2 = copy.deepcopy (shield_boss_tech) # This tech is for all civ that have Shield Boss but no Gambesons. Shield Boss will still be available for some, they just dont need Gambesons
     shield_boss_tech_2.required_techs = (102, -1, -1, -1, -1, -1)
+    shield_boss_tech_2.name = "Shield Boss (without Gambesons)"
     shield_boss_tech_2.required_tech_count = 1
     df.techs.append (shield_boss_tech_2)
     logging.debug (f"Added Shield Boss tech at ID {storage.shieldBossTechId2}")
