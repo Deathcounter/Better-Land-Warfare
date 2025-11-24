@@ -8,6 +8,7 @@ from genieutils.unit import *
 import logging
 
 logging.getLogger(__name__)
+
 NAME = "helpers"
 
 
@@ -127,23 +128,76 @@ def find_units_with_3_combined_armor (df: DatFile) -> list[Unit]:
 def discount_tech (df: DatFile, tech: int, percentage: int, costtype = None) -> list [EffectCommand]:
     if (df.techs[tech]):
         ec_list: list[EffectCommand] = []
+        # Both Costs must be in the first two ResearchResourceCost
         types: list[int] = [df.techs[tech].resource_costs[0].type, df.techs[tech].resource_costs[1].type]
         amounts: list[int] = [df.techs[tech].resource_costs[0].amount, df.techs[tech].resource_costs[1].amount]
-        discount = lambda amt: -abs(amt * percentage / 100) # calculating discount, making it negative with -abs
+        mode = 1 # Mode 1 = +-, Mode 0 = Set
+        if (percentage == 100):
+            mode = 0 # if the percentage is 100, then I set the cost to 0 instead. The discount gets set to 0 (by multiplying with 0) and the mode gets adjusted
+
+        discount = lambda amt: int(-abs(amt * percentage / 100) * mode) # calculating discount, making it negative with -abs and rounding by converting it to int()
 
         if (costtype is None):
-            for idx in len(types):
-                                    # Tech Cost Modifier (Set/+/-) (101), Technology (Tech), Gold Storage (3), Mode +-(1), Amount (discount)
-                ec_list.append(EffectCommand (101, df.techs[tech], types[idx], -1, discount(amounts[idx])))
+            for idx in range(len(types)):
+                        # Tech Cost Modifier (Set/+/-) (101), Technology (Tech), type (idx), Mode +- (1) or Set (0), Amount (discount)
+                ec_list.append(EffectCommand (101, df.techs.index(df.techs[tech]), types[idx], mode, discount(amounts[idx])))
         else:   
+            # if a specific costtype is declared, it only discounts e.g the gold cost of a tech
             for idx, resources in enumerate(df.techs[tech].resource_costs):
-                if (resources.type == costtype):
-                    ec_list.append(EffectCommand (101, df.techs[tech], types[idx], -1, discount(df.techs[tech].resource_costs[idx].amount)))
+                if (resources.type == costtype): # determining where the type of the tech equals the specified type
+                    ec_list.append(EffectCommand (101, df.techs.index(df.techs[tech]), types[idx], mode, discount(df.techs[tech].resource_costs[idx].amount)))
         
         return ec_list            
     else:           
         print("Something wrong in helpers.discount_tech")
         return None
+
+def create_empty_task() -> Task:
+    return Task(
+        task_type=1, 
+        id=-1,
+        is_default=0,
+        action_type=0,
+        class_id=-1,
+        unit_id=-1,
+        terrain_id=-1,
+        resource_in=-1,
+        resource_multiplier=-1,
+        resource_out=-1,
+        unused_resource=-1,
+        work_value_1=0,
+        work_value_2=0,
+        work_range=0,
+        auto_search_targets=0,
+        search_wait_time=0,
+        enable_targeting=0,
+        combat_level_flag=0,
+        gather_type=0,
+        work_flag_2=0,
+        target_diplomacy=0,
+        carry_check=0,
+        pick_for_construction=0,
+        moving_graphic_id=-1,
+        proceeding_graphic_id=-1,
+        working_graphic_id=-1,
+        carrying_graphic_id=-1,
+        resource_gathering_sound_id=-1,
+        resource_deposit_sound_id=-1,
+        wwise_resource_gathering_sound_id=0,
+        wwise_resource_deposit_sound_id=0,
+        enabled=-1,
+    )
+
+
+def pack_amount_and_type(amount: int, typ: int) -> int:
+    """Pack signed 8-bit amount and unsigned 8-bit type into an int (type in high byte, amount in low byte)."""
+    amt_byte = amount & 0xFF    # two's complement 8-bit
+    typ_byte = typ & 0xFF
+    return (typ_byte << 8) | amt_byte
+
+
+def amount_type_to_d_test(amount: int, typ: int) -> float:
+    return float(pack_amount_and_type(amount, typ))
 
 # Hello, Deathcounter here, I used all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
 # - Credits to him, thank you <3

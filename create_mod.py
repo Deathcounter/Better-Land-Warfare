@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import pickle
+import logging
 from pathlib import Path
 
 from genieutils.datfile import DatFile
@@ -12,10 +13,14 @@ from mods import add_projectiles
 from mods import add_units
 from mods import add_effects
 from mods import add_technologies
+from mods import add_tasks
 from mods import change_existing_units
 from mods import change_existing_techs
 from mods import change_existing_civs
 from mods import change_existing_tech_tree
+
+
+logging.basicConfig(level=logging.INFO, filename="logs_BLL.txt", filemode="w", format="%(levelname)s - %(message)s")
 
 
 # Overall, genieutils works by loading a .dat file into memory and constructing a DatFile object
@@ -38,6 +43,7 @@ def main():
     add_units.run_add_units(dfBase)
     add_effects.run_add_effects (dfBase)
     add_technologies.run_add_technologies (dfBase)
+    add_tasks.run_add_tasks (dfBase)
     change_existing_units.run_change_existing_units (dfBase)
     change_existing_techs.run_change_existing_techs (dfBase)
     change_existing_civs.run_change_existing_civs (dfBase)

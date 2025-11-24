@@ -11,6 +11,7 @@ from mods import helpers
 from mods import storage
 
 logging.getLogger(__name__)
+
 NAME = "add_technologies"
 
 def run_add_technologies (df: DatFile):
@@ -103,7 +104,7 @@ def unit_upgrades_t (df: DatFile):
     storage.billmanUpgradeTechs.append(len(df.techs))
     scytheman_upgrade_tech = helpers.create_empty_tech()
     scytheman_upgrade_tech.repeatable = 1
-    scytheman_upgrade_tech.icon_id = 999 #need to fix later
+    scytheman_upgrade_tech.icon_id = storage.billmanIconIDs[0]
     scytheman_upgrade_tech.effect_id = storage.billmanUpgradeIDs[0]
     scytheman_upgrade_tech.required_techs = (102, storage.billmanAvailTechID, storage.armenian_scyteman_req_ID, -1, -1, -1)
     scytheman_upgrade_tech.required_tech_count = 2
@@ -133,12 +134,12 @@ def unit_upgrades_t (df: DatFile):
     storage.billmanUpgradeTechs.append(len(df.techs))
     flailWarrior_upgrade_tech = helpers.create_empty_tech()
     flailWarrior_upgrade_tech.repeatable = 1
-    flailWarrior_upgrade_tech.icon_id = 999 #need to fix later
-    flailWarrior_upgrade_tech.effect_id = storage.billmanUpgradeIDs[0]
+    flailWarrior_upgrade_tech.icon_id = storage.billmanIconIDs[1]
+    flailWarrior_upgrade_tech.effect_id = storage.billmanUpgradeIDs[1]
     flailWarrior_upgrade_tech.required_techs = (103, storage.billmanUpgradeTechs[0], storage.armenian_flailWarrior_req_ID, -1, -1, -1)
     flailWarrior_upgrade_tech.required_tech_count = 1
     flailWarrior_upgrade_tech.name = "Flail Warrior"
-    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 200, 8, 418013) # 12 in Barracks, 200 seconds ResearchTime, Button 8 und Hotkey ID of Battle Drills
+    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 185, 8, 418013) # 12 in Barracks, 185 seconds ResearchTime, Button 8 und Hotkey ID of Battle Drills
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 775, 1) # 0 food storage, 775 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 450, 1) # 3 gold storage, 450 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  4 population headroom, 1 cost, 0 deduct no
@@ -156,7 +157,7 @@ def unit_upgrades_t (df: DatFile):
     storage.lancerUpgradeTech = len(df.techs)
     heavyLancer_upgrade_tech = helpers.create_empty_tech()
     heavyLancer_upgrade_tech.repeatable = 1
-    heavyLancer_upgrade_tech.icon_id = 999 #need to fix later
+    heavyLancer_upgrade_tech.icon_id = storage.lancerIconID
     heavyLancer_upgrade_tech.effect_id = storage.lancerUpgradeID
     heavyLancer_upgrade_tech.required_techs = (103, -1, -1, -1, -1, -1)
     heavyLancer_upgrade_tech.required_tech_count = 1
@@ -178,7 +179,7 @@ def unit_upgrades_t (df: DatFile):
     storage.throwerUpgradeTechs.append(len(df.techs))
     knifeThrower_upgrade_tech = helpers.create_empty_tech()
     knifeThrower_upgrade_tech.repeatable = 1
-    knifeThrower_upgrade_tech.icon_id = 999 #need to fix later
+    knifeThrower_upgrade_tech.icon_id = storage.throwerIconIDs[0]
     knifeThrower_upgrade_tech.effect_id = storage.throwerUpgradeIDs[0]
     knifeThrower_upgrade_tech.required_techs = (102, -1, -1, -1, -1, -1)
     knifeThrower_upgrade_tech.required_tech_count = 1
@@ -200,7 +201,7 @@ def unit_upgrades_t (df: DatFile):
     storage.throwerUpgradeTechs.append(len(df.techs))
     hatchetThrower_upgrade_tech = helpers.create_empty_tech()
     hatchetThrower_upgrade_tech.repeatable = 1
-    hatchetThrower_upgrade_tech.icon_id = 999 #need to fix later
+    hatchetThrower_upgrade_tech.icon_id = storage.throwerIconIDs[1]
     hatchetThrower_upgrade_tech.effect_id = storage.throwerUpgradeIDs[1]
     hatchetThrower_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
     hatchetThrower_upgrade_tech.required_tech_count = 2
@@ -222,7 +223,7 @@ def unit_upgrades_t (df: DatFile):
     storage.throwerUpgradeTechs.append(len(df.techs))
     ninja_upgrade_tech = helpers.create_empty_tech()
     ninja_upgrade_tech.repeatable = 1
-    ninja_upgrade_tech.icon_id = 999 #need to fix later
+    ninja_upgrade_tech.icon_id = storage.throwerIconIDs[2]
     ninja_upgrade_tech.effect_id = storage.throwerUpgradeIDs[2]
     ninja_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
     ninja_upgrade_tech.required_tech_count = 2
@@ -248,7 +249,7 @@ def thrower_upgrades_t (df: DatFile):
     storage.throwingTechniquesTechID = len(df.techs)
     throwing_techniques_tech = helpers.create_empty_tech()
     throwing_techniques_tech.repeatable = 1
-    throwing_techniques_tech.icon_id = 999 #need to fix later
+    throwing_techniques_tech.icon_id = storage.throwingTechniquesIconID
     throwing_techniques_tech.effect_id = storage.throwingTechniquesID
     throwing_techniques_tech.required_techs = (101, -1, -1, -1, -1, -1)
     throwing_techniques_tech.required_tech_count = 1
@@ -270,7 +271,7 @@ def thrower_upgrades_t (df: DatFile):
     storage.throwerBlacksmithTechIDs.append(len(df.techs))
     wooden_grip_tech = helpers.create_empty_tech()
     wooden_grip_tech.repeatable = 1
-    wooden_grip_tech.icon_id = 999 #need to fix later
+    wooden_grip_tech.icon_id = storage.throwerBlacksmithIconIDs[0]
     wooden_grip_tech.effect_id = storage.throwerBlacksmithIDs[0]
     wooden_grip_tech.required_techs = (101, -1, -1, -1, -1, -1)
     wooden_grip_tech.required_tech_count = 1
@@ -294,7 +295,7 @@ def thrower_upgrades_t (df: DatFile):
     storage.throwerBlacksmithTechIDs.append(len(df.techs))
     holster_tech = helpers.create_empty_tech()
     holster_tech.repeatable = 1
-    holster_tech.icon_id = 999 #need to fix later
+    holster_tech.icon_id = storage.throwerBlacksmithIconIDs[1]
     holster_tech.effect_id = storage.throwerBlacksmithIDs[1]
     holster_tech.required_techs = (102, storage.throwerBlacksmithTechIDs[0], -1, -1, -1, -1)
     holster_tech.required_tech_count = 2
@@ -317,7 +318,7 @@ def thrower_upgrades_t (df: DatFile):
     storage.throwerBlacksmithTechIDs.append(len(df.techs))
     balanced_weaponry_tech = helpers.create_empty_tech()
     balanced_weaponry_tech.repeatable = 1
-    balanced_weaponry_tech.icon_id = 999 #need to fix later
+    balanced_weaponry_tech.icon_id = storage.throwerBlacksmithIconIDs[2]
     balanced_weaponry_tech.effect_id = storage.throwerBlacksmithIDs[2]
     balanced_weaponry_tech.required_techs = (103, storage.throwerBlacksmithTechIDs[1], -1, -1, -1, -1)
     balanced_weaponry_tech.required_tech_count = 2
@@ -342,7 +343,7 @@ def shield_boss_t (df: DatFile):
     storage.shieldBossTechId = len(df.techs)
     shield_boss_tech = helpers.create_empty_tech()
     shield_boss_tech.repeatable = 1
-    shield_boss_tech.icon_id = 999 #need to fix later
+    shield_boss_tech.icon_id = storage.shieldBossIconID
     shield_boss_tech.effect_id = storage.shieldBossId
     shield_boss_tech.required_techs = (102, 875, storage.armenian_shieldBoss_req_ID, -1, -1, -1) #Castle Age and Gambesons are required or Armenians earlier techs
     shield_boss_tech.required_tech_count = 2

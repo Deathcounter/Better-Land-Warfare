@@ -49,3 +49,15 @@ shieldBossTechId: int
 shieldBossTechId2: int
 
 billmanAutoUpgradeAge3: int
+
+#tech icons
+si: int = 312 # Starting Icon, the last vanilla aoe2 Icon
+billmanIconIDs = [si+1, si+2]
+lancerIconID = si+3
+throwerIconIDs = [si+4, si+5, si+6]
+
+throwingTechniquesIconID = si+7
+
+throwerBlacksmithIconIDs = [si+8, si+9, si+10]
+
+shieldBossIconID = si+11

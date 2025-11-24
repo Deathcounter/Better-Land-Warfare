@@ -11,6 +11,7 @@ from mods import storage
 
 
 logging.getLogger(__name__)
+
 NAME = "change_existing_techs"
 
 
@@ -18,6 +19,7 @@ def run_change_existing_techs(df: DatFile):
     change_armenian_early_barracks_techs (df)
     move_elite_genitour_to_castle (df)
     change_gambesons_to_give_HP (df)
+    blacksmith_infantry_attack_upgrades (df)
 
 
 def change_armenian_early_barracks_techs (df: DatFile):
@@ -53,3 +55,17 @@ def change_gambesons_to_give_HP (df: DatFile):
     for idx in storage.BillmanIDs:
         add_10_HP_to_Billmen: EffectCommand = EffectCommand(4, idx, -1, 0, 10) # Attr. Modifier +-(4), BillmanID (idx), Class -1, Hitpoints (0), Amount (+10)
         df.effects[886].effect_commands.append(add_10_HP_to_Billmen)
+
+def blacksmith_infantry_attack_upgrades (df: DatFile):
+    #Change Infantry Attack Upgrades to not affect Thrower-line
+    infantry_attack_upgrade_IDs = [67, 68, 75]
+    for infantry_attack_upgrade in infantry_attack_upgrade_IDs:
+        for thrower in storage.ThrowerIDs:
+                                                # Attr. Modifier +-(4), ThrowerId, Class -1, Attack(9), Amount (-1), Melee Attackclass (4)
+            if (infantry_attack_upgrade == 75):
+                value = -1026
+            else:
+                value = -1025
+                
+            remove_Thrower_attack: EffectCommand = EffectCommand(4, thrower, -1, 9, value)     
+            df.effects[infantry_attack_upgrade].effect_commands.append(remove_Thrower_attack)

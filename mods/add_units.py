@@ -11,9 +11,11 @@ from genieutils.unit import Unit, AttackOrArmor, Task, ResourceCost, ResourceSto
 from mods import helpers
 from mods import storage
 
-NAME = "add_units"
 
-logging.basicConfig(level=logging.INFO, filename="logs_BLL.txt", filemode="w", format="%(levelname)s - %(message)s")
+
+logging.getLogger(__name__)
+
+NAME = "add_units"
 
 def run_add_units(df: DatFile):
     logging.info("Adding Units one by one")
@@ -52,7 +54,7 @@ def add_Billman_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(17, 3, 13, 16735) # train time, barracks (12), button 13, hotkey ID (Flemish Militia)
+    train_location_final: TrainLocation = TrainLocation(17, 12, 3, 16735) # 17s train time, barracks (12), button 3, hotkey ID (Flemish Militia)
     base.creatable.train_locations.append(train_location_final)
 
     
@@ -62,7 +64,7 @@ def add_Billman_line(df: DatFile):
     headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
     base.creatable.resource_costs = (foodcost, goldcost, headroom)
     
-    name_list = ('Billman', 'Scyteman', 'Flail Warrior')
+    name_list = ('Billman', 'Scytheman', 'Flail Warrior')
     hp_list = (50, 60, 70)
     speed_list = (1.05, 1.1, 1.2) 
 
@@ -85,7 +87,7 @@ def add_Billman_line(df: DatFile):
     attack_graphic_list = (16797, 15813, 16786)
     attack_graphic2_list = (16802, -1, -1)
     dead_unit_list = (2454, 2394, 2450)
-    standing_graphic_list= ([16799, -1], [15816, -1], [16789, -1]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
+    standing_graphic_list= ([16799, -1], [15816, -1], [16788, -1]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
     dying_graphic_list = (16798, 15815, 16787)
     walking_graphic_list = (16801, 15818, 16790)
 
@@ -108,7 +110,7 @@ def add_Billman_line(df: DatFile):
         billman_variant.type_50.displayed_melee_armour = displayed_m_armor_list [idx]
 
         if idx == 0:
-            billman_variant.creatable.train_locations[0] = TrainLocation(40, 3, 13, 16735) #billman is 40s in Feudal, then 17 in Castle Age
+            billman_variant.creatable.train_locations[0] = TrainLocation(40, 12, 3, 16735) #billman is 40s in Feudal, then 17 in Castle Age
 
         for index in range(len(attack_list_billman)):
             if idx == 0:
@@ -466,7 +468,9 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.attacks = [AttackOrArmor(4,4), AttackOrArmor(11,6), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3)] 
                                         #melee,                 pierce,             rams,                   siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
-
+    
+    flame_thrower.type_50.displayed_melee_armour = -3
+    flame_thrower.creatable.displayed_pierce_armour = 12
 
     flame_thrower.icon_id = 144 # not really needed cause the base flame thrower already has it
 
