@@ -36,7 +36,7 @@ def add_BLL_tech_tree (df: DatFile):
     "Burmese":      [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
     "Byzantine":    [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0],
     "Celts":        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "Chinese":      [1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0],
+    "Chinese":      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0],
     "Cumans":       [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
     "Dravidians":   [1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0],
     "Ethiopians":   [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1],
@@ -106,9 +106,11 @@ def add_BLL_tech_tree (df: DatFile):
             continue
         else:
             if(helpers.does_civ_has_gambesons(df, civ_idx)):
-                cfg.insert(1,0) # *** if a civ has gambesons, I use the regular Shield Boss
+                cfg.insert(1,0) # *** if a civ has gambesons, I use the regular Shield Boss at Slot 0
             elif(cfg[0] == 1):
                 cfg.insert(1,1) # *** if civ does not have gambesons, but still Shield Boss, I enable Shield Boss without Gambeson requirement
+            elif(cfg[0] == 0):
+                cfg.insert(1,0) # *** if civ does have neither gambesons nor Shield Boss, add a 0 anyway.
 
         # get the effect object for this civ's tech tree
         tech_effect = df.effects[civ.tech_tree_id]

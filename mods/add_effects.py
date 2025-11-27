@@ -56,7 +56,8 @@ def unit_upgrades_e (df: DatFile):
     logging.debug (f"Added Scyteman upgrade effect at ID {storage.billmanUpgradeIDs[0]}")
 
                                                                                 #Upgrade Unit (3), Scyteman [1], Flail Warrior [2], Mode -1, -1
-    flail_warrior_upgrade_effect: Effect = Effect ("Flail Warrior", [EffectCommand (3, storage.BillmanIDs[1], storage.BillmanIDs[2], -1, -1)]) 
+    flail_warrior_upgrade_effect: Effect = Effect ("Flail Warrior", [EffectCommand (3, storage.BillmanIDs[1], storage.BillmanIDs[2], -1, -1), 
+                                                                     EffectCommand (3, storage.BillmanIDs[0], storage.BillmanIDs[2], -1, -1) ]) # Apparently also needed
     storage.billmanUpgradeIDs.append(len(df.effects))
     df.effects.append(flail_warrior_upgrade_effect)
     logging.debug (f"Added Flailman upgrade effect at ID {storage.billmanUpgradeIDs[1]}")
@@ -76,14 +77,16 @@ def unit_upgrades_e (df: DatFile):
     logging.debug (f"Added Knife Thrower upgrade effect at ID {storage.throwerUpgradeIDs[0]}")
 
                                                                                 #Upgrade Unit (3), Knife Thrower [1], Hatchet Thrower [2], Mode -1, -1
-    hatchet_thrower_upgrade_effect: Effect = Effect ("Hatchet Thrower", [EffectCommand (3, storage.ThrowerIDs[1], storage.ThrowerIDs[2], -1, -1)]) 
+    hatchet_thrower_upgrade_effect: Effect = Effect ("Hatchet Thrower", [EffectCommand (3, storage.ThrowerIDs[1], storage.ThrowerIDs[2], -1, -1),
+                                                                         EffectCommand (3, storage.ThrowerIDs[0], storage.ThrowerIDs[2], -1, -1)]) # Apparently also needed
     storage.throwerUpgradeIDs.append(len(df.effects))
     df.effects.append(hatchet_thrower_upgrade_effect)
     logging.debug (f"Added Hatchet Thrower upgrade effect at ID {storage.throwerUpgradeIDs[1]}")
     logging.info ("Successfully added all unit Upgrades")
 
                                                                                  #Upgrade Unit (3), Knife Thrower [1], Ninja [3], Mode -1, -1
-    ninja_upgrade_effect: Effect = Effect ("Ninja", [EffectCommand (3, storage.ThrowerIDs[1], storage.ThrowerIDs[3], -1, -1)]) 
+    ninja_upgrade_effect: Effect = Effect ("Ninja", [EffectCommand (3, storage.ThrowerIDs[1], storage.ThrowerIDs[3], -1, -1),
+                                                     EffectCommand (3, storage.ThrowerIDs[0], storage.ThrowerIDs[3], -1, -1)]) 
     storage.throwerUpgradeIDs.append(len(df.effects))
     df.effects.append(ninja_upgrade_effect)
     logging.debug (f"Added Ninja upgrade effect at ID {storage.throwerUpgradeIDs[2]}")
@@ -136,8 +139,8 @@ def thrower_upgrades_e (df: DatFile):
     #Holster: Thrower-line attacks 20% (isn't it theorethically 25%?) faster; no minimum range
     holster_ec: EffectCommand = []
     for thrower_id in range(len(storage.ThrowerIDs)):
-                                 # Attr. Modifier Multiply (5), Thrower Unit (ID), Class (-1), Attr. Reload Time (64), Amount (0.80 = 20% faster) 
-        holster_ec.append(EffectCommand(5, storage.ThrowerIDs[thrower_id], -1, 10, 0.8))
+                                 # Attr. Modifier Multiply (5), Thrower Unit (ID), Class (-1), Attr. Reload Time (64), Amount (0.83333 = 17% faster, or 20%) 
+        holster_ec.append(EffectCommand(5, storage.ThrowerIDs[thrower_id], -1, 10, 0.833333))
                                   # Attr. Modifier Set (0), Thrower Unit (ID), Class (-1), Attr. Min Range (20), Amount (0)  
         holster_ec.append(EffectCommand(0, storage.ThrowerIDs[thrower_id], -1, 20, 0))
 

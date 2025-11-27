@@ -9,6 +9,8 @@ from pathlib import Path
 
 from genieutils.datfile import DatFile
 
+from mods import add_sounds
+from mods import add_graphics
 from mods import add_projectiles
 from mods import add_units
 from mods import add_effects
@@ -38,7 +40,9 @@ def main():
 
     print("Base data loaded")
     print("Applying modifications")
-  
+    
+    add_sounds.run_add_sounds (dfBase)
+    add_graphics.run_add_graphics (dfBase)
     add_projectiles.run_add_projectiles (dfBase)
     add_units.run_add_units(dfBase)
     add_effects.run_add_effects (dfBase)

@@ -137,7 +137,7 @@ def unit_upgrades_t (df: DatFile):
     flailWarrior_upgrade_tech.icon_id = storage.billmanIconIDs[1]
     flailWarrior_upgrade_tech.effect_id = storage.billmanUpgradeIDs[1]
     flailWarrior_upgrade_tech.required_techs = (103, storage.billmanUpgradeTechs[0], storage.armenian_flailWarrior_req_ID, -1, -1, -1)
-    flailWarrior_upgrade_tech.required_tech_count = 1
+    flailWarrior_upgrade_tech.required_tech_count = 2
     flailWarrior_upgrade_tech.name = "Flail Warrior"
     flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 185, 8, 418013) # 12 in Barracks, 185 seconds ResearchTime, Button 8 und Hotkey ID of Battle Drills
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 775, 1) # 0 food storage, 775 cost, 1 deduct yes
@@ -184,7 +184,7 @@ def unit_upgrades_t (df: DatFile):
     knifeThrower_upgrade_tech.required_techs = (102, -1, -1, -1, -1, -1)
     knifeThrower_upgrade_tech.required_tech_count = 1
     knifeThrower_upgrade_tech.name = "Knife Thrower"
-    knifeThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 25, 15, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Cycle Recruitment Doctrine
+    knifeThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 25, 14, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 14 und Hotkey ID of Cycle Recruitment Doctrine
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 120, 1) # 0 food storage, 120 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 225, 1) # 3 gold storage, 225 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, nothing², nothing³
@@ -206,7 +206,7 @@ def unit_upgrades_t (df: DatFile):
     hatchetThrower_upgrade_tech.required_techs = (103, storage.throwerUpgradeTechs[0], -1, -1, -1, -1)
     hatchetThrower_upgrade_tech.required_tech_count = 2
     hatchetThrower_upgrade_tech.name = "Hatchet Thrower"
-    hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Cycle Recruitment Doctrine
+    hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 14, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 14 und Hotkey ID of Cycle Recruitment Doctrine
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, yep, still nothing
@@ -229,7 +229,7 @@ def unit_upgrades_t (df: DatFile):
     ninja_upgrade_tech.required_tech_count = 2
     ninja_upgrade_tech.name = "Ninja"
     ninja_upgrade_tech.civ = 5 # Japanese
-    ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 15, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 15 und Hotkey ID of Onager
+    ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 14, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 14 und Hotkey ID of Onager
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # thanks for keep reading this, not many will
@@ -254,7 +254,7 @@ def thrower_upgrades_t (df: DatFile):
     throwing_techniques_tech.required_techs = (101, -1, -1, -1, -1, -1)
     throwing_techniques_tech.required_tech_count = 1
     throwing_techniques_tech.name = "Throwing techniques"
-    throwing_techniques_tech.research_locations[0] = ResearchLocation (87, 20, 11, 18210) # 87 in Archery Range, 20 seconds ResearchTime, Button 11 und Hotkey ID of Squires
+    throwing_techniques_tech.research_locations[0] = ResearchLocation (87, 20, 10, 18210) # 87 in Archery Range, 20 seconds ResearchTime, Button 10 und Hotkey ID of Squires
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 45, 1) # 0 food storage, 45 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 145, 1) # 3 gold storage, 145 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # you see, you might expect something here... WRONG

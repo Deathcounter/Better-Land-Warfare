@@ -17,11 +17,12 @@ logging.getLogger(__name__)
 NAME = "change_existing_units"
 
 def run_change_existing_units (df: DatFile):
-    if (storage.lightmode):
+    if (not storage.lightmode):
         add_armored_unit_class (df)
 
     give_scorpion_lancer_damage (df)
     move_condo_trainbutton (df)
+    move_genitour_trainbutton (df)
     give_steppelancers_lancer_class (df)
     buff_iron_pagoda (df)
     nerf_rattan_archers (df)
@@ -36,7 +37,7 @@ def add_armored_unit_class (df: DatFile):
         for unit in unitList:
             if (AttackOrArmor (50,0) not in civ.units[unit.id].type_50.armours):
                 civ.units[unit.id].type_50.armours.append(AttackOrArmor (50,0))
-                print(f"Appended Armored Unit class to {civ.units[unit.id].name}")
+                logging.debug(f"Appended Armored Unit class to {civ.units[unit.id].name}")
     logging.info("Added Armored Unit Armor Class")
             
 
@@ -54,6 +55,14 @@ def move_condo_trainbutton (df: DatFile):
     for civ in df.civs:
         civ.units[882].creatable.train_locations[0].button_id = 14 # moves Condottiero train button to 14
     logging.debug("Moved Condo to Button 14")
+
+
+def move_genitour_trainbutton (df: DatFile):
+    for civ in df.civs:
+        civ.units[1010].creatable.train_locations[0].button_id = 12 # moves Genitour train button to 12
+        civ.units[1012].creatable.train_locations[0].button_id = 12 # moves Elite-Genitour train button to 12
+    logging.debug("Moved Genitour to Button 12")
+
 
 def give_steppelancers_lancer_class (df: DatFile):
     lancer_class: AttackOrArmor = AttackOrArmor (51,0) #add lancer armor to Steppe Lancer

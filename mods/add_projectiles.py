@@ -15,18 +15,19 @@ NAME = "add_projectiles"
 
 def run_add_projectiles(df: DatFile):
     add_thrower_projectiles(df)
+    logging.info("Added all Projectiles")
 
 def add_thrower_projectiles (df: DatFile):
     # adds dart projectile, changing the graphics from knife to arambai dart
     dart_thrower_projectile = copy.deepcopy (df.civs[0].units[1055]) # copy the knife projectiles from gbeto
     dart_thrower_projectile_id = len(df.civs[0].units)
     storage.ThrowerProjectileIDs.append(dart_thrower_projectile_id)
-    dart_thrower_projectile.standing_graphic = [10251, -1]
-    dart_thrower_projectile.dead_fish.walking_graphic = 10251
+    dart_thrower_projectile.standing_graphic = [storage.dartProjectileGraphicID, -1]
+    dart_thrower_projectile.dead_fish.walking_graphic = storage.dartProjectileGraphicID # Custom Projectile Graphic that as sound added
     dart_thrower_projectile.speed = 6
     dart_thrower_projectile.name = "Projectile DartThrower"
 
-    # adds knife projectile, changing standind graphics not needed, already a knife
+    # adds knife projectile, changing standing graphics not needed, already a knife
     knife_thrower_projectile = copy.deepcopy (df.civs[0].units[1055])
     knife_thrower_projectile_id = len(df.civs[0].units) + 1
     storage.ThrowerProjectileIDs.append(knife_thrower_projectile_id)
@@ -54,4 +55,4 @@ def add_thrower_projectiles (df: DatFile):
         civ.units.append(hatchet_thrower_projectile)
         civ.units.append(ninja_projectile)
 
-    logging.info(f"SUCCESS: Throwing Projectiles added")    
+    logging.info(f"SUCCESS: Thrower-line Projectiles added")    

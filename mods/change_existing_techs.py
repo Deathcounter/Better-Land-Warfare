@@ -45,7 +45,7 @@ def change_armenian_early_barracks_techs (df: DatFile):
 
 def move_elite_genitour_to_castle (df: DatFile):
     #moving Elite Genitour Upgrade to Castle in order to make space for thrower line and upgrade
-    df.effects[37].effect_commands[2].d = 9 #changes the Berber Teambonus [37] to move the research location to button 9 instead of 14
+    df.effects[38].effect_commands[2].d = 9 #changes the Berber Teambonus [38] to move the research location to button 9 instead of 14
     df.techs[599].research_locations[0].location_id = 82 #changes the research location of Elite Genitour [599] from Archery Range to Castle (82)
 
 

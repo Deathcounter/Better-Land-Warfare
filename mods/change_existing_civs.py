@@ -22,6 +22,7 @@ def run_change_existing_civs (df: DatFile):
     french_change (df)
     jurchens_change (df)
     malian_change (df)
+    slavs_change (df)
     spanish_change (df)
     poles_change (df)
     vietnamese_change (df)
@@ -35,12 +36,16 @@ def armenians_change (df: DatFile):
     df.effects[933].effect_commands.clear()
     affected_vanilla_unit_list = [74, 75, 77, 473, 567, 1793, 882, 93, 358, 359] #militia-line, condos, spearmen
     for vanilla_unit in affected_vanilla_unit_list:
-                                                            # Attr. Modifier +-(4), vanilla unit, Class -1, Armor (8), Amount (+10), Armorclass Infantry (1)
-        df.effects[933].effect_commands.append (EffectCommand (4, vanilla_unit, -1, 8, helpers.amount_type_to_d(10, 1)))
-
+                                                            # Attr. Modifier +-(4), vanilla unit, Class -1, Armor (8), Amount (+20), Armorclass Infantry (1)
+        df.effects[933].effect_commands.append (EffectCommand (4, vanilla_unit, -1, 8, helpers.amount_type_to_d(20, 1)))
+        if vanilla_unit in [93, 358, 359]:
+            df.effects[933].effect_commands.append (EffectCommand (4, vanilla_unit, -1, 8, helpers.amount_type_to_d(20, 27))) # give Spearman +20 Spearman armor
+        if vanilla_unit == 882:
+            df.effects[933].effect_commands.append (EffectCommand (4, vanilla_unit, -1, 8, helpers.amount_type_to_d(20, 19))) # give Condos +20 Unique Unit armor
 
     for billman in storage.BillmanIDs:
-        df.effects[933].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(10, 1)))
+        df.effects[933].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(20, 1)))
+        df.effects[933].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(20, 29))) # give Billman +20 Shock Infantry Armor
 
 
     warrior_monk_units = [1811, 1826, 1827]
@@ -115,7 +120,7 @@ def french_change (df: DatFile):
     
 def jurchens_change (df: DatFile):
     # @CivBonus Jurchens
-    # All Lancer Units (Steppe-, Fire- and regular Lancer) attack +25% faster
+    # All Lancer Units (Steppe-, Fire- and regular Lancer) attack +25% faster (20% in coding terms)
     affected_vanilla_unit_list = [1370, 1372, 1901, 1903] # Steppe- and Firelancers
     df.effects[994].effect_commands.clear() # Current Jurchen bonus is at ID 994
     for vanilla_unit in affected_vanilla_unit_list:
@@ -160,6 +165,12 @@ def poles_change (df: DatFile):
     df.effects[tech_tree_id].effect_commands = new_ec_list
     logging.debug ("Successfully changed Poles")
 
+def slavs_change (df: DatFile):
+    # @CivTech Slavs
+    # Druzhina: Melee Infantry deals trample damage (exluding Thrower-line)
+    for thrower in storage.ThrowerIDs: # remove the blast width of thrower again
+        df.effects[569].effect_commands.append (EffectCommand (4, thrower, -1, 22, -0.5)) # Attr. Modifier Multiply(4), thrower, Class -1, blast_width (22), Amount (-0.5)
+
 def spanish_change (df: DatFile):
     # @CivBonus Spanish
     # Minor Change
@@ -197,7 +208,7 @@ def vietnamese_change (df: DatFile):
     affected_vanilla_unit_list = [4, 24, 492, 7, 6, 1129, 1131, 1155, 1901, 1903] # Archer-line, Skirmisher-line, Rattan Archers, Fire Lancers
     df.effects[672].effect_commands.clear() # Current Vietnamese bonus is at ID 672
     for vanilla_unit in affected_vanilla_unit_list:
-        df.effects[672].effect_commands.append (EffectCommand (5, vanilla_unit, -1, 0, 1.25)) # Attr. Modifier Multiply(5), vanilla unit, Class -1, Hitpoints (0), Amount (x1.2)
+        df.effects[672].effect_commands.append (EffectCommand (5, vanilla_unit, -1, 0, 1.25)) # Attr. Modifier Multiply(5), vanilla unit, Class -1, Hitpoints (0), Amount (x1.25)
 
     #Rattan Archers -5 HP in change_existing_units
     logging.debug ("Successfully changed Vietnamese")

@@ -18,6 +18,8 @@ logging.getLogger(__name__)
 NAME = "add_units"
 
 def run_add_units(df: DatFile):
+
+    add_Lancer_Dead_Unit (df)
     logging.info("Adding Units one by one")
     logging.info("Billman-line")
     add_Billman_line (df)
@@ -30,6 +32,12 @@ def run_add_units(df: DatFile):
     # print("1." + str(helpers.does_civ_have_unit(df, 1, 329))) # false
     
 
+def add_Lancer_Dead_Unit (df: DatFile):
+    lancer_dead_unit: Unit = copy.deepcopy(df.civs[47].units[570]) # copy dead unit from Imperial Cavalry by using the Paladin unit but from any Chronical Civ (I chose 47)
+    storage.deadLancerUnitID = len(df.civs[0].units)
+    for civ in df.civs:
+        civ.units.append(lancer_dead_unit)
+    logging.info(f"SUCCESS: Dead Lancer Unit added")   
 
 def add_Billman_line(df: DatFile):
     # @Billman
@@ -72,15 +80,16 @@ def add_Billman_line(df: DatFile):
     displayed_m_armor_list = (2, 3, 4)
     base.creatable.displayed_pierce_armour = 0
 
-                                # melee,              cavalry,          elephant,           spearman,             camel
-    attack_list_billman  = (AttackOrArmor(4,4), AttackOrArmor(8,5), AttackOrArmor(5,9), AttackOrArmor(27,1), AttackOrArmor(30,1))
-    attack_list_scyteman = (AttackOrArmor(4,6), AttackOrArmor(8,6), AttackOrArmor(5,14), AttackOrArmor(27,2), AttackOrArmor(30,2))
-    attack_list_flail_warrior = (AttackOrArmor(4,7), AttackOrArmor(8,7), AttackOrArmor(5,19), AttackOrArmor(27,3), AttackOrArmor(30,3))
+    # armored units are units whose combined base armor 3 or higher, new armor class needed
+                                        # melee,              cavalry,        armored units,        elephant,           spearman,             camel
+    attack_list_billman         = (AttackOrArmor(4,4), AttackOrArmor(8,3), AttackOrArmor(50,2), AttackOrArmor(5,9),  AttackOrArmor(27,1), AttackOrArmor(30,1))
+    attack_list_scyteman        = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(50,3), AttackOrArmor(5,14), AttackOrArmor(27,2), AttackOrArmor(30,2))
+    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(50,4), AttackOrArmor(5,19), AttackOrArmor(27,3), AttackOrArmor(30,3))
 
-                                # melee,                pierce,         infantry,     shock infantry (eagle)
-    armor_list_billman  = (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
-    armor_list_scyteman = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
-    armor_list_flail_warrior = (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,3), AttackOrArmor(29,0))
+                                # melee,                pierce,             infantry,     shock infantry (eagle)
+    armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
+    armor_list_scyteman =       (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
+    armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,3), AttackOrArmor(29,0))
 
     icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
 
@@ -207,8 +216,8 @@ def add_Lancer_line(df: DatFile):
     attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(50,9))
 
                                 # melee,                pierce,             cavalry           lancer unit
-    armor_list_lancer      = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,4), AttackOrArmor(51,0))
-    armor_list_heavylancer = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(51,0))
+    armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,4), AttackOrArmor(51,0))
+    armor_list_heavylancer  = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(51,0))
 
     icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
     attack_graphic_list = (15801, 15138)
@@ -295,10 +304,10 @@ def add_Thrower_line(df: DatFile):
     base.enabled = 0
 
     base.type_50.min_range = 1
-    base.type_50.accuracy_dispersion = 0.4
+    base.type_50.accuracy_dispersion = 0.6
 
-    base.type_50.reload_time = 1.55
-    base.type_50.displayed_reload_time = 1.55
+    base.type_50.reload_time = 1.5
+    base.type_50.displayed_reload_time = 1.5
     
     base.creatable.idle_attack_graphic = -1
 
@@ -315,7 +324,7 @@ def add_Thrower_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(30, 87, 14, 16743) # train time, archery range (87), button 14, hotkey ID (Slinger)
+    train_location_final: TrainLocation = TrainLocation(30, 87, 9, 16743) # train time, archery range (87), button 9, hotkey ID (Slinger)
     base.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, militia has correct values.... for now
@@ -326,36 +335,38 @@ def add_Thrower_line(df: DatFile):
 
     name_list = ('Dart Thrower', 'Knife Thrower', 'Hatchet Thrower', 'Ninja')
     hp_list = (35, 40, 45, 50)
-    speed_list = (1.03, 1.05, 1.05, 1.15) 
+    speed_list = (1, 1.05, 1.05, 1.15) 
     frame_delay_list = (16, 14, 14, 12)
 
     range_list = (3, 4, 5, 7)
     displayed_range_list = (3, 4, 5, 7)
+    accuracy_list = (65, 70, 75, 90)
 
     displayed_attack_list = (3, 4, 5, 4)
-    displayed_m_armor_list = (0, 1, 2, 1)
-    displayed_p_armor_list = (1, 1, 1, 1)
+    displayed_m_armor_list = (1, 1, 2, 1)
+    displayed_p_armor_list = (0, 1, 1, 1)
 
-                                    # melee,               spearman,         skirmisher,       standard building           
-    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(27,2), AttackOrArmor(38,2), AttackOrArmor(21,1))
-    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2))
-    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(27,4), AttackOrArmor(38,4), AttackOrArmor(21,3))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,4), AttackOrArmor(38,4), AttackOrArmor(21,2), AttackOrArmor (19, 4)) # extra attack vs unique units
+                                    # melee,               spearman,         skirmisher,       standard building,       armored units           
+    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(27,2), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(50,1))
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,2))
+    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,3), AttackOrArmor(50,2))
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,1), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
-    armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_dart_thrower    = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
     armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
     armor_list_hatchet_thrower = (AttackOrArmor(4,2), AttackOrArmor(3,1), AttackOrArmor(1,0))
     armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
 
-    icon_list = (704, 693, 705, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
+    icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     
-    attack_graphic_list = (3900, 15654, 16786, 1031)
+    # Graphics of (Yodit, Rhodian Slinger, Norse Warrior, Ninja)
+    attack_graphic_list = (3900, 15654, storage.silentNorseWarriorID, storage.silentNinjaID)
     attack_graphic2_list = (-1, 15659, -1, -1)
-    dead_unit_list = (1625, 2367, 2450, 1147)
-    standing_graphic_list= ([3902, -1], [15656, -1], [16789, -1], [1037, -1]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
-    dying_graphic_list = (3901, 15655, 16787, 1034)
-    walking_graphic_list = (3905, 15658, 16790, 1041)
+    dead_unit_list = (1625, 2367, 362, 1147)
+    standing_graphic_list= ([3902, -1], [15656, -1], [7628, -1], [1037, -1]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
+    dying_graphic_list = (storage.yoditDeathScreamID, 15655, 7627, 1034)
+    walking_graphic_list = (3905, 15658, 7630, 1041)
 
     string_start_thrower = 300633
 
@@ -372,6 +383,7 @@ def add_Thrower_line(df: DatFile):
 
         thrower_variant.type_50.max_range = range_list[idx]
         thrower_variant.type_50.displayed_range = displayed_range_list[idx]
+        thrower_variant.type_50.accuracy_percent = accuracy_list[idx]
 
         thrower_variant.icon_id = icon_list [idx]
         thrower_variant.type_50.projectile_unit_id = storage.ThrowerProjectileIDs[idx]

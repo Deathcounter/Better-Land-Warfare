@@ -59,10 +59,10 @@
 321636 "Create <b>Ninja<b> (<cost>)\nJapenese unique ranged Infantry with fast melee attack. Strong vs. weakly armored Units, Unique Units, Shock Infantry, Spearman- and Skirmisher-line. Weak vs armored Soldiers and units at close range\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); attack, missed attack damage, to Knife Thrower (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300637 "Lancer"
 301637 "Create Lancer"
-321637 "Create <b>Lancer<b> (<cost>)\nBulky armored Cavalry with longer reach. Strong vs armored Units, Infantry. Weak vs Spearman-line, Ranged Soldiers, Scorpions and Monks.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP, to Heavy Lancer (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+321637 "Create <b>Lancer<b> (<cost>)\nBulky armored Heavy Cavalry with longer reach. Strong vs armored Units, Infantry. Weak vs Spearman-line, Ranged Soldiers, Scorpions and Monks.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP, to Heavy Lancer (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300638 "Heavy Lancer"
 301638 "Create Heavy Lancer"
-321638 "Create <b>Heavy Lancer<b> (<cost>)\nBulky armored Cavalry with longer reach. Strong vs armored Units, Infantry. Weak vs Spearman-line, Ranged Soldiers, Scorpions and Monks.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+321638 "Create <b>Heavy Lancer<b> (<cost>)\nBulky armored Heavy Cavalry with longer reach. Strong vs armored Units, Infantry. Weak vs Spearman-line, Ranged Soldiers, Scorpions and Monks.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300639 "Flamethrower"
 301639 "Build Flamethrower"
 321639 "Create <b>Flamethrower<b> (<cost>)\nSiege Weapon that spews fire at enemies but cannot attack at close range. Strong vs. Wooden Buildings, Gunpowder units and Ranged Soldiers. Weak vs. units at close range.\n<GREY><i>Upgrades: range (University); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
@@ -90,7 +90,7 @@
 33333 "Upgrade to Knife Thrower"
 33334 "Upgrade to Hatchet Thrower"
 33335 "Upgrade to Ninja"
-33336 "Research Thrower techniques (Thrower-line +1 attack; missed thrown weapons deal full damage)"
+33336 "Research Throwing techniques (Thrower-line +1 attack; missed thrown weapons deal full damage)"
 33337 "Research Wooden Grip (Thrower-line +1 range; missed thrown weapons more accurate)"
 33338 "Research Holster (Thrower-line attacks 20% faster; no minimum range)"
 33339 "Research Balanced Weaponry (Thrower-line +1 attack; thrown weapons move faster)"
@@ -102,20 +102,46 @@
 53333 "Upgrade to <b>Knife Thrower<b> (<cost>)\nUpgrades your Dart Throwers and lets you create Knife Throwers, which are stronger."
 53334 "Upgrade to <b>Hatchet Thrower<b> (<cost>)\nUpgrades your Knife Throwers and lets you create Hatchet Throwers, which are stronger."
 53335 "Upgrade to <b>Ninja<b> (<cost>)\nUpgrades your Knife Throwers and lets you create Ninjas, which are stronger and deal bonus damage against Unique Units." 
-53336 "Research <b>Thrower techniques<b> (<cost>)\nThrower-line +1 attack; Missed thrown weapons deal full damage."
+53336 "Research <b>Throwing techniques<b> (<cost>)\nThrower-line +1 attack; Missed thrown weapons deal full damage."
 53337 "Research <b>Wooden Grip<b> (<cost>)\nThrower-line +1 range; missed thrown weapons more accurate."
 53338 "Research <b>Holster<b> (<cost>)\nThrower-line attacks 20% faster; no minimum range."
 53339 "Research <b>Balanced Weaponry<b> (<cost>)\nThrower-line +1 attack; thrown weapons move faster."
 53340 "Research <b>Shield Boss<b> (<cost>)\nMilitia- and Billman-line +1 pierce armor."
 
 //Armenians
-120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Infantry (except Spearman-line) +30 HP; Warrior Priests heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"
-IDS_CIVTIPS_44_3 "Research Fereters in your Castle decreases the bonus damage your Infantry receive significantly, while also making your Warrior Monks heal faster."
-28406 "Research <b>Fereters<b> (<cost>)\nBarrack units +10 Infantry armor; Warrior Priests heal +100% faster."
-8406 "Research Fereters (Barrack units +10 Infantry armor; Warrior Priests heal +100% faster)
+120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"
+IDS_CIVTIPS_44_3 "Research Fereters in your Castle to nullify enemy bonus damage against your Barrack Units. Warrior Monks also receive less bonus damage, while also healing faster."
+8406 "Research Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)"
+28406 "Research <b>Fereters<b> (<cost>)\nBarrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster."
 
 //Bohemians
 120188 "Gunpowder and Monk civilization\n\n• Mining Camp technologies free\n• Blacksmiths and Universities cost -100 wood\n• Spearman- and Billman-line deals +20% bonus damage\n• Fervor and Sanctity affect Villagers\n• Chemistry and Hand Cannoneer available in Castle Age\n\n<b>Unique Units:<b>\nHussite Wagon (Siege Gunpowder Unit), Houfnice (Siege Gunpowder Unit)\n\n<b>Unique Techs:<b>\n• Wagenburg Tactics (Gunpowder Units move +15% faster)\n• Hussite Reforms (Monks and Monastery technologies gold cost is replaced by food cost)\n\n<b>Team Bonus:<b>\nMarkets work +80% faster"
 
 //Burmese
 120179 "Infantry and Cavalry civilization\n\n• Lumber Camp technologies free\n• Barrack Units +1/+2/+3 attack in Feudal/Castle/Imperial Age\n• Battle Elephants +1 melee/+1 pierce armor\n• Monastery technologies cost -50%\n\n<b>Unique Unit:<b>\nArambai (Ranged Mounted Unit)\n\n<b>Unique Techs:<b>\n• Manipur Cavalry (Cavalry +4 attack vs. Ranged Soldiers)\n• Howdah (Battle Elephants +1 melee/+1 pierce armor)\n\n<b>Team Bonus:<b>\nRelics visible on the map at the start of the game"
+
+//Franks
+120151 "Cavalry civilization\n\n• Foragers work +20% faster\n• Mill technologies free\n• Knights and Lancers +20% HP \n• Castles cost -15/25% in Castle/Imperial Age\n\n<b>Unique Unit:<b> \nThrowing Axeman (Infantry)\n\n<b>Unique Techs:<b> \n• Bearded Axe (Throwing Axemen +1 range)\n• Chivalry (Stables work +40% faster)\n\n<b>Team Bonus:<b> \nKnight-line +2 line of sight"
+
+//Jurchens
+120201 "Cavalry and Gunpowder civilization\n\n• Meat of hunted and livestock animals doesn't decay\n• Lancers, Steppe Lancers and Fire Lancers attack +25% faster\n• Siege Engineers available in Castle Age\n• Siege and Fortification upgrades cost -75% wood and research +100% faster\n• Units receive -50% friendly fire damage\n\n<b>Unique Units:<b>\nIron Pagoda (Cavalry), Grenadier (Gunpowder Unit)\n\n<b>Unique Techs:<b>\n• Fortified Bastions (Fortifications regenerate 500 HP per minute)\n• Thunderclap Bombs (Rocket Carts, Grenadiers and Lou Chuans detonate when defeated; projectiles produce additional explosions)\n\n<b>Team Bonus:<b>\nGunpowder Units +2 line of sight"
+
+//Slavs
+120172 "Infantry and Siege civilization\n\n• Farmers work +15% faster\n• Arson, Gambesons free\n• Siege Workshop Units cost -15%\n• Monks move +20% faster\n\n<b>Unique Unit:<b> \nBoyar (Cavalry)\n\n<b>Unique Techs:<b> \n• Detinets (Replaces 40% of Castle and Watch Tower-line stone cost with additional wood cost)\n• Druzhina (Melee Infantry deals trample damage)\n\n<b>Team Bonus:<b> \nMilitary buildings provide +5 population space"
+IDS_CIVTIPS_23_2 "Research Druzhina in your Castle to allow melee infantry units, such as Halberdiers, to hit several adjacent enemies with each attack."
+8269 "Research Druzhina (Melee Infantry deals trample damage)"
+28269 "Research <b>Druzhina<b> (<cost>)\nMelee Infantry deals trample damage."
+
+//Poles
+120187 "Cavalry civilization\n\n• Folwark replaces Mill\n•Villagers regenerate 10/15/20 HP in Feudal/Castle/Imperial Age\n• Stone Miners generate gold in addition to stone\n• Stable technologies cost -75% gold\n\n<b>Unique Units:<b>\nObuch (Infantry), Winged Hussar (Cavalry)\n\n<b>Unique Techs:<b>\n• Szlachta Privileges (Knight-line costs -60% gold)\n• Lechitic Legacy (Scout Cavalry-line deals trample damage)\n\n<b>Team Bonus:<b>\nScout Cavalry-line +1 attack vs. Ranged Soldiers"
+
+//Romans
+120192 "Infantry civilization\n\n• Villagers gather, build, and repair +5% faster\n• Blacksmith Infantry armor upgrade effects are doubled\n• Scorpions cost -60% gold\n• Galley-line and Dromons +1 melee/+1 pierce armor\n\n<b>Unique Unit:<b>\nCenturion (Cavalry), Legionary (Infantry)\n\n<b>Unique Techs:<b>\n• Ballistas (Scorpions attack +33% faster; Galley-line +2 attack)\n• Comitatenses (Militia-line, Knight-line, and Centurions train +50% faster and receive a charge attack)\n\n<b>Team Bonus:<b>\nScorpions minimum range reduced"
+
+//Vietnamese
+120180 "Archer civilization\n\n• Enemy Town Centers are revealed at the start of the game\n• Economic upgrades cost no wood and research +100% faster\n• Foot Archers and Fire Lancers +25% HP\n• Conscription free\n\n<b>Unique Units:<b>\nRattan Archer (Foot Archer), Imperial Skirmisher (Skirmisher)\n\n<b>Unique Techs:<b>\n• Chatras (Battle Elephants +100 HP)\n• Paper Money (Lumberjacks slowly generate gold in addition to wood)\n\n<b>Team Bonus:<b>\nImperial Skirmisher upgrade available in Imperial Age"
+
+//Vikings
+120160 "Infantry and Naval civilization\n\n• Wheelbarrow, Hand Cart free\n• Infantry +20% HP starting in Feudal Age\n• Warships cost -10/15/20% in Feudal/Castle/Imperial Age\n\n<b>Unique Units:<b> \nBerserk (Infantry), Longboat (Warship)\n\n<b>Unique Techs:<b> \n• Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)\n• Bogsveigar (Archer-line and Longboats +1 attack)\n\n<b>Team Bonus:<b> \nDocks cost -15%"
+8312 "Research Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)
+28312 "Research <b>Chieftains<b> (<cost>)\nMelee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks.

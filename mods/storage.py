@@ -1,9 +1,21 @@
 #These are all the IDs added through various modules in this script. This file allows cross-module access to these IDs
-#For example, when I add a new unit, I need to access to it's ID to make the (make avail) effect. Then I need the ID of tat effect to add the corresponding technology of it
+#For example, when I add a new unit, I need to access to it's ID to make the (make avail) effect. Then I need the ID of that effect to add the corresponding technology of it
 
-lightmode = 0 #basically disables function who might take a longer time and shouldn't be resolved every test run
+lightmode = False #if True basically disables function who might take a longer time and shouldn't be resolved every test run
+
+
+#sounds
+dartSoundID: int
+
+#graphics
+dartProjectileGraphicID: int # with custom sound
+silentNorseWarriorID: int # removes the melee audio of Norse Warrior 
+silentNinjaID: int # and Ninja
+yoditDeathScreamID: int
 
 #units
+deadLancerUnitID: int
+
 ThrowerProjectileIDs = []
 
 BillmanIDs = []
