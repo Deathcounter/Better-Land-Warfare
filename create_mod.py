@@ -5,9 +5,14 @@ import argparse
 import hashlib
 import pickle
 import logging
+import json
+
 from pathlib import Path
 
 from genieutils.datfile import DatFile
+
+from mods.json_editing import change_iconsJson
+
 
 from mods import add_sounds
 from mods import add_graphics
@@ -21,6 +26,8 @@ from mods import change_existing_techs
 from mods import change_existing_civs
 from mods import change_existing_tech_tree
 
+from mods import storage
+
 
 logging.basicConfig(level=logging.INFO, filename="logs_BLL.txt", filemode="w", format="%(levelname)s - %(message)s")
 
@@ -30,6 +37,84 @@ logging.basicConfig(level=logging.INFO, filename="logs_BLL.txt", filemode="w", f
 # Once the object has been parsed, you make the modifications you want to the object
 # Once this is complete, you can write the new object to a new file using the DatFile.save method
 def main():
+    reading_blw_dat_folder()
+    create_file_structure()
+    editing_json_files()
+    # make_ingame_modifications()
+
+def reading_blw_dat_folder():
+    storage.blwDatPath = (Path(__file__).parent / "blw dat")
+    iconFilePath = (Path(__file__).parent / "blw dat" / "icons.json") # Path of json File
+    if not iconFilePath.exists():
+        print("No file named \"icons.json\" found in blw dat folder.")
+        print("\nSuggested Troubleshoot:\n* Copy the icons.json from the gamefiles (\Steam\steamapps\common\AoE2DE\widgetui) in the blw dat folder")
+        quit()
+    if not storage.blwDatPath.exists():
+        print("Error creating mod, no folder called \"blw dat\" found.")
+        print(f"\nSuggested Troubleshoot:\n* Create a blw dat folder name in {Path(__file__).parent}")
+        quit()
+    with open(iconFilePath,"r") as f:
+        data = json.load(f)    # Load the data of Json File
+        
+
+
+    tech_keys = data.get("Techs", {}) # Get the keys
+    try:
+        # find highest key and convert it to int
+        last_tech_key = max(int(idx) for idx in tech_keys.keys() if idx.lstrip("0").isdigit() or idx.isdigit())
+    except ValueError:
+        # no numeric keys found
+        last_tech_key = None
+
+    # store for later use
+    if last_tech_key is not None:
+        storage.si = last_tech_key # store highest key as integer
+    
+
+
+
+def create_file_structure():
+    rel_directory = (Path(__file__).parent / "finished_mods").resolve()
+    rel_directory.mkdir(parents=True, exist_ok=True)
+    storage.datFolder = (Path(__file__).parent / "finished_mods" / "Better Land Warfare (Official Data Mod)" / "resources" / "_common" / "dat").resolve()
+    storage.datFolder.mkdir(parents=True, exist_ok=True)
+    storage.soundFolder = (storage.datFolder.parent / "drs" / "sounds").resolve()
+    storage.soundFolder.mkdir(parents=True, exist_ok=True)
+    storage.dataModFolder = (rel_directory / "Better Land Warfare (Official Data Mod)").resolve()
+
+    
+    # languages = ["br", "de", "en", "es", "fr", "hi", "it", "jp", "ko", "ms", "mx", "pl", "ru", "tr", "tw", "vi", "zh"] # all languages as of 29.11.25
+    # checking all folders in blw dat ()
+
+    supported_languages = []
+    try:
+        for file in storage.blwDatPath.iterdir(): # Iterate through all the files in BLW/blw dat
+            if file.is_dir and len(file.name)<3: # every folder that has 2 or fewer charachter (language shortcuts)
+                supported_languages.append(file.name)
+    except FileNotFoundError:
+        print(f"Error creating mod, EITHER no folder called \"blw dat\" found.")
+        print("\nOR no file named \"icons.json\" found.")
+        print(f"\nSuggested Troubleshoot:\n* Create a blw dat folder name in {Path(__file__).parent} OR \n* Copy the icons.json from the gamefiles (\Steam\steamapps\common\AoE2DE\widgetui) in the blw dat folder")
+        
+
+    for lang_shortcut in supported_languages:
+        lang_folders = (Path(__file__).parent / "finished_mods" / "Better Land Warfare (Official Data Mod)" / "resources" / f"{lang_shortcut}" / "strings" / "key-value").resolve()
+        lang_folders.mkdir(parents = True, exist_ok=True)
+        storage.languageFolders.append(lang_folders)
+
+    storage.UIModFolder = (rel_directory / "Better Land Warfare (Official UI Mod)" )
+    storage.widgetUIFolder = (Path(__file__).parent / "finished_mods" / "Better Land Warfare (Official UI Mod)" / "widgetui").resolve()
+    storage.widgetUIFolder.mkdir(parents=True, exist_ok=True)
+    storage.techIconFolder = (Path(__file__).parent / "finished_mods" / "Better Land Warfare (Official UI Mod)" / "widgetui" / "textures" / "ingame" / "tech").resolve()
+    storage.techIconFolder.mkdir(parents=True, exist_ok=True)
+
+
+def editing_json_files():
+    change_iconsJson.run_change_iconsJson()
+
+
+    
+def make_ingame_modifications():
     print("Loading base data...")
     cache_file = None
     cache_file, dfBase = load_cache(Path("datfiles/base_game.dat"))

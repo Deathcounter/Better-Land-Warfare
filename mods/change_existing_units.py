@@ -17,31 +17,16 @@ logging.getLogger(__name__)
 NAME = "change_existing_units"
 
 def run_change_existing_units (df: DatFile):
-    if (not storage.lightmode):
-        add_armored_unit_class (df)
-
     give_scorpion_lancer_damage (df)
     move_condo_trainbutton (df)
     move_genitour_trainbutton (df)
     give_steppelancers_lancer_class (df)
     buff_iron_pagoda (df)
     nerf_rattan_archers (df)
+    if (not storage.lightmode):
+        add_armored_unit_class (df)
 
     logging.info("Successfully changed all existing units")
-
-def add_armored_unit_class (df: DatFile):
-    # Give all units whose base unit has more than 3 combined armor the armored unit class (= armor class) lancer have bonus against
-    unitList: list[Unit] = []
-    unitList = helpers.find_units_with_3_combined_armor(df)
-    for civ in df.civs:
-        for unit in unitList:
-            if (AttackOrArmor (50,0) not in civ.units[unit.id].type_50.armours):
-                civ.units[unit.id].type_50.armours.append(AttackOrArmor (50,0))
-                logging.debug(f"Appended Armored Unit class to {civ.units[unit.id].name}")
-    logging.info("Added Armored Unit Armor Class")
-            
-
-
 
 def give_scorpion_lancer_damage (df: DatFile):
     lancer_damage: AttackOrArmor = AttackOrArmor (51,3) #add lancer damage of scorpion
@@ -85,3 +70,14 @@ def nerf_rattan_archers (df: DatFile):
         civ.units[1131].hit_points = 40
     logging.debug("Nerfed Rattan Archer HP")
 
+def add_armored_unit_class (df: DatFile):
+    # Give all units whose base unit has more than 3 combined armor the armored unit class (= armor class) lancer have bonus against
+    unitList: list[Unit] = []
+    unitList = helpers.find_units_with_3_combined_armor(df)
+    for civ in df.civs:
+        for unit in unitList:
+            if (AttackOrArmor (50,0) not in civ.units[unit.id].type_50.armours):
+                civ.units[unit.id].type_50.armours.append(AttackOrArmor (50,0))
+                logging.debug(f"Appended Armored Unit class to {civ.units[unit.id].name}")
+    logging.info("Added Armored Unit Armor Class")
+            

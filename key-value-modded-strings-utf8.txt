@@ -143,5 +143,5 @@ IDS_CIVTIPS_23_2 "Research Druzhina in your Castle to allow melee infantry units
 
 //Vikings
 120160 "Infantry and Naval civilization\n\n• Wheelbarrow, Hand Cart free\n• Infantry +20% HP starting in Feudal Age\n• Warships cost -10/15/20% in Feudal/Castle/Imperial Age\n\n<b>Unique Units:<b> \nBerserk (Infantry), Longboat (Warship)\n\n<b>Unique Techs:<b> \n• Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)\n• Bogsveigar (Archer-line and Longboats +1 attack)\n\n<b>Team Bonus:<b> \nDocks cost -15%"
-8312 "Research Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)
-28312 "Research <b>Chieftains<b> (<cost>)\nMelee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks.
+8312 "Research Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)"
+28312 "Research <b>Chieftains<b> (<cost>)\nMelee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks."

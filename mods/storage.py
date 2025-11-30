@@ -1,5 +1,6 @@
 #These are all the IDs added through various modules in this script. This file allows cross-module access to these IDs
 #For example, when I add a new unit, I need to access to it's ID to make the (make avail) effect. Then I need the ID of that effect to add the corresponding technology of it
+from pathlib import Path 
 
 lightmode = False #if True basically disables function who might take a longer time and shouldn't be resolved every test run
 
@@ -73,3 +74,15 @@ throwingTechniquesIconID = si+7
 throwerBlacksmithIconIDs = [si+8, si+9, si+10]
 
 shieldBossIconID = si+11
+
+#folder paths
+datFolder: Path
+soundFolder: Path
+dataModFolder: Path
+languageFolders = []
+
+UIModFolder: Path
+widgetUIFolder: Path
+techIconFolder: Path
+
+blwDatPath: Path
