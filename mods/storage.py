@@ -4,6 +4,10 @@ from pathlib import Path
 
 lightmode = False #if True basically disables function who might take a longer time and shouldn't be resolved every test run
 
+# constants
+techStrings =   ["Scytheman", "FlailWarrior", "HeavyLancer", "KnifeThrower", "HatchetThrower", "Ninja", 
+                "ThrowingTechniques", "WoodenGrip", "Holster", "BalancedWeaponry", "ShieldBoss"]
+
 
 #sounds
 dartSoundID: int
@@ -86,3 +90,6 @@ widgetUIFolder: Path
 techIconFolder: Path
 
 blwDatPath: Path
+
+# Json content
+techIconList = []

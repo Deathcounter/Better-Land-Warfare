@@ -90,8 +90,8 @@
 33333 "Upgrade to Knife Thrower"
 33334 "Upgrade to Hatchet Thrower"
 33335 "Upgrade to Ninja"
-33336 "Research Throwing techniques (Thrower-line +1 attack; missed thrown weapons deal full damage)"
-33337 "Research Wooden Grip (Thrower-line +1 range; missed thrown weapons more accurate)"
+33336 "Research Throwing techniques (Thrower-line +1 range; missed thrown weapons deal full damage)"
+33337 "Research Wooden Grip (Thrower-line +1 attack; missed thrown weapons more accurate)"
 33338 "Research Holster (Thrower-line attacks 20% faster; no minimum range)"
 33339 "Research Balanced Weaponry (Thrower-line +1 attack; thrown weapons move faster)"
 33340 "Research Shield Boss (Militia- and Billman-line +1 pierce armor)"
@@ -102,11 +102,14 @@
 53333 "Upgrade to <b>Knife Thrower<b> (<cost>)\nUpgrades your Dart Throwers and lets you create Knife Throwers, which are stronger."
 53334 "Upgrade to <b>Hatchet Thrower<b> (<cost>)\nUpgrades your Knife Throwers and lets you create Hatchet Throwers, which are stronger."
 53335 "Upgrade to <b>Ninja<b> (<cost>)\nUpgrades your Knife Throwers and lets you create Ninjas, which are stronger and deal bonus damage against Unique Units." 
-53336 "Research <b>Throwing techniques<b> (<cost>)\nThrower-line +1 attack; Missed thrown weapons deal full damage."
-53337 "Research <b>Wooden Grip<b> (<cost>)\nThrower-line +1 range; missed thrown weapons more accurate."
+53336 "Research <b>Throwing techniques<b> (<cost>)\nThrower-line +1 range; Missed thrown weapons deal full damage."
+53337 "Research <b>Wooden Grip<b> (<cost>)\nThrower-line +1 attack; missed thrown weapons more accurate."
 53338 "Research <b>Holster<b> (<cost>)\nThrower-line attacks 20% faster; no minimum range."
 53339 "Research <b>Balanced Weaponry<b> (<cost>)\nThrower-line +1 attack; thrown weapons move faster."
 53340 "Research <b>Shield Boss<b> (<cost>)\nMilitia- and Billman-line +1 pierce armor."
+
+8450 "Research Gambesons (Militia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP)"
+28450 "Research <b>Gambesons<b> (<cost>)\nMilitia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP."
 
 //Armenians
 120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"

@@ -12,6 +12,7 @@ from pathlib import Path
 from genieutils.datfile import DatFile
 
 from mods.json_editing import change_iconsJson
+from mods.json_editing import change_materialsJson
 
 
 from mods import add_sounds
@@ -40,13 +41,13 @@ def main():
     reading_blw_dat_folder()
     create_file_structure()
     editing_json_files()
-    # make_ingame_modifications()
+    #make_ingame_modifications()
 
 def reading_blw_dat_folder():
     storage.blwDatPath = (Path(__file__).parent / "blw dat")
     iconFilePath = (Path(__file__).parent / "blw dat" / "icons.json") # Path of json File
     if not iconFilePath.exists():
-        print("No file named \"icons.json\" found in blw dat folder.")
+        print("No file named icons.json found in blw dat folder.")
         print("\nSuggested Troubleshoot:\n* Copy the icons.json from the gamefiles (\Steam\steamapps\common\AoE2DE\widgetui) in the blw dat folder")
         quit()
     if not storage.blwDatPath.exists():
@@ -63,7 +64,7 @@ def reading_blw_dat_folder():
         # find highest key and convert it to int
         last_tech_key = max(int(idx) for idx in tech_keys.keys() if idx.lstrip("0").isdigit() or idx.isdigit())
     except ValueError:
-        # no numeric keys found
+        # this should never happen
         last_tech_key = None
 
     # store for later use
@@ -93,7 +94,7 @@ def create_file_structure():
                 supported_languages.append(file.name)
     except FileNotFoundError:
         print(f"Error creating mod, EITHER no folder called \"blw dat\" found.")
-        print("\nOR no file named \"icons.json\" found.")
+        print("\nOR no file named icons.json found.")
         print(f"\nSuggested Troubleshoot:\n* Create a blw dat folder name in {Path(__file__).parent} OR \n* Copy the icons.json from the gamefiles (\Steam\steamapps\common\AoE2DE\widgetui) in the blw dat folder")
         
 
@@ -111,7 +112,7 @@ def create_file_structure():
 
 def editing_json_files():
     change_iconsJson.run_change_iconsJson()
-
+    change_materialsJson.run_change_materialsJson()
 
     
 def make_ingame_modifications():

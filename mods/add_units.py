@@ -192,7 +192,7 @@ def add_Lancer_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(35, 101, 13, 16737) # train time, stable (101), button 13 - gets changed below, hotkey ID (Shrivamsha Rider)
+    train_location_final: TrainLocation = TrainLocation(35, 101, 13, 16737) # 35s train time, stable (101), button 13 - gets changed below, hotkey ID (Shrivamsha Rider)
     base.creatable.train_locations.append(train_location_final)
 
     
@@ -222,7 +222,7 @@ def add_Lancer_line(df: DatFile):
     icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
     attack_graphic_list = (15801, 15138)
     attack_graphic2_list = (-1, -1)
-    dead_unit_list = (2392, 570)
+    dead_unit_list = (2392, storage.deadLancerUnitID)
     standing_graphic_list= ([15804, 15802], [15140, 15764]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
     dying_graphic_list = (15803, 15139)
     walking_graphic_list = (15806, 15143)
@@ -324,7 +324,7 @@ def add_Thrower_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(30, 87, 9, 16743) # train time, archery range (87), button 9, hotkey ID (Slinger)
+    train_location_final: TrainLocation = TrainLocation(30, 87, 9, 16743) # 30s train time, archery range (87), button 9, hotkey ID (Slinger)
     base.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, militia has correct values.... for now
@@ -343,20 +343,20 @@ def add_Thrower_line(df: DatFile):
     accuracy_list = (65, 70, 75, 90)
 
     displayed_attack_list = (3, 4, 5, 4)
-    displayed_m_armor_list = (1, 1, 2, 1)
-    displayed_p_armor_list = (0, 1, 1, 1)
+    displayed_m_armor_list = (0, 1, 1, 1)
+    displayed_p_armor_list = (0, 0, 1, 0)
 
                                     # melee,               spearman,         skirmisher,          standard building,       armored units           
     attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(27,2), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(50,1))
     attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,2))
     attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,3), AttackOrArmor(50,2))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,1), AttackOrArmor (19, 3)) # extra attack vs unique units
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,2), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
-    armor_list_dart_thrower    = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
-    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_hatchet_thrower = (AttackOrArmor(4,2), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
 
     icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     
@@ -477,7 +477,7 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.attacks.clear() #delete all info from flamethrower to future proof
     flame_thrower.type_50.armours.clear()
                                         #melee,             building class,       gunpowder,              ships,           fishing ships
-    flame_thrower.type_50.attacks = [AttackOrArmor(4,4), AttackOrArmor(11,6), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3)] 
+    flame_thrower.type_50.attacks = [AttackOrArmor(5,4), AttackOrArmor(11,8), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3)] 
                                         #melee,                 pierce,             rams,                   siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
     

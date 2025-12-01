@@ -97,11 +97,15 @@ def thrower_upgrades_e (df: DatFile):
     # @Thrower Upgrades
     #blacksmith upgrades and throwing techniques
 
-    #Throwing techniques: Thrower-line +1 attack; Missed thrown weapons deal full damage. 
+    #Throwing techniques: Thrower-line +1 range; Missed thrown weapons deal full damage. 
     throwing_techniques_ec: EffectCommand = []
     for thrower_id in range(len(storage.ThrowerIDs)):
-                                    # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Attack (9), Amount (1), Class Melee Attack (4)
-        throwing_techniques_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 9, amount_type_to_d(1, 4))) 
+                                              # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Range (12), Amount (1)
+        throwing_techniques_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 12, 1))
+                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. LoS (1), Amount (1)
+        throwing_techniques_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 1, 1))
+                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Search Radius (23), Amount (1)
+        throwing_techniques_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 23, 1)) 
     
     for thrower_projectile in range(len(storage.ThrowerProjectileIDs)):
                                                     #Attr. Modifier Set (0), Projectiles Unit (ID), Class (-1), Attr. Smart Projectile (19), = 2
@@ -115,15 +119,12 @@ def thrower_upgrades_e (df: DatFile):
     
 
 
-    #Wooden Grip: Thrower-line +1 range; missed thrown weapons more accurate
+    #Wooden Grip: Thrower-line +1 attack; missed thrown weapons more accurate
     wooden_grip_ec: EffectCommand = []
     for thrower_id in range(len(storage.ThrowerIDs)):
-                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Range (12), Amount (1)
-        wooden_grip_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 12, 1))
-                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. LoS (1), Amount (1)
-        wooden_grip_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 1, 1))
-                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Search Radius (23), Amount (1)
-        wooden_grip_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 23, 1)) 
+                            
+                            # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Attack (9), Amount (1), Class Melee Attack (4)
+        wooden_grip_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 9, amount_type_to_d(1, 4))) 
 
                                 # Attr. Modifier Multiply (5), Thrower Unit (ID), Class (-1), Attr. attack dispersion (64), Amount (0.5 = halved)
         wooden_grip_ec.append(EffectCommand(5, storage.ThrowerIDs[thrower_id], -1, 64, 0.5)) 
