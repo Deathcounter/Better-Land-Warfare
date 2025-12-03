@@ -28,6 +28,12 @@ LancerIDs = []
 ThrowerIDs = []
 FlameThrowerID: int
 
+#unit names
+billmanNames = []
+lancerNames = []
+throwerNames = []
+flamethrowerName = str
+
 #effects
 billmanAvailID: int
 lancerAvailID: int
@@ -90,6 +96,7 @@ widgetUIFolder: Path
 techIconFolder: Path
 
 blwDatPath: Path
+constantsPath: Path
 
 # Json content
 techIconList = []

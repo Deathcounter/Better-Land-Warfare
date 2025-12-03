@@ -73,6 +73,7 @@ def add_Billman_line(df: DatFile):
     base.creatable.resource_costs = (foodcost, goldcost, headroom)
     
     name_list = ('Billman', 'Scytheman', 'Flail Warrior')
+    storage.billmanNames = name_list
     hp_list = (50, 60, 70)
     speed_list = (1.05, 1.1, 1.2) 
 
@@ -203,6 +204,7 @@ def add_Lancer_line(df: DatFile):
     base.creatable.resource_costs = (foodcost, goldcost, headroom)
 
     name_list = ('Lancer', 'Heavy Lancer')
+    storage.lancerNames = name_list
     hp_list = (115, 145)
     speed_list = (1.25, 1.3) 
 
@@ -334,6 +336,7 @@ def add_Thrower_line(df: DatFile):
     base.creatable.resource_costs = (foodcost, goldcost, headroom)
 
     name_list = ('Dart Thrower', 'Knife Thrower', 'Hatchet Thrower', 'Ninja')
+    storage.throwerNames = name_list
     hp_list = (35, 40, 45, 50)
     speed_list = (1, 1.05, 1.05, 1.15) 
     frame_delay_list = (16, 14, 14, 12)
@@ -454,6 +457,7 @@ def add_FlameThrower(df: DatFile):
     flame_thrower = copy.deepcopy(df.civs[0].units[188]) # copy flamethrower
 
     flame_thrower.name = "Flame Thrower BLL"
+    storage.flamethrowerName = flame_thrower.name
     flame_thrower.id = len(df.civs[0].units)  # assign new ID
     storage.FlameThrowerID = flame_thrower.id
     flame_thrower.enabled = 0
