@@ -39,7 +39,7 @@ CIV_TECH_MATRIX = {
     "Huns":         [0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
     "Incas":        [0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1],
     "Italians":     [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1],
-    "Japanese":     [0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0],
+    "Japanese":     [0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0],
     "Jurchens":     [1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0],
     "Khitans":      [1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
     "Khmer":        [0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
@@ -68,7 +68,17 @@ CIV_TECH_MATRIX = {
     "Wu":           [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
     }
 
-TECH_IDS_BY_SLOT = [
+#As to why I change these civs, refer to the Game Design document of the mod
+def run_change_tech_tree (df: DatFile):
+    add_BLL_tech_tree (df)
+    logging.info("Successfully shaped the Tech Trees")
+
+    
+
+def add_BLL_tech_tree (df: DatFile):
+
+    # list of the 11 tech IDs that correspond to each boolean position
+    TECH_IDS_BY_SLOT = [
     storage.shieldBossTechId,               # slot  0 -> Shield Boss
     storage.shieldBossTechId2,              # slot  1 -> Shield Boss without Gambesons req - inserted later, not yet part of Civ Tech Matrix***
     storage.throwingTechniquesTechID,       # slot  2 -> Throwing techniques
@@ -83,18 +93,6 @@ TECH_IDS_BY_SLOT = [
     storage.billmanUpgradeTechs[1]          # slot 11 -> Flail Warrior
     ]
 
-#As to why I change these civs, refer to the Game Design document of the mod
-def run_change_tech_tree (df: DatFile):
-    add_BLL_tech_tree (df)
-    logging.info("Successfully shaped the Tech Trees")
-
-    
-
-def add_BLL_tech_tree (df: DatFile):
-
-    # list of the 11 tech IDs that correspond to each boolean position
-    
-
     missing_civ_amount = -7 # I am expected to not include the 6 chronical civs + Gaia. Needs to be updated for each new non-standard civ.
 
     
@@ -103,6 +101,7 @@ def add_BLL_tech_tree (df: DatFile):
         cfg = CIV_TECH_MATRIX.get(civ.name, None)
         if cfg is None:
             # no custom maxtrix for this civ -> skip, +1 to the debug variable
+            #CIV_TECH_MATRIX.update({civ.name, list[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}) - # doesnt work, wanted to give 0 to non AoE2 civs
             logging.debug(f"No Tech matrix found for civ {civ.name}")
             missing_civ_amount += 1
             continue
