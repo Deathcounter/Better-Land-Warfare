@@ -29,8 +29,8 @@ def run_change_existing_units (df: DatFile):
     logging.info("Successfully changed all existing units")
 
 def give_scorpion_lancer_damage (df: DatFile):
-    lancer_damage: AttackOrArmor = AttackOrArmor (51,3) #add lancer damage of scorpion
-    heavy_lancer_damage: AttackOrArmor = AttackOrArmor (51,5) #add lancer damage of heavy scorpion
+    lancer_damage: AttackOrArmor = AttackOrArmor (91,3) #add lancer damage of scorpion
+    heavy_lancer_damage: AttackOrArmor = AttackOrArmor (91,5) #add lancer damage of heavy scorpion
     for civ in df.civs:
         civ.units[279].type_50.attacks.append(lancer_damage)
         civ.units[542].type_50.attacks.append(heavy_lancer_damage)
@@ -50,17 +50,19 @@ def move_genitour_trainbutton (df: DatFile):
 
 
 def give_steppelancers_lancer_class (df: DatFile):
-    lancer_class: AttackOrArmor = AttackOrArmor (51,0) #add lancer armor to Steppe Lancer
+    lancer_class: AttackOrArmor = AttackOrArmor (91,0) #add lancer armor to Steppe Lancer
     for civ in df.civs:
         civ.units[1370].type_50.armours.append(lancer_class)
         civ.units[1372].type_50.armours.append(lancer_class)
     logging.debug("Gave Steppelancer-line the lancer class")
 
 def buff_iron_pagoda (df: DatFile):
-    # actually its a nerf, but since I change Jurchens Civ bonus, it's a buff. 2.28 -> 1.9 originally. Now 1.9 -> 2.0
+    # actually its a nerf, but since I change Jurchens Civ bonus, it's a buff. 2.15 -> 1.72 originally. Now 1.72 -> 1.85
     for civ in df.civs:
-        civ.units[1908].type_50.reload_time = 2
-        civ.units[1908].type_50.displayed_reload_time = 2
+        civ.units[1908].type_50.reload_time = 1.85
+        civ.units[1908].type_50.displayed_reload_time = 1.85
+        civ.units[1910].type_50.reload_time = 1.85
+        civ.units[1910].type_50.displayed_reload_time = 1.85
     logging.debug("Buffed Iron Pagoda Attack Speed")
 
 def nerf_rattan_archers (df: DatFile):

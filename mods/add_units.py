@@ -83,9 +83,9 @@ def add_Billman_line(df: DatFile):
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
                                         # melee,              cavalry,        armored units,        elephant,             camel
-    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(50,3), AttackOrArmor(5,8),  AttackOrArmor(30,1))
-    attack_list_scyteman        = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(50,4), AttackOrArmor(5,14), AttackOrArmor(30,2))
-    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(50,5), AttackOrArmor(5,18), AttackOrArmor(30,3))
+    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1))
+    attack_list_scyteman        = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2))
+    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3))
 
                                 # melee,                pierce,             infantry,     shock infantry (eagle)
     armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
@@ -214,12 +214,12 @@ def add_Lancer_line(df: DatFile):
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
                                 # melee,                camel               armored units
-    attack_list_lancer      = (AttackOrArmor(4,8),  AttackOrArmor(30,2), AttackOrArmor(50,6)) 
-    attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(50,9))
+    attack_list_lancer      = (AttackOrArmor(4,8),  AttackOrArmor(30,2), AttackOrArmor(90,6)) 
+    attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(90,9))
 
                                 # melee,                pierce,             cavalry           lancer unit
-    armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,3), AttackOrArmor(51,0))
-    armor_list_heavylancer  = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(51,0))
+    armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,3), AttackOrArmor(91,0))
+    armor_list_heavylancer  = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(91,0))
 
     icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
     attack_graphic_list = (15801, 15138)
@@ -350,10 +350,10 @@ def add_Thrower_line(df: DatFile):
     displayed_p_armor_list = (0, 0, 1, 0)
 
                                     # melee,               spearman,         skirmisher,          standard building,       armored units           
-    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(27,2), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(50,1))
-    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,2))
-    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,3), AttackOrArmor(50,2))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(50,2), AttackOrArmor (19, 3)) # extra attack vs unique units
+    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(27,2), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(90,1))
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2))
+    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,3), AttackOrArmor(90,2))
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
     armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))
@@ -480,8 +480,10 @@ def add_FlameThrower(df: DatFile):
 
     flame_thrower.type_50.attacks.clear() #delete all info from flamethrower to future proof
     flame_thrower.type_50.armours.clear()
+
+    flame_thrower.type_50.displayed_attack = 5
                                         #melee,             building class,       gunpowder,              ships,           fishing ships
-    flame_thrower.type_50.attacks = [AttackOrArmor(5,4), AttackOrArmor(11,8), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3)] 
+    flame_thrower.type_50.attacks = [AttackOrArmor(4, 5), AttackOrArmor(11,8), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3)] 
                                         #melee,                 pierce,             rams,                   siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
     

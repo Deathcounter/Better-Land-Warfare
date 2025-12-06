@@ -83,7 +83,7 @@ def create_modified_materialsJson():
     for tech_value in reversed(storage.techIconList):
        
         # Build the material entry you want to add. Adjust fields as needed.
-        materialDef= {
+        materialDef = {
             "MaterialDef": {
                 "Name": f"{tech_value}",
                 "Type": "Atlas",
@@ -99,16 +99,14 @@ def create_modified_materialsJson():
         
         # Turns the string "FlailWarrior" from techStrings into "314_Flail_Warrior.dds" - the regex expression adds an "_" before any uppercase letter
         ddsfilename = (f"{technumber+len(storage.techStrings)}"+"_"+re.sub(r"(\w)([A-Z])", r"\1_\2", storage.techStrings[idx-1])+".dds") # idx-1 because I need to back to front for the same reason explained before the for loop
-        textures= {
-            "Textures": {
+        textures = {
                 "RefName": f"{tech_value}",
                 "FileName": "textures/ingame/tech/"+ddsfilename.lower(),
-                "imageTLX": "0.588350",
-                "imageTLY": "0.470703",
-                "imageBRX": "0.646944",
-                "imageBRY": "0.529297"
+                "imageTLX": "0.500122",
+                "imageTLY": "0.000244",
+                "imageBRX": "0.562378",
+                "imageBRY": "0.124756"
             }
-        }
         insertedAtlas = insert_atlas_after_prefix(data, prefix, textures)
         if(not insertedAtlas):
             counter2+=1

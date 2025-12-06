@@ -47,6 +47,8 @@ throwerUpgradeIDs = []
 throwingTechniquesID: int
 throwerBlacksmithIDs = []
 
+japanese_staggered_as_IDs = []
+
 shieldBossId: int
 
 billmanAutoUpgradeAge3: int
@@ -84,6 +86,16 @@ throwingTechniquesIconID = si+7
 throwerBlacksmithIconIDs = [si+8, si+9, si+10]
 
 shieldBossIconID = si+11
+
+#tech names
+throwerUpgradeNames = []
+billmanUpgradeNames = []
+lancerUpgradeName = str
+
+throwingTechniquesUpgradeName = str
+throwerBlacksmithUpgradeNames = []
+
+shieldBossUpgradeName: str
 
 #folder paths
 datFolder: Path

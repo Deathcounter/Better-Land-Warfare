@@ -11,8 +11,6 @@ from pathlib import Path
 
 from genieutils.datfile import DatFile
 
-from mods.json_editing import change_iconsJson
-from mods.json_editing import change_materialsJson
 from mods.json_editing import pre_mod_json_editing
 from mods.json_editing import post_mod_json_editing
 
