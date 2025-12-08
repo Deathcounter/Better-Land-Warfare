@@ -195,7 +195,7 @@ def japanese_staggering_attackspeed_e (df: DatFile):
     multipliers = [0.90909, 0.95652, 0.95833, 0.96]
     percentages = [10, 15, 20, 25]
     for idx, multiplier in enumerate(multipliers):
-        storage.japanese_staggered_as_IDs.append(len(df.effects))
+        storage.japaneseStaggeredAS_IDs.append(len(df.effects))
         japenese_attackspeed_effect: Effect = Effect (f"C-Bonus, Inf {percentages[idx]} Attack Spd", [EffectCommand (5, -1, 6, 10, multiplier), EffectCommand (5, 1831, -1, 10, multiplier)])
         df.effects.append(japenese_attackspeed_effect)
     

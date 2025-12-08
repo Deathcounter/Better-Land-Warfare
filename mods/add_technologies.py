@@ -20,6 +20,7 @@ def run_add_technologies (df: DatFile):
     unit_upgrades_t (df)
     thrower_upgrades_t (df)
     shield_boss_t (df)
+    japanese_staggering_attackspeed_t (df)
     billman_auto_upgrade (df)
 
 def make_avail_techs (df: DatFile):
@@ -120,6 +121,7 @@ def unit_upgrades_t (df: DatFile):
     scytheman_upgrade_tech.language_dll_name = string_start_scytheman_tech
     scytheman_upgrade_tech.language_dll_description = string_start_scytheman_tech + 1000
     scytheman_upgrade_tech.language_dll_help = string_start_scytheman_tech + 100000
+    scytheman_upgrade_tech.language_dll_tech_tree = string_start_scytheman_tech + 149000
     df.techs.append(scytheman_upgrade_tech)
     logging.debug (f"Added Scytheman Upgrade tech at ID {storage.billmanUpgradeTechs[0]}")
 
@@ -151,6 +153,7 @@ def unit_upgrades_t (df: DatFile):
     flailWarrior_upgrade_tech.language_dll_name = string_start_flailWarrior_tech
     flailWarrior_upgrade_tech.language_dll_description = string_start_flailWarrior_tech + 1000
     flailWarrior_upgrade_tech.language_dll_help = string_start_flailWarrior_tech + 100000
+    flailWarrior_upgrade_tech.language_dll_tech_tree = string_start_flailWarrior_tech + 149000
     df.techs.append(flailWarrior_upgrade_tech)
     logging.debug (f"Added Flail Warrior Upgrade tech at ID {storage.billmanUpgradeTechs[1]}")
 
@@ -174,6 +177,7 @@ def unit_upgrades_t (df: DatFile):
     heavyLancer_upgrade_tech.language_dll_name = string_start_heavyLancer_tech
     heavyLancer_upgrade_tech.language_dll_description = string_start_heavyLancer_tech + 1000
     heavyLancer_upgrade_tech.language_dll_help = string_start_heavyLancer_tech + 100000
+    heavyLancer_upgrade_tech.language_dll_tech_tree = string_start_heavyLancer_tech + 149000
     df.techs.append (heavyLancer_upgrade_tech)
     logging.debug (f"Added Heavy Lancer Upgrade tech at ID {storage.lancerUpgradeTech}")
     
@@ -197,6 +201,7 @@ def unit_upgrades_t (df: DatFile):
     knifeThrower_upgrade_tech.language_dll_name = string_start_knifeThrower_tech
     knifeThrower_upgrade_tech.language_dll_description = string_start_knifeThrower_tech + 1000
     knifeThrower_upgrade_tech.language_dll_help = string_start_knifeThrower_tech + 100000
+    knifeThrower_upgrade_tech.language_dll_tech_tree = string_start_knifeThrower_tech + 149000
     df.techs.append (knifeThrower_upgrade_tech)
     logging.debug (f"Added Knife Thrower Upgrade tech at ID {storage.throwerUpgradeTechs[0]}")
 
@@ -211,8 +216,8 @@ def unit_upgrades_t (df: DatFile):
     hatchetThrower_upgrade_tech.name = "Hatchet Thrower"
     storage.throwerUpgradeNames.append(hatchetThrower_upgrade_tech.name)
     hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 14, 418078) # 87 in Archery Range, 25 seconds ResearchTime, Button 14 und Hotkey ID of Cycle Recruitment Doctrine
-    foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
-    goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 325 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 550 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, yep, still nothing
     hatchetThrower_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 
@@ -220,6 +225,7 @@ def unit_upgrades_t (df: DatFile):
     hatchetThrower_upgrade_tech.language_dll_name = string_start_hatchetThrower_tech
     hatchetThrower_upgrade_tech.language_dll_description = string_start_hatchetThrower_tech + 1000
     hatchetThrower_upgrade_tech.language_dll_help = string_start_hatchetThrower_tech + 100000
+    hatchetThrower_upgrade_tech.language_dll_tech_tree = string_start_hatchetThrower_tech + 149000
     df.techs.append (hatchetThrower_upgrade_tech)
     logging.debug (f"Added Hatchet Thrower Upgrade tech at ID {storage.throwerUpgradeTechs[1]}")
 
@@ -235,8 +241,8 @@ def unit_upgrades_t (df: DatFile):
     storage.throwerUpgradeNames.append(ninja_upgrade_tech.name)
     ninja_upgrade_tech.civ = 5 # Japanese
     ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 14, 18262) # 87 in Archery Range, 25 seconds ResearchTime, Button 14 und Hotkey ID of Onager
-    foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 120 cost, 1 deduct yes
-    goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 225 cost, 1 deduct yes
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 475, 1) # 0 food storage, 475 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 425, 1) # 3 gold storage, 425 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # thanks for keep reading this, not many will
     ninja_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 
@@ -244,6 +250,7 @@ def unit_upgrades_t (df: DatFile):
     ninja_upgrade_tech.language_dll_name = string_start_ninja_tech
     ninja_upgrade_tech.language_dll_description = string_start_ninja_tech + 1000
     ninja_upgrade_tech.language_dll_help = string_start_ninja_tech + 100000
+    ninja_upgrade_tech.language_dll_tech_tree = string_start_ninja_tech + 149000
     df.techs.append (ninja_upgrade_tech)
     logging.debug (f"Added Ninja Upgrade tech at ID {storage.throwerUpgradeTechs[2]}")
 
@@ -269,6 +276,7 @@ def thrower_upgrades_t (df: DatFile):
     throwing_techniques_tech.language_dll_name = string_start_throwing_techniques_tech
     throwing_techniques_tech.language_dll_description = string_start_throwing_techniques_tech + 1000
     throwing_techniques_tech.language_dll_help = string_start_throwing_techniques_tech + 100000
+    throwing_techniques_tech.language_dll_tech_tree = string_start_throwing_techniques_tech + 149000
     df.techs.append (throwing_techniques_tech)
     logging.debug (f"Added Throwing techniques tech at ID {storage.throwingTechniquesTechID}")
 
@@ -292,6 +300,7 @@ def thrower_upgrades_t (df: DatFile):
     wooden_grip_tech.language_dll_name = string_start_wooden_grip_tech
     wooden_grip_tech.language_dll_description = string_start_wooden_grip_tech + 1000
     wooden_grip_tech.language_dll_help = string_start_wooden_grip_tech + 100000
+    wooden_grip_tech.language_dll_tech_tree = string_start_wooden_grip_tech + 149000
     df.techs.append (wooden_grip_tech)
     logging.debug (f"Added Wooden Grip tech at ID {storage.throwerBlacksmithTechIDs[0]}")
 
@@ -317,6 +326,7 @@ def thrower_upgrades_t (df: DatFile):
     holster_tech.language_dll_name = string_start_holster_tech
     holster_tech.language_dll_description = string_start_holster_tech + 1000
     holster_tech.language_dll_help = string_start_holster_tech + 100000
+    holster_tech.language_dll_tech_tree = string_start_holster_tech + 149000
     df.techs.append (holster_tech)
     logging.debug (f"Added Holster tech at ID {storage.throwerBlacksmithTechIDs[1]}")
 
@@ -341,6 +351,7 @@ def thrower_upgrades_t (df: DatFile):
     balanced_weaponry_tech.language_dll_name = string_start_balanced_weaponry
     balanced_weaponry_tech.language_dll_description = string_start_balanced_weaponry + 1000
     balanced_weaponry_tech.language_dll_help = string_start_balanced_weaponry + 100000
+    balanced_weaponry_tech.language_dll_tech_tree = string_start_balanced_weaponry + 149000
     df.techs.append (balanced_weaponry_tech)
     logging.debug (f"Added Balanced Weaponry tech at ID {storage.throwerBlacksmithTechIDs[2]}")
 
@@ -366,6 +377,7 @@ def shield_boss_t (df: DatFile):
     shield_boss_tech.language_dll_name = string_start_shield_boss
     shield_boss_tech.language_dll_description = string_start_shield_boss + 1000
     shield_boss_tech.language_dll_help = string_start_shield_boss + 100000
+    shield_boss_tech.language_dll_tech_tree = string_start_shield_boss + 149000
     df.techs.append (shield_boss_tech)
     logging.debug (f"Added Shield Boss tech at ID {storage.shieldBossTechId}")
 
@@ -380,13 +392,15 @@ def shield_boss_t (df: DatFile):
 
 def japanese_staggering_attackspeed_t (df: DatFile):
     agetechs = [104, 101, 102, 103]
-    for idx, effect in enumerate(storage.japanese_staggered_as_IDs):
+    technames = [10, 15, 20, 25]
+    for idx, jap_effect in enumerate(storage.japaneseStaggeredAS_IDs):
         japanese_staggering_as_tech = helpers.create_empty_tech()
-        japanese_staggering_as_tech.required_techs (agetechs(idx), -1, -1, -1, -1, -1)
-        japanese_staggering_as_tech.effect_id = effect
+        japanese_staggering_as_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
+        japanese_staggering_as_tech.effect_id = jap_effect
         japanese_staggering_as_tech.civ = 5 # Japanese
         japanese_staggering_as_tech.repeatable = 1
         japanese_staggering_as_tech.required_tech_count = 1
+        japanese_staggering_as_tech.name = f"C-Bonus, {technames [idx]} Inf Attack Spd"
         df.techs.append(japanese_staggering_as_tech)
 
 

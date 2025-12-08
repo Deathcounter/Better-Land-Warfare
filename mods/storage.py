@@ -2,7 +2,7 @@
 #For example, when I add a new unit, I need to access to it's ID to make the (make avail) effect. Then I need the ID of that effect to add the corresponding technology of it
 from pathlib import Path 
 
-lightmode = False #if True basically disables function who might take a longer time and shouldn't be resolved every test run
+lightmode = True #if True basically disables function who might take a longer time and shouldn't be resolved every test run
 
 # constants
 techStrings =   ["Scytheman", "FlailWarrior", "HeavyLancer", "KnifeThrower", "HatchetThrower", "Ninja", 
@@ -34,6 +34,18 @@ lancerNames = []
 throwerNames = []
 flamethrowerName = str
 
+#unit icons
+billmanUnitIcons = []
+lancerUnitIcons = []
+throwerUnitIcons = []
+flamethrowerUnitIcon = []
+
+#unit languagestrings 
+billmanStringID: int
+lancermanStringID: int
+throwerStringID: int
+flamethrowerStringID: int
+
 #effects
 billmanAvailID: int
 lancerAvailID: int
@@ -47,7 +59,7 @@ throwerUpgradeIDs = []
 throwingTechniquesID: int
 throwerBlacksmithIDs = []
 
-japanese_staggered_as_IDs = []
+japaneseStaggeredAS_IDs = []
 
 shieldBossId: int
 

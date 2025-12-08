@@ -17,6 +17,7 @@ NAME = "add_tasks"
 
 def run_add_tasks (df: DatFile):
     add_Billman_killreward (df)
+    add_Flamethrower_vs_tree (df)
 
 
 
@@ -36,10 +37,20 @@ def add_Billman_killreward (df: DatFile):
     
 
     for idx, billman in enumerate(storage.BillmanIDs):
-            for unit_class in affected_classes:
-                task = copy.deepcopy(base_task)
-                task.id = len(df.civs[0].units[billman].bird.tasks)
-                task.class_id = unit_class
-                task.gather_type = billman_attack_gain[idx] # 2/3/4 attack
-                df.civs[0].units[billman].bird.tasks.append(task)
-                
+        for unit_class in affected_classes:
+            task = copy.deepcopy(base_task)
+            task.id = len(df.civs[0].units[billman].bird.tasks)
+            task.class_id = unit_class
+            task.gather_type = billman_attack_gain[idx] # 2/3/4 attack
+            df.civs[0].units[billman].bird.tasks.append(task)
+
+def add_Flamethrower_vs_tree (df: DatFile):
+    tree_task = helpers.create_empty_task()
+    tree_task.id = len(df.civs[0].units[storage.FlameThrowerID].bird.tasks)
+    tree_task.action_type = 7
+    tree_task.class_id = 15
+    tree_task.auto_search_targets = 1
+    tree_task.search_wait_time = 3
+    tree_task.target_diplomacy = 3
+    tree_task.gather_type = 1
+    df.civs[0].units[storage.FlameThrowerID].bird.tasks.append(tree_task)

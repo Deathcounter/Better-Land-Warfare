@@ -16,9 +16,14 @@ CIV_NAMES = ["Aztecs", "Berbers", "Britons", "Burgundians", "Bulgarians", "Burme
              "Shu", "Wu", "Wei", "Jurchens", "Khitans"
             ]
 
+REPLACE_CIV_NAMES = {"Franks": "French", "Britons": "British", "Byzantines": "Byzantine", "Indians": "Hindustanis", "Mayans": "Mayan"}
+
+
 def run_post_mod_json_editing():
     create_modified_unitCategoriesJson()
     create_modified_futureAvailUnitsJson()
+    create_modified_unitlinesJson()
+    create_modified_civTechTreesJson()
 
 def create_modified_unitCategoriesJson():
     iconFilePath = (storage.blwDatPath / "unitcategories.json").resolve() # Path of input json File
@@ -68,14 +73,13 @@ def create_modified_unitCategoriesJson():
 
 def create_modified_futureAvailUnitsJson():
     from mods.change_existing_tech_tree import CIV_TECH_MATRIX
-    iconFilePath = (storage.blwDatPath / "futuravailableunits.json").resolve() # Path of input json File
-    with open(iconFilePath,"r", encoding="utf-8") as f:
+    futurAvailFilePath = (storage.blwDatPath / "futuravailableunits.json").resolve() # Path of input json File
+    with open(futurAvailFilePath,"r", encoding="utf-8") as f:
         data: dict = json.load(f)    # Load the data of Json File
-    replaceCivNames = {"Franks": "French", "Britons": "British", "Byzantines": "Byzantine", "Indians": "Hindustanis", "Mayans": "Mayan"}
-    for idx, civ in enumerate(CIV_NAMES):
+    for civ in CIV_NAMES:
         civdata = data.get(civ)
-        if (civ in replaceCivNames):
-            civ = replaceCivNames.get(civ)
+        if (civ in REPLACE_CIV_NAMES):
+            civ = REPLACE_CIV_NAMES.get(civ)
         buildings = civdata.setdefault("Buildings", []) if isinstance(civdata, dict) else None
         techlist = CIV_TECH_MATRIX.get(civ)
         #print(idx) just helped me figuring out which civ names I couldnt spell
@@ -84,7 +88,7 @@ def create_modified_futureAvailUnitsJson():
                 if (i in [1, 10, 11] and building.get("ID") == 12):
                     barrackTechs = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     barrackUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
-                    if (i == 1):
+                    if (i == 1): # just once
                         billmanUnitDict = {
                             "ID": storage.BillmanIDs[0],
                             "Name": storage.billmanNames[0],
@@ -92,7 +96,7 @@ def create_modified_futureAvailUnitsJson():
                         }
                         barrackUnits.append(billmanUnitDict) # billman is availale for all civs always, therefore there is no check
                     if (i == 1 and techlist[i] == 1):
-                        RequiredAge = 3 if civ is not "Armenians" else 2
+                        RequiredAge = 3 if civ != "Armenians" else 2
                         shieldBossDict = {
                             "ID": storage.shieldBossTechId,
                             "Name": storage.shieldBossUpgradeName,
@@ -100,7 +104,7 @@ def create_modified_futureAvailUnitsJson():
                         }
                         barrackTechs.append(shieldBossDict)
                     if (i == 10 and techlist[i] == 1):
-                        RequiredAge = 3 if civ is not "Armenians" else 2
+                        RequiredAge = 3 if civ != "Armenians" else 2
                         scythemanTechDict = {
                             "ID": storage.billmanUpgradeTechs[0],
                             "Name": storage.billmanUpgradeNames[0],
@@ -115,7 +119,7 @@ def create_modified_futureAvailUnitsJson():
                         barrackUnits.append(scythemanUnitDict)
 
                     if (i == 11 and techlist[i] == 1):
-                        RequiredAge = 4 if civ is not "Armenians" else 3
+                        RequiredAge = 4 if civ != "Armenians" else 3
                         flailWarriorTechDict = {
                             "ID": storage.billmanUpgradeTechs[1],
                             "Name": storage.billmanUpgradeNames[1],
@@ -139,7 +143,7 @@ def create_modified_futureAvailUnitsJson():
                             "RequiredAge": 2
                         }
                         rangeUnits.append(dartThrowerUnitDict)
-                    if (i == 2 and civ is "Japanese"):
+                    if (i == 2 and civ == "Japanese"):
                         RequiredAge = 4
                         ninjaUnitDict = {
                             "ID": storage.ThrowerIDs[3],
@@ -214,7 +218,7 @@ def create_modified_futureAvailUnitsJson():
                             "RequiredAge": 4
                         }
                         blacksmithTech.append(balancedWeaponryDict)
-                if (i in [9,10] and building.get("ID") == 101):
+                if (i in [8,9] and building.get("ID") == 101):
                     stableTechs = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     stableUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
                     
@@ -233,12 +237,12 @@ def create_modified_futureAvailUnitsJson():
                         }
                         heavyLancerTechDict = {
                             "ID": storage.lancerUpgradeTech,
-                            "Name": storage.lancerUpgradeName[1],
+                            "Name": storage.lancerUpgradeName,
                             "RequiredAge": 4
                         }
                         stableUnits.append(heavyLancerUnitDict)
                         stableTechs.append(heavyLancerTechDict)
-                if (building.get("ID") == 49):
+                if (i == 1 and building.get("ID") == 49):
                     siegeUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
                     flameThrowerUnitDict = {
                         "ID": storage.FlameThrowerID,
@@ -246,8 +250,181 @@ def create_modified_futureAvailUnitsJson():
                         "RequiredAge": 4   
                     }
                     siegeUnits.append(flameThrowerUnitDict)
-    outputFilePath = (storage.blwDatPath / "newfuturavailableunits.json").resolve() # Path of output Json File        
+    outputFilePath = (storage.datFolder / "futuravailableunits.json").resolve() # Path of output Json File        
     with open(outputFilePath, "w", encoding="utf-8") as output:
         json.dump(data, output, indent=2, ensure_ascii=False)
+
+
+
+
+def create_modified_unitlinesJson():
+    unitLinesFilePath = (storage.blwDatPath / "unitlines.json").resolve() # Path of input json File
+    with open(unitLinesFilePath,"r", encoding="utf-8") as f:
+        data = json.load(f)    # Load the data of Json File
+    UnitLines = data.setdefault("UnitLines", []) # get the list of dictionaries
+    linelist = []
+    availNumbers = []
+    for line in UnitLines:
+        linelist.append(line.get("LineID")) # get all line IDs
+
+    for idx in range (-399,-199):
+        if idx not in linelist: # if numbers from 399 to 200 are not in the already present line IDs = free available ID
+            availNumbers.append(idx) # append the available ID
+    if (len(availNumbers) <=4):
+        print("Warning: unitlinesJson has run out of IDs within the valid -400, -199 range")
+
+    # @TotalUnitLines = 3
+    UnitLineNames = ["Thrower", "Billman", "Lancer"] # Flamethrower not needed here, units that only consist of a single unit (e.g Condos, Jian Swordsman, Flemish Militia), are not a "line"
+    UnitLineIDs = [storage.ThrowerIDs, storage.BillmanIDs, storage.LancerIDs]
+    for idx, unit in enumerate(UnitLineNames):
+        lineDict = {
+            "Name": unit + " Line",
+            "Identifier": (unit + "-line").lower(),
+            "LineID": availNumbers[idx],
+            "IDChain": UnitLineIDs[idx]
+        }
+        UnitLines.append(lineDict)
+
+    outputFilePath = (storage.datFolder / "unitlines.json").resolve() # Path of output Json File        
+    with open(outputFilePath, "w", encoding="utf-8") as output:
+        json.dump(data, output, indent=2, ensure_ascii=False)
+
+
+
+def create_modified_civTechTreesJson():
+    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+    REPLACE_CIV_NAMES.update({"Magyar": "Magyars"})
+
+    civTechTreePath = (storage.blwDatPath / "civTechTrees.json").resolve() # Path of input json File
+    with open(civTechTreePath,"r", encoding="utf-8") as f:
+        data: dict = json.load(f)    # Load the data of Json File
     
+    civs = data.setdefault("civs", [])
     
+
+    throwerUnitAmount = len(storage.ThrowerIDs)
+    billmanUnitAmount = len(storage.BillmanIDs)
+    lancerUnitAmount = len(storage.LancerIDs)
+    flamethrowerUnitAmount = 1
+    for civ in civs:
+        civname: str = civ.get("civ_id")
+        civname = civname.capitalize() # civTechTree contains all civs with Uppercase letters: "AZTECS" - but both my global Dict use "Aztecs" -> capitalize() needed
+        if (civname in REPLACE_CIV_NAMES):
+            civname = REPLACE_CIV_NAMES.get(civname)
+        if (civname not in CIV_TECH_MATRIX.keys()):
+            continue
+
+        unitDicts = build_BLW_unitDict(civname)
+        units: list[dict] = civ.setdefault("civ_techs_units", [])
+        for idx, unit in enumerate(units):
+            # if "Cavalry Archer" in unit.values(): - to check if there even is an Cavalry Archer, but there should always be (unless non AoE2 civs)
+            if unit.get("Name") == "Cavalry Archer":
+                for unitindex in range(throwerUnitAmount-1):
+                    units.insert(idx+unitindex, unitDicts[unitindex])
+                break
+
+    outputFilePath = (storage.datFolder / "civTechTrees.json").resolve() # Path of output Json File        
+    with open(outputFilePath, "w", encoding="utf-8") as output:
+        json.dump(data, output, indent=2, ensure_ascii=False)
+
+
+def build_BLW_unitDict(civname: str) -> list[dict]:
+    logging.debug("Added civTechTree for following civs" + civname)
+    unitDict: list[dict] = []
+
+    throwerAges = [2,3,4,4] # Feudal, Castle, Imp, Imp - might want to add that to storage if needed elsewhere
+    LinkIDs = storage.ThrowerIDs.copy() # The link ID is always the ID of the previous Node ID. The NodeID is the Id of the Unit and links to other NodeIDs specified in "LinkID"
+    LinkIDs.insert(0, -1) # Therefore the linked ID list always is one idx behind the thrower IDs and the base unit has no LinkID (therefore -1 inserted at 0)
+    TriggerTechIDs = storage.throwerUpgradeTechs.copy() # Same goes for Trigger Tech ID
+    TriggerTechIDs.insert(0, -1)
+
+    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+
+    availability = CIV_TECH_MATRIX.get(civname) 
+
+    throwerAvailList = []
+    throwerAvailList.extend((1, availability[6], availability[7]))
+    
+    for idx in range(len(storage.ThrowerIDs)-1):
+        NodeType = "Unit" if idx == 0 else "UnitUpgrade" # the base unit is not an upgrade and just exists in Feudal (like archer)
+        LinkNodeType = "Building Tech" if idx == 0 else "Unit" # also changes like Node Type and is another conditions for the lines to appear
+        NodeStatus = "NotAvailable" if not throwerAvailList[idx] else "ResearchedCompleted"
+        linkidx = 0
+        if civname == "Japanese" and idx == 2:
+            idx = 3
+            NodeType = "UniqueUnit"
+            linkidx = 1
+            NodeStatus = "ResearchedCompleted"
+        throwerDict = {
+            "Age ID": throwerAges[idx],
+            "Building ID": 87,
+            "Draw Node Type": "UnitTech",
+            "Help String ID": storage.throwerStringID + 100000 + idx,
+            "Link ID": LinkIDs[idx-linkidx],
+            "Link Node Type": LinkNodeType,
+            "Name": storage.throwerNames[idx],
+            "Name String ID": storage.throwerStringID + 9000 + idx,
+            "Node ID": storage.ThrowerIDs[idx],
+            "Node Status": NodeStatus,
+            "Node Type": NodeType,
+            "Picture Index": storage.throwerUnitIcons[idx],
+            "Prerequisite IDs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Prerequisite Types": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "Trigger Tech ID": TriggerTechIDs[idx],
+            "Use Type": "Unit"
+        }
+        unitDict.append(throwerDict)
+    """
+    billmanAges = [2,3,4] 
+    LinkIDs = storage.BillmanIDs.copy() 
+    LinkIDs.insert(0, -1)
+    TriggerTechIDs = storage.throwerUpgradeTechs.copy()
+    TriggerTechIDs.insert(0, -1)
+    for idx, thrower in enumerate(storage.ThrowerIDs):
+        NodeType = "Unit" if idx == 0 else "UnitUpgrade" # the base unit is not an upgrade and just exists in Feudal (like archer)
+        LinkNodeType = "Building Tech" if idx == 0 else "Unit" # also changes like Node Type and is another conditions for the lines to appear
+        throwerDict = {
+            "Age ID": throwerAges[idx],
+            "Building ID": 87,
+            "Draw Node Type": "UnitTech",
+            "Help String ID": storage.throwerStringID + 100000 + idx,
+            "Link ID": LinkIDs[idx],
+            "Link Node Type": LinkNodeType,
+            "Name": storage.throwerNames[idx],
+            "Name String ID": storage.throwerStringID + 9000 + idx,
+            "Node ID": thrower,
+            "Node Status": "ResearchedCompleted",
+            "Node Type": NodeType,
+            "Picture Index": storage.throwerUnitIcons[idx],
+            "Prerequisite IDs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Prerequisite Types": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "Trigger Tech ID": TriggerTechIDs[idx],
+            "Use Type": "Unit"
+        }
+        unitDict.append(throwerDict)
+    """
+    return unitDict

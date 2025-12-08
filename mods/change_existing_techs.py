@@ -63,9 +63,9 @@ def blacksmith_infantry_attack_upgrades (df: DatFile):
         for thrower in storage.ThrowerIDs:
                                                 # Attr. Modifier +-(4), ThrowerId, Class -1, Attack(9), Amount (-1), Melee Attackclass (4)
             if (infantry_attack_upgrade == 75):
-                value = -1026
+                value = -1026 #turns into negative -1 for melee Attack class
             else:
-                value = -1025
+                value = -1025 #turns into negative -2 for melee Attack class (Blast Furnace)
                 
             remove_Thrower_attack: EffectCommand = EffectCommand(4, thrower, -1, 9, value)     
             df.effects[infantry_attack_upgrade].effect_commands.append(remove_Thrower_attack)

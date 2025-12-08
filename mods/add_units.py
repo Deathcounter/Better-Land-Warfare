@@ -74,7 +74,7 @@ def add_Billman_line(df: DatFile):
     
     name_list = ('Billman', 'Scytheman', 'Flail Warrior')
     storage.billmanNames = name_list
-    hp_list = (50, 60, 70)
+    hp_list = (50, 60, 70) 
     speed_list = (1.05, 1.1, 1.2) 
 
     displayed_attack_list = (5, 6, 7)
@@ -92,7 +92,7 @@ def add_Billman_line(df: DatFile):
     armor_list_scyteman =       (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
     armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,3), AttackOrArmor(29,0))
 
-    icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
+    storage.billmanUnitIcons = icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
 
     attack_graphic_list = (16797, 15813, 16786)
     attack_graphic2_list = (16802, -1, -1)
@@ -101,7 +101,7 @@ def add_Billman_line(df: DatFile):
     dying_graphic_list = (16798, 15815, 16787)
     walking_graphic_list = (16801, 15818, 16790)
 
-    string_start_billman = 300630
+    storage.billmanStringID = string_start_billman = 300630
 
     for idx in range(len(name_list)):
         billman_variant = copy.deepcopy(base) # copy each billman type from the base copy
@@ -218,10 +218,10 @@ def add_Lancer_line(df: DatFile):
     attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(90,9))
 
                                 # melee,                pierce,             cavalry           lancer unit
-    armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,3), AttackOrArmor(91,0))
+    armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,4), AttackOrArmor(91,0))
     armor_list_heavylancer  = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(91,0))
 
-    icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
+    storage.lancerUnitIcons = icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
     attack_graphic_list = (15801, 15138)
     attack_graphic2_list = (-1, -1)
     dead_unit_list = (2392, storage.deadLancerUnitID)
@@ -229,7 +229,7 @@ def add_Lancer_line(df: DatFile):
     dying_graphic_list = (15803, 15139)
     walking_graphic_list = (15806, 15143)
 
-    string_start_lancer = 300637
+    storage.lancermanStringID = string_start_lancer = 300637
 
     for idx in range(len(name_list)):
         lancer_variant = copy.deepcopy(base) # copy each lancer type from the base copy
@@ -289,7 +289,7 @@ def add_Lancer_line(df: DatFile):
             if helpers.does_civ_have_unit (df, idx, 329): # if civ has Camels
                 if helpers.does_civ_have_unit (df, idx, 1370): # if civ has Camels AND Steppe Lancers
                     button = 13
-                    df.civs[idx].units.append(lancer_variant_13) # put the Lancer in Slot 13 (even tho those civs won't get lancers) - also idc about Full tech tree lol
+                    df.civs[idx].units.append(lancer_variant_13) # put the Lancer in Slot 13 (even tho those civs won't get lancers) - also Full tech tree is another can of worms
                 else:
                     button = 4
                     df.civs[idx].units.append(lancer_variant_4) # put the Lancer-line in Slot 4
@@ -361,7 +361,7 @@ def add_Thrower_line(df: DatFile):
     armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
     armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
 
-    icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
+    storage.throwerUnitIcons = icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     
     # Graphics of (Yodit, Rhodian Slinger, Norse Warrior, Ninja)
     attack_graphic_list = (3900, 15654, storage.silentNorseWarriorID, storage.silentNinjaID)
@@ -371,7 +371,7 @@ def add_Thrower_line(df: DatFile):
     dying_graphic_list = (storage.yoditDeathScreamID, 15655, 7627, 1034)
     walking_graphic_list = (3905, 15658, 7630, 1041)
 
-    string_start_thrower = 300633
+    storage.throwerStringID = string_start_thrower = 300633
 
     for idx in range(len(name_list)):
         thrower_variant = copy.deepcopy(base) # copy each thrower type from the base copy
@@ -411,7 +411,7 @@ def add_Thrower_line(df: DatFile):
             elif idx == 3:
                 attack_ninja: AttackOrArmor = attack_list_ninja [index] 
                 thrower_variant.type_50.attacks.append (attack_ninja)
-                if index == 3:
+                if index+1 == len(attack_list_dart_thrower):
                     thrower_variant.type_50.attacks.append (attack_list_ninja [index+1]) # add the extra attack vs unique units
             else:
                 logging.error("Error: Atleast one too much Thrower Variant")
@@ -427,7 +427,7 @@ def add_Thrower_line(df: DatFile):
                 armor_hatchetthrower: AttackOrArmor = armor_list_hatchet_thrower [index] 
                 thrower_variant.type_50.armours.append (armor_hatchetthrower)
             elif idx == 3:
-                armor_ninja: AttackOrArmor = armor_list_hatchet_thrower [index] 
+                armor_ninja: AttackOrArmor = armor_list_ninja [index] 
                 thrower_variant.type_50.armours.append (armor_ninja)
             else:
                 logging.error("Error: Atleast one too much Thrower Variant")
@@ -456,7 +456,7 @@ def add_FlameThrower(df: DatFile):
     # @Flamethrower
     flame_thrower = copy.deepcopy(df.civs[0].units[188]) # copy flamethrower
 
-    flame_thrower.name = "Flame Thrower BLL"
+    flame_thrower.name = "Flamethrower"
     storage.flamethrowerName = flame_thrower.name
     flame_thrower.id = len(df.civs[0].units)  # assign new ID
     storage.FlameThrowerID = flame_thrower.id
@@ -482,15 +482,15 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.armours.clear()
 
     flame_thrower.type_50.displayed_attack = 5
-                                        #melee,             building class,       gunpowder,              ships,           fishing ships
-    flame_thrower.type_50.attacks = [AttackOrArmor(4, 5), AttackOrArmor(11,8), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3)] 
+                                        #melee,             building class,       gunpowder,              ships,           fishing ships     So that flamethrowers only deal 5 damage to trees
+    flame_thrower.type_50.attacks = [AttackOrArmor(4, 5), AttackOrArmor(11,8), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3), AttackOrArmor(92, -17)] 
                                         #melee,                 pierce,             rams,                   siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
     
     flame_thrower.type_50.displayed_melee_armour = -3
     flame_thrower.creatable.displayed_pierce_armour = 12
 
-    flame_thrower.icon_id = 144 # not really needed cause the base flame thrower already has it
+    storage.flamethrowerUnitIcon = flame_thrower.icon_id = 144 # not really needed cause the base flame thrower already has it
 
 
     flame_thrower.creatable.train_locations.clear()
@@ -504,7 +504,7 @@ def add_FlameThrower(df: DatFile):
     headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
     flame_thrower.creatable.resource_costs = (foodcost, goldcost, headroom)
 
-    string_start_flamer = 300639
+    storage.flamethrowerStringID = string_start_flamer = 300639
     
     flame_thrower.language_dll_name = string_start_flamer
     flame_thrower.language_dll_creation = string_start_flamer + 1000

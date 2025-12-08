@@ -25,7 +25,7 @@ def create_modified_iconsJson():
         # Append keys to the "Tech" header(?)
         data['Techs'].update({f"{Techidx}": "TechIconsT"+str(Techidx)+str(techname)})
         Techidx +=1 # increment it
-
+    
     outputFilePath = (storage.widgetUIFolder / "icons.json").resolve() # build path of output File        
     with open (outputFilePath, "w", encoding="utf-8") as output:
         json.dump(data, output, indent=2)
@@ -40,7 +40,7 @@ def create_modified_materialsJson():
 
     def insert_mat_after_prefix(data: dict, prefix: str, new_entry: dict) -> bool:
         # Insert new_entry into data['Materials'] immediately after first MaterialDef with Name starting with prefix.
-        mats = data.setdefault("Materials", [])
+        mats: list[dict] = data.setdefault("Materials", [])
         for i, item in enumerate(mats):
             md = item.get("MaterialDef") if isinstance(item, dict) else None
             name = md.get("Name") if isinstance(md, dict) else None
@@ -52,7 +52,7 @@ def create_modified_materialsJson():
 
     def insert_atlas_after_prefix(data: dict, prefix: str, new_entry: dict) -> bool:
         # Insert new_entry into ['Textures'] immediately after first Texture with Name starting with prefix.
-        atlas = data.setdefault("AtlasTextures", []) # get a list of all the AtlasTexture content (consists of a List of Dictionaries)
+        atlas: list[dict] = data.setdefault("AtlasTextures", []) # get a list of all the AtlasTexture content (consists of a List of Dictionaries)
         for i, item in enumerate(atlas): # loop through them
             AtlasD = item.get("AtlasDef") if isinstance(item, dict) else None # get the Dictionary
             name = AtlasD.get("Name") if isinstance(AtlasD, dict) else None # Get the key "name" in that dictornary to find "ingametech"

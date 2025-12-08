@@ -31,10 +31,29 @@
 301639 "Build Flamethrower"
 321639 "Create <b>Flamethrower<b> (<cost>)\nSiege Weapon that spews fire at enemies but cannot attack at close range. Strong vs. Wooden Buildings, Gunpowder units and Ranged Soldiers. Weak vs. units at close range.\n<GREY><i>Upgrades: range (University); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 
-26144 "Build <b>Dock<b> (<cost>)\nUsed to train economic ships, upgrade war vessels, research naval technologies, deposit resources from Fishing Ships, and trade with other players by sea.\n<GREY><i>Upgrades: line of sight (Town Center); HP, armor (University); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range> <garrison>"
+//Tech Tree Strings
+309630 "Billman"
+309631 "Scytheman"
+309632 "Flail\nWarrior"
+309633 "Dart\nThrower"
+309634 "Knife\nThrower"
+309635 "Hatchet\nThrower"
+309636 "Ninja"
+309637 "Lancer"
+309638 "Heavy\nLancer"
+309639 "Flamethrower"
 
-26090 "Build <b>Fishing Ship<b> (<cost>)\nGathers food from fish and Fish Traps, as well as gold from Oysters. Builds Pot Trap.\n<GREY><i>Upgrades: armor, speed, efficiency, cost, creation speed (Dock); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
-
+41330 "Scytheman"
+41331 "Flail\nWarrior"
+41332 "Heavy\nLancer"
+41333 "Knife\nThrower"
+41334 "Hatchet\nThrower"
+41335 "Ninja"
+41336 "Throwing\ntechniques"
+41337 "Wooden\nGrip"
+41338 "Holster"
+41339 "Balanced\nWeaponry"
+41340 "Shield\nBoss"
 
 32330 "Scytheman"
 32331 "Flail Warrior"
@@ -42,7 +61,7 @@
 32333 "Knife Thrower"
 32334 "Hatchet Thrower"
 32335 "Ninja"
-32336 "Thrower techniques"
+32336 "Throwing techniques"
 32337 "Wooden Grip"
 32338 "Holster"
 32339 "Balanced Weaponry"
@@ -74,6 +93,10 @@
 
 8450 "Research Gambesons (Militia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP)"
 28450 "Research <b>Gambesons<b> (<cost>)\nMilitia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP."
+
+//Armors
+12490 "Armored Units"
+12491 "Lancers"
 
 //Armenians
 120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"

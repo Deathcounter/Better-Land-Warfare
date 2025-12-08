@@ -37,36 +37,39 @@ supported_languages = []
 # Once the object has been parsed, you make the modifications you want to the object
 # Once this is complete, you can write the new object to a new file using the DatFile.save method
 def main():
+    print("Reading File structure")
     reading_blw_dat_folder()
+    print("Create Modfolders")
     create_file_structure()
+    print("Editing Jsons before ingame modifications")
     pre_mod_json_editing.run_pre_mod_json_editing()
+    print("Moving files into Modfolders")
     creating_moving_mod_files()
+    print("Changing all the ingame units, techs etc.")
     make_ingame_modifications()
+    print ("Editing Jsons to fit the game")
     post_mod_json_editing.run_post_mod_json_editing() # some json files require data from the Ingame altering, such as Unit IDs
 
 
 # this function checks if all folders and files exist in the directory. It also reads the first informations (languages in language file), last vanilla tech index etc.
 def reading_blw_dat_folder():
     storage.blwDatPath = (Path(__file__).parent / "blw dat")
-    iconFilePath = (Path(__file__).parent / "blw dat" / "icons.json") # Path of json File
-    storage.constantsPath = (Path(__file__).parent / "blw dat" / "constants") 
-    languageFilePath = (Path(__file__).parent / "blw dat" / "constants" / "key-value-modded-strings-utf8.txt") 
-    if not iconFilePath.exists():
-        print("No file named icons.json found in blw dat folder.")
-        print(f"\nSuggested Troubleshoot:\n* Copy the icons.json from the gamefiles (\\Steam\\steamapps\\common\\AoE2DE\\widgetui) in the blw dat folder")
-        quit()
-    if not storage.blwDatPath.exists():
+    storage.constantsPath = (storage.blwDatPath / "constants") 
+    languageFilePath = (storage.blwDatPath / "constants" / "key-value-modded-strings-utf8.txt") 
+    if (not storage.blwDatPath.exists()):
         print("Error creating mod, no folder called \"blw dat\" found.")
-        print(f"\nSuggested Troubleshoot:\n* Create a blw dat folder name in {Path(__file__).parent}")
+        print(f"\nSuggested Troubleshoot:\n* Create a blw dat named folder in {Path(__file__).parent}")
         quit()
-    if not storage.constantsPath.exists():
+    if (not storage.constantsPath.exists()):
         print("No folder named \"constants\" found in blw dat folder.")
-        print(f"\nSuggested Troubleshoot:\n* If you do not have the constants folder, then there is something seriously wrong and you should probably download the repo again")
+        print(f"\nSuggested Troubleshoot:\n* If you do not have the constants folder, then there is something seriously wrong and you should probably pull the repo again")
         quit()
-    if not languageFilePath.exists():
+    if (not languageFilePath.exists()):
         print("No file named \"key-value-modded-strings-utf8.txt\" found in blw dat/constants folder.")
-        print(f"\nSuggested Troubleshoot:\n* If you do not have the the language file, then there is something seriously wrong and you should probably download the repo again")
+        print(f"\nSuggested Troubleshoot:\n* If you do not have the the language file, then there is something seriously wrong and you should probably pull the repo again")
         quit()
+
+    check_opening_path() # Checks if all needed jsons are in place
 
     with open(languageFilePath, "r", encoding="utf-8") as langfile:
         for line in langfile:
@@ -78,7 +81,7 @@ def reading_blw_dat_folder():
     logging.info(f"Found a total of {len(supported_languages)} languages in the language file")    
 
 
-
+    iconFilePath = (storage.blwDatPath / "icons.json")
     with open(iconFilePath,"r") as f:
         data = json.load(f)    # Load the data of Json File
         
@@ -144,7 +147,20 @@ def creating_moving_mod_files():
             outputfile.write(''.join(filecontent))
             filecontent.clear()
 
-            
+def check_opening_path ():
+    jsonNames = ["icons.json", "materials.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "civTechTrees.json"]
+    for idx, jsonName in enumerate(jsonNames):
+        Pathname = (storage.blwDatPath / jsonName)
+        if (not Pathname.exists()):
+            if (idx in [0,1]):
+                print(f"No file named {jsonName} found in blw dat folder.")
+                print(f"\nSuggested Troubleshoot:\n* Copy {jsonName} from the gamefiles (\\Steam\\steamapps\\common\\AoE2DE\\widgetui) in the blw dat folder")
+            else:
+                print(f"No file named {jsonName} found in blw dat folder.")
+                print(f"\nSuggested Troubleshoot:\n* Copy {jsonName} from the gamefiles (\\Steam\\steamapps\\common\\AoE2DE\\resources\\_common\\dat) in the blw dat folder")
+            quit()
+    print("Found all JSON Files needed")
+    logging.info("Success: Found all JSON Files needed")            
 
 
 def make_ingame_modifications():
@@ -175,8 +191,9 @@ def make_ingame_modifications():
 
     # You can save it as whatever filename.dat you want, but when it is in a mod you will need it to be named empires2_x2_p1.dat
     print("Saving file...")
-    dfBase.save("datfiles/empires2_x2_p1.dat")
-    print("Process completed!")
+    if (not storage.lightmode):
+        dfBase.save("datfiles/empires2_x2_p1.dat")
+    print("Success: .dat file changed")
 
 # Since there is a lot of overhead accomplished by the parsing and saving, it may take a while
 # To speed this up, genieutils-py allows for the option of caching this parsing
