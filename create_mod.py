@@ -77,7 +77,7 @@ def reading_blw_dat_folder():
             if line.startswith("NewLang="):
                 langshort = line[-2:] # the last two characters after "NewLang="
                 supported_languages.append(langshort)
-
+    # This allows me to have all languages in a single file which later gets splitted up into their own files at create_file_structure():
     logging.info(f"Found a total of {len(supported_languages)} languages in the language file")    
 
 

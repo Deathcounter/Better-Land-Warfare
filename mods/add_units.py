@@ -44,8 +44,8 @@ def add_Billman_line(df: DatFile):
     base = copy.deepcopy(df.civs[0].units[74]) # make a base unit that has all the stats that stay the same within the whole unit-line
     base.enabled = 0
 
-    base.line_of_sight = 5
-    base.bird.search_radius = 5
+    base.line_of_sight = 4
+    base.bird.search_radius = 4
 
     base.type_50.reload_time = 2.25
     base.type_50.displayed_reload_time = 2.25
@@ -75,7 +75,7 @@ def add_Billman_line(df: DatFile):
     name_list = ('Billman', 'Scytheman', 'Flail Warrior')
     storage.billmanNames = name_list
     hp_list = (50, 60, 70) 
-    speed_list = (1.05, 1.1, 1.2) 
+    speed_list = (1.08, 1.12, 1.2) 
 
     displayed_attack_list = (5, 6, 7)
     displayed_m_armor_list = (2, 3, 4)
@@ -229,7 +229,7 @@ def add_Lancer_line(df: DatFile):
     dying_graphic_list = (15803, 15139)
     walking_graphic_list = (15806, 15143)
 
-    storage.lancermanStringID = string_start_lancer = 300637
+    storage.lancerStringID = string_start_lancer = 300637
 
     for idx in range(len(name_list)):
         lancer_variant = copy.deepcopy(base) # copy each lancer type from the base copy

@@ -32,12 +32,12 @@ def create_modified_unitCategoriesJson():
     
 
     
-    for idx, billManName in enumerate(storage.billmanNames):
+    for idx, billManName in enumerate(storage.billmanNames): # Pretty simple, build the dictionary and then append it to the infantry for every billman unit
         dictEntry = {
             "Name": f"{billManName}",
             "ID": storage.BillmanIDs[idx]
         }
-        infantry = data.setdefault("Infantry", [])
+        infantry = data.setdefault("Infantry", []) # setdefault = gets a list of dictionaries
         infantry.append(dictEntry)
 
     for idx, throwerName in enumerate(storage.throwerNames):
@@ -79,24 +79,24 @@ def create_modified_futureAvailUnitsJson():
     for civ in CIV_NAMES:
         civdata = data.get(civ)
         if (civ in REPLACE_CIV_NAMES):
-            civ = REPLACE_CIV_NAMES.get(civ)
+            civ = REPLACE_CIV_NAMES.get(civ) # futureAvail Json uses civ names like "Britons", "Franks", etc. which are missmatched to the actual ingame data
         buildings = civdata.setdefault("Buildings", []) if isinstance(civdata, dict) else None
         techlist = CIV_TECH_MATRIX.get(civ)
         #print(idx) just helped me figuring out which civ names I couldnt spell
-        for i in range(len(techlist)):
-            for building in buildings:
-                if (i in [1, 10, 11] and building.get("ID") == 12):
+        for i in range(len(techlist)): # iterate through all the techs
+            for building in buildings: # iterate through all the buildings
+                if (i in [1, 10, 11] and building.get("ID") == 12): # 12 = Barracks, 1, 10 and 11 are the barrack techs (Shield Boss, Scythe and Flail)
                     barrackTechs = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     barrackUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
-                    if (i == 1): # just once
+                    if (i == 1): # just once, could have also just been a boolean flag but "i" is already there
                         billmanUnitDict = {
                             "ID": storage.BillmanIDs[0],
                             "Name": storage.billmanNames[0],
                             "RequiredAge": 2
                         }
                         barrackUnits.append(billmanUnitDict) # billman is availale for all civs always, therefore there is no check
-                    if (i == 1 and techlist[i] == 1):
-                        RequiredAge = 3 if civ != "Armenians" else 2
+                    if (i == 1 and techlist[i] == 1): # Checks if Civ has Shieldboss (1) available. I actually just use the non Gambeson Shield Boss here because it will only show up if needed
+                        RequiredAge = 3 if civ != "Armenians" else 2 # obviously armenians -.-
                         shieldBossDict = {
                             "ID": storage.shieldBossTechId,
                             "Name": storage.shieldBossUpgradeName,
@@ -133,17 +133,17 @@ def create_modified_futureAvailUnitsJson():
                         barrackTechs.append(flailWarriorTechDict)
                         barrackUnits.append(flailWarriorUnitDict)
 
-                if (i in [2, 6, 7] and building.get("ID") == 87):
+                if (i in [2, 6, 7] and building.get("ID") == 87): # Archery Range and Archery Range Techs/Units (Throwing Techniques, Knife and Hatchet)
                     rangeTech = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     rangeUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
-                    if (i == 2):
+                    if (i == 2): # Dart Thrower always added, just once (could have also been i == 6 or 7)
                         dartThrowerUnitDict = {
                             "ID": storage.ThrowerIDs[0],
                             "Name": storage.throwerNames[0],
                             "RequiredAge": 2
                         }
                         rangeUnits.append(dartThrowerUnitDict)
-                    if (i == 2 and civ == "Japanese"):
+                    if (i == 2 and civ == "Japanese"): # Japanese Unique Unit being added here
                         RequiredAge = 4
                         ninjaUnitDict = {
                             "ID": storage.ThrowerIDs[3],
@@ -158,7 +158,7 @@ def create_modified_futureAvailUnitsJson():
                         rangeTech.append(ninjaTechDict)
                         rangeUnits.append(ninjaUnitDict)
                     
-                    if (i == 2 and techlist[i] == 1):
+                    if (i == 2 and techlist[i] == 1): 
                         RequiredAge = 2
                         throwingTechniquesDict = {
                             "ID": storage.throwingTechniquesTechID,
@@ -194,7 +194,7 @@ def create_modified_futureAvailUnitsJson():
                         }
                         rangeTech.append(HatchetThrowerTechDict)
                         rangeUnits.append(HatchetThrowerUnitDict)
-                if (i in [3, 4, 5] and building.get("ID") == 103):
+                if (i in [3, 4, 5] and building.get("ID") == 103): # Blacksmith Techs (Wooden Grip, Holster, Balanced Weaponry)
                     blacksmithTech = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     if (i == 3):
                         woodenGripDict = {
@@ -218,7 +218,7 @@ def create_modified_futureAvailUnitsJson():
                             "RequiredAge": 4
                         }
                         blacksmithTech.append(balancedWeaponryDict)
-                if (i in [8,9] and building.get("ID") == 101):
+                if (i in [8,9] and building.get("ID") == 101): # Stable (Lancer/Heavy Lancer)
                     stableTechs = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     stableUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
                     
@@ -242,7 +242,7 @@ def create_modified_futureAvailUnitsJson():
                         }
                         stableUnits.append(heavyLancerUnitDict)
                         stableTechs.append(heavyLancerTechDict)
-                if (i == 1 and building.get("ID") == 49):
+                if (i == 1 and building.get("ID") == 49): # Siege Workshop 
                     siegeUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
                     flameThrowerUnitDict = {
                         "ID": storage.FlameThrowerID,
@@ -293,7 +293,7 @@ def create_modified_unitlinesJson():
 
 def create_modified_civTechTreesJson():
     from mods.change_existing_tech_tree import CIV_TECH_MATRIX
-    REPLACE_CIV_NAMES.update({"Magyar": "Magyars"})
+    REPLACE_CIV_NAMES.update({"Magyar": "Magyars"}) # Another file, Another inconsistency with civ names
 
     civTechTreePath = (storage.blwDatPath / "civTechTrees.json").resolve() # Path of input json File
     with open(civTechTreePath,"r", encoding="utf-8") as f:
@@ -302,53 +302,217 @@ def create_modified_civTechTreesJson():
     civs = data.setdefault("civs", [])
     
 
-    throwerUnitAmount = len(storage.ThrowerIDs)
+    throwerUnitAmount = len(storage.ThrowerIDs)-1 # the only reason why -1 is that the Ninja is in ThrowerIDs but I dont actually care while creating the tech tree
     billmanUnitAmount = len(storage.BillmanIDs)
     lancerUnitAmount = len(storage.LancerIDs)
-    flamethrowerUnitAmount = 1
-    for civ in civs:
+
+    armenianidx = 0
+    for cividx, civ in enumerate(civs):
         civname: str = civ.get("civ_id")
         civname = civname.capitalize() # civTechTree contains all civs with Uppercase letters: "AZTECS" - but both my global Dict use "Aztecs" -> capitalize() needed
         if (civname in REPLACE_CIV_NAMES):
             civname = REPLACE_CIV_NAMES.get(civname)
         if (civname not in CIV_TECH_MATRIX.keys()):
-            continue
-
-        unitDicts = build_BLW_unitDict(civname)
+            continue # No civ, No service
+        if civname == "Armenians":
+            armenianidx = cividx    # store which ID is armenians so I can change civs[armenianidx] later
+        unitDicts = build_BLW_unitDict(civname) # compounds all Dictionaries into a single list of Dictionaries
+        techDicts = build_BLW_techDict(civname) # same with techs
+        siegeDicts = build_BLW_siegeDict(civname)
         units: list[dict] = civ.setdefault("civ_techs_units", [])
+
+        boolflag = [1,1] # bool flags for when I want to insert before something. 
+        # Else it loops forever. cause - imagine a list of [0,2,1], if I say: if slot value = 1, insert x at that index -> [0,2,x,1], then in the next loop, idx+1 is "1" again causing infinite "x"s beinga dded
+
+
+        # ORDER: All Units and Techs, as well as their Dictbuilding is done from left to right as they are in the Tech Tree - this is also how the tech tree system of the game does it (within one building)
         for idx, unit in enumerate(units):
             # if "Cavalry Archer" in unit.values(): - to check if there even is an Cavalry Archer, but there should always be (unless non AoE2 civs)
-            if unit.get("Name") == "Cavalry Archer":
-                for unitindex in range(throwerUnitAmount-1):
-                    units.insert(idx+unitindex, unitDicts[unitindex])
+            if unit.get("Name") == "Cavalry Archer" and boolflag[0]: # Adding Thrower line before Cav Archer
+                boolflag[0] = 0
+                for unitindex in range(throwerUnitAmount): 
+                    units.insert(idx+unitindex, unitDicts[unitindex]) # insert at unitindex too, but I can also just use (reversed(range)) like below
+            if unit.get("Name") == "Thumb Ring" and boolflag[1]: # adding Throwing Techniques before Thumb Ring so all Techs are in the same column
+                units.insert(idx, techDicts[0])
+                boolflag[1] = 0
+            if unit.get("Name") == "Halberdier": # adding Billman line after Halbadier
+                for unitindex in reversed(range(throwerUnitAmount, billmanUnitAmount+throwerUnitAmount)):
+                    units.insert(idx+1, unitDicts[unitindex])
+            if unit.get("Name") == "Gambesons": # adding Shield Boss after Gambesons
+                units.insert(idx+1, techDicts[1]) 
+            if unit.get("Name") == "Squires":
+                unit["Link ID"] = -1 # makes sure that Squares is in the first row of Castle Age
+
+            if unit.get("Name") == "Paladin":    
+                for unitindex in reversed(range(billmanUnitAmount+throwerUnitAmount,billmanUnitAmount+throwerUnitAmount+lancerUnitAmount)):
+                    units.insert(idx+1, unitDicts[unitindex])
+
+            if unit.get("Name") == "Heavy Scorpion": # adding it after Heavy Scorpion in hopes they wont add a second Scorpion Upgrade for another civ, if they do, move it after Houfnice and Traction Trebs  
+                units.insert(idx+1, siegeDicts[0])
+                
+            if unit.get("Name") == "Plate Mail Armor": # adding the Thrower Upgrades after Infantry Defense Upgrades
+                for techindex in reversed(range(2, len(storage.throwerBlacksmithIDs)+2)):
+                    units.insert(idx+1, techDicts[techindex]) 
                 break
+
+            
+
+
+    # ugh, let's just hope no new civ will ever, EVER have Archery or Stable techs one age earlier
+    armenianunits: list[dict] = civs[armenianidx].setdefault("civ_techs_units", []) 
+
+    # Essentially what this does (have the vanilla Armenian tech tree open to understand better, imagine Shield Boss below Gambesons):
+    # Save Arson dict in a temporary variable (that actually gets done mulitple times because of the loop)
+    # Add *' Gambesons and Shield Boss after Flailwarrior (flailWarrioridx+1 and +2 - overwrites arson and Gambesons - the overwritten Gambesons is already duplicate *' ), 
+    # Add Arson back after where Gambesons was, and remove the duplicate Shield Boss
+    # Done, and Squires(-1) and Spearman(+1) one Age earlier or later - and Link ID Squires with Arson so its below it (but no connection line due to lack of "Link Node Type": "Research)
+    for idx, unit in enumerate(armenianunits): # this shuffeling around of dictionary entries works as long as no more techs are added between Squires and Arson, else gg
+        if unit.get("Name") == "Spearman":
+            unit["Age ID"] = 2
+        if unit.get("Name") == "Flail Warrior":
+            flailWarrioridx = idx
+        if unit.get("Name") == "Arson":
+            tempArson = unit
+        if unit.get("Name") == "Gambesons":
+            unit["Age ID"] = 2
+            armenianunits[flailWarrioridx+1] = unit
+            techDicts[1]["Age ID"] = 2
+            armenianunits.insert(flailWarrioridx+2, techDicts[1]) 
+            armenianunits[idx+1] = tempArson
+            armenianunits.pop(idx+2) # Removes a duplicate Shield Boss
+        if unit.get("Name") == "Squires":
+            unit["Link ID"] = 602
+            unit["Age ID"] = 2
+            break # all done, all changed, lets break out of the loop to save time
 
     outputFilePath = (storage.datFolder / "civTechTrees.json").resolve() # Path of output Json File        
     with open(outputFilePath, "w", encoding="utf-8") as output:
         json.dump(data, output, indent=2, ensure_ascii=False)
 
+def build_BLW_techDict(civname: str) -> list [dict]:
+    techDict: list [dict] = []
+    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+    techAvailability = CIV_TECH_MATRIX.get(civname)
+
+    # Adding Throwing Techniques
+
+    NodeStatus = "NotAvailable" if not techAvailability[2] else "ResearchedCompleted"
+    throwingtechniquesDict = {
+        "Age ID": 2,
+        "Building ID": 87,
+        "Draw Node Type": "UnitTech",
+        "Help String ID": storage.throwingTechniquesStringID + 100000,
+        "Link ID": -1,
+        "Link Node Type": "BuildingTech",
+        "Name": storage.throwingTechniquesUpgradeName,
+        "Name String ID": storage.throwingTechniquesStringID + 9000,
+        "Node ID": storage.throwingTechniquesTechID,
+        "Node Status": NodeStatus,
+        "Node Type": "Research",
+        "Picture Index": storage.throwingTechniquesIconID,
+        "Prerequisite IDs": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "Prerequisite Types": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "Trigger Tech ID": -1,
+        "Use Type": "Tech"
+
+
+    }
+    techDict.append(throwingtechniquesDict)
+
+
+    # Adding Shield Boss
+
+    LinkNodeType = "Research"
+    NodeID = storage.shieldBossTechId
+    if (techAvailability[1] == 1): # if civ has no Gambesons but Shield Boss -> Remove connection line at tech tree and make it seperate tech
+        LinkNodeType = "BuildingTech"
+        NodeID = storage.shieldBossTechId2
+
+    NodeStatus = "NotAvailable" if not techAvailability[0] else "ResearchedCompleted"
+    shieldbossDict = {
+        "Age ID": 3,
+        "Building ID": 12,
+        "Draw Node Type": "UnitTech",
+        "Help String ID": storage.shieldBossStringID + 100000,
+        "Link ID": 875, # Gambesons,
+        "Link Node Type": LinkNodeType,
+        "Name": storage.shieldBossUpgradeName,
+        "Name String ID": storage.shieldBossStringID + 9000,
+        "Node ID": NodeID,
+        "Node Status": NodeStatus,
+        "Node Type": "Research",
+        "Picture Index": storage.shieldBossIconID,
+        "Prerequisite IDs": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "Prerequisite Types": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "Trigger Tech ID": -1,
+        "Use Type": "Tech"
+    }
+    
+        
+    techDict.append(shieldbossDict)
+
+    techDict.extend(build_BLW_blacksmithDict(civname, techAvailability))
+
+    return techDict
 
 def build_BLW_unitDict(civname: str) -> list[dict]:
     logging.debug("Added civTechTree for following civs" + civname)
     unitDict: list[dict] = []
+    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+    availability = CIV_TECH_MATRIX.get(civname) 
 
+    unitDict.extend(build_throwerDict(civname, availability))
+    unitDict.extend(build_billmanDict(civname, availability))
+    unitDict.extend(build_lancerDict(civname, availability))
+    
+    
+    return unitDict
+
+def build_throwerDict(civname: str, availability: list[int]) -> list[dict]:
     throwerAges = [2,3,4,4] # Feudal, Castle, Imp, Imp - might want to add that to storage if needed elsewhere
     LinkIDs = storage.ThrowerIDs.copy() # The link ID is always the ID of the previous Node ID. The NodeID is the Id of the Unit and links to other NodeIDs specified in "LinkID"
     LinkIDs.insert(0, -1) # Therefore the linked ID list always is one idx behind the thrower IDs and the base unit has no LinkID (therefore -1 inserted at 0)
     TriggerTechIDs = storage.throwerUpgradeTechs.copy() # Same goes for Trigger Tech ID
     TriggerTechIDs.insert(0, -1)
-
-    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
-
-    availability = CIV_TECH_MATRIX.get(civname) 
+    throwerDictList = []    
 
     throwerAvailList = []
     throwerAvailList.extend((1, availability[6], availability[7]))
     
     for idx in range(len(storage.ThrowerIDs)-1):
         NodeType = "Unit" if idx == 0 else "UnitUpgrade" # the base unit is not an upgrade and just exists in Feudal (like archer)
-        LinkNodeType = "Building Tech" if idx == 0 else "Unit" # also changes like Node Type and is another conditions for the lines to appear
-        NodeStatus = "NotAvailable" if not throwerAvailList[idx] else "ResearchedCompleted"
+        if idx == 0:
+            LinkNodeType = "Building Tech" # The first unit of a unit line has to be a "Building Tech"
+        elif idx == 1:
+            LinkNodeType = "Unit" # The second unit of a unit line has to be a "Unit"
+        else:
+            LinkNodeType = "UnitUpgrade" # The remaining ones have to be a "UnitUpgrade", why? well idk, just observing current civTechTree.json
+        
+        NodeStatus = "NotAvailable" if not throwerAvailList[idx] else "ResearchedCompleted" # Actual tech tree availability logic
         linkidx = 0
         if civname == "Japanese" and idx == 2:
             idx = 3
@@ -385,29 +549,44 @@ def build_BLW_unitDict(civname: str) -> list[dict]:
             "Trigger Tech ID": TriggerTechIDs[idx],
             "Use Type": "Unit"
         }
-        unitDict.append(throwerDict)
-    """
+        throwerDictList.append(throwerDict)
+    return throwerDictList
+
+def build_billmanDict(civname: str, availability: list[int]) -> list[dict]:
     billmanAges = [2,3,4] 
-    LinkIDs = storage.BillmanIDs.copy() 
-    LinkIDs.insert(0, -1)
-    TriggerTechIDs = storage.throwerUpgradeTechs.copy()
+    LinkIDs = storage.BillmanIDs.copy()
+    LinkIDs.insert(0, -1) 
+    TriggerTechIDs = storage.billmanUpgradeTechs.copy() 
     TriggerTechIDs.insert(0, -1)
-    for idx, thrower in enumerate(storage.ThrowerIDs):
-        NodeType = "Unit" if idx == 0 else "UnitUpgrade" # the base unit is not an upgrade and just exists in Feudal (like archer)
-        LinkNodeType = "Building Tech" if idx == 0 else "Unit" # also changes like Node Type and is another conditions for the lines to appear
-        throwerDict = {
-            "Age ID": throwerAges[idx],
-            "Building ID": 87,
+    billmanDictList = []        
+    billmanAvailList = []
+    billmanAvailList.extend((1, availability[10], availability[11]))
+
+    for idx in range(len(storage.ThrowerIDs)-1):
+        NodeType = "Unit" if idx == 0 else "UnitUpgrade" 
+        if idx == 0:
+            LinkNodeType = "Building Tech" 
+        elif idx == 1:
+            LinkNodeType = "Unit" 
+        else:
+            LinkNodeType = "UnitUpgrade" 
+
+        NodeStatus = "NotAvailable" if not billmanAvailList[idx] else "ResearchedCompleted"
+        if civname == "Armenians": #ughh and thats the easier part than moving all the techs
+            billmanAges = [2,2,3]      
+        billmanDict = {
+            "Age ID": billmanAges[idx],
+            "Building ID": 12,
             "Draw Node Type": "UnitTech",
-            "Help String ID": storage.throwerStringID + 100000 + idx,
+            "Help String ID": storage.billmanStringID + 100000 + idx,
             "Link ID": LinkIDs[idx],
             "Link Node Type": LinkNodeType,
-            "Name": storage.throwerNames[idx],
-            "Name String ID": storage.throwerStringID + 9000 + idx,
-            "Node ID": thrower,
-            "Node Status": "ResearchedCompleted",
+            "Name": storage.billmanNames[idx],
+            "Name String ID": storage.billmanStringID + 9000 + idx,
+            "Node ID": storage.BillmanIDs[idx],
+            "Node Status": NodeStatus,
             "Node Type": NodeType,
-            "Picture Index": storage.throwerUnitIcons[idx],
+            "Picture Index": storage.billmanUnitIcons[idx],
             "Prerequisite IDs": [
               0,
               0,
@@ -425,6 +604,154 @@ def build_BLW_unitDict(civname: str) -> list[dict]:
             "Trigger Tech ID": TriggerTechIDs[idx],
             "Use Type": "Unit"
         }
-        unitDict.append(throwerDict)
-    """
-    return unitDict
+        billmanDictList.append(billmanDict)
+    return billmanDictList
+
+def build_lancerDict(civname: str, availability: list[int]) -> list[dict]:
+    lancerAges = [3,4] 
+    LinkIDs = storage.LancerIDs.copy()
+    LinkIDs.insert(0, -1) 
+    TriggerTechIDs = []
+    TriggerTechIDs.insert(0, -1)
+    TriggerTechIDs.insert(0, storage.lancerUpgradeTech)
+    lancerDictList = []        
+    lancerAvailList = []
+    lancerAvailList.extend((availability[8], availability[9]))
+
+    for idx in range(len(storage.LancerIDs)):
+        NodeType = "Unit" if idx == 0 else "UnitUpgrade" 
+        if idx == 0:
+            LinkNodeType = "Building Tech" 
+        elif idx == 1:
+            LinkNodeType = "Unit" 
+        else:
+            LinkNodeType = "UnitUpgrade" 
+
+        NodeStatus = "NotAvailable" if not lancerAvailList[idx] else "ResearchedCompleted"    
+        lancerDict = {
+            "Age ID": lancerAges[idx],
+            "Building ID": 101,
+            "Draw Node Type": "UnitTech",
+            "Help String ID": storage.lancerStringID + 100000 + idx,
+            "Link ID": LinkIDs[idx],
+            "Link Node Type": LinkNodeType,
+            "Name": storage.lancerNames[idx],
+            "Name String ID": storage.lancerStringID + 9000 + idx,
+            "Node ID": storage.LancerIDs[idx],
+            "Node Status": NodeStatus,
+            "Node Type": NodeType,
+            "Picture Index": storage.lancerUnitIcons[idx],
+            "Prerequisite IDs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Prerequisite Types": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "Trigger Tech ID": TriggerTechIDs[idx],
+            "Use Type": "Unit"
+        }
+        lancerDictList.append(lancerDict)
+    return lancerDictList
+
+def build_BLW_blacksmithDict(civname: str, techAvailability) -> list [dict]:
+    blacksmithAges = [2,3,4] 
+    LinkIDs = storage.throwerBlacksmithTechIDs.copy()
+    LinkIDs.insert(0, -1) 
+    blacksmithAvailList = []
+    blacksmithAvailList.extend((techAvailability[3], techAvailability[4], techAvailability[5])) 
+    techDict: list [dict] = []
+    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+    techAvailability = CIV_TECH_MATRIX.get(civname)
+
+    # Adding Blacksmith Upgrades
+    for idx in range (len(storage.throwerBlacksmithTechIDs)):
+        if idx == 0:
+            LinkNodeType = "Building Tech" 
+        else:
+            LinkNodeType = "Research" 
+        NodeStatus = "NotAvailable" if not blacksmithAvailList[idx] else "ResearchedCompleted"
+        blacksmithDict = {
+            "Age ID": blacksmithAges[idx],
+            "Building ID": 103,
+            "Draw Node Type": "UnitTech",
+            "Help String ID": storage.throwerBlacksmithStringIDs[idx] + 100000,
+            "Link ID": LinkIDs[idx],
+            "Link Node Type": LinkNodeType,
+            "Name": storage.throwerBlacksmithUpgradeNames [idx],
+            "Name String ID": storage.throwerBlacksmithStringIDs[idx] + 9000,
+            "Node ID": storage.throwerBlacksmithTechIDs[idx],
+            "Node Status": NodeStatus,
+            "Node Type": "Research",
+            "Picture Index": storage.throwerBlacksmithIconIDs[idx],
+            "Prerequisite IDs": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Prerequisite Types": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "Trigger Tech ID": -1,
+            "Use Type": "Tech"
+
+
+        }
+        techDict.append(blacksmithDict)
+    return techDict
+
+def build_BLW_siegeDict(civname: str) -> list [dict]:
+    techDict: list [dict] = []
+    # from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+    # techAvailability = CIV_TECH_MATRIX.get(civname)
+
+    # Adding Flame Thrower
+
+    # NodeStatus = "NotAvailable" if not techAvailability[2] else "ResearchedCompleted"
+    flameThrowerDict = {
+        "Age ID": 4,
+        "Building ID": 49,
+        "Draw Node Type": "UnitTech",
+        "Help String ID": storage.flamethrowerStringID + 100000,
+        "Link ID": 542,
+        "Link Node Type": "BuildingTech",
+        "Name": storage.flamethrowerName,
+        "Name String ID": storage.flamethrowerStringID + 9000,
+        "Node ID": storage.FlameThrowerID,
+        "Node Status": "ResearchedCompleted",
+        "Node Type": "Unit",
+        "Picture Index": storage.flamethrowerUnitIcon,
+        "Prerequisite IDs": [
+          47,
+          0,
+          0,
+          0,
+          0
+        ],
+        "Prerequisite Types": [
+          "Tech",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "Trigger Tech ID": -1,
+        "Use Type": "Unit"
+
+
+    }
+    techDict.append(flameThrowerDict)
+    return techDict

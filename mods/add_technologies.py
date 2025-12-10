@@ -265,14 +265,14 @@ def thrower_upgrades_t (df: DatFile):
     throwing_techniques_tech.effect_id = storage.throwingTechniquesID
     throwing_techniques_tech.required_techs = (101, -1, -1, -1, -1, -1)
     throwing_techniques_tech.required_tech_count = 1
-    storage.throwingTechniquesUpgradeName = throwing_techniques_tech.name = "Throwing techniques"
+    storage.throwingTechniquesUpgradeName = throwing_techniques_tech.name = "Throwing Techniques"
     throwing_techniques_tech.research_locations[0] = ResearchLocation (87, 20, 10, 18210) # 87 in Archery Range, 20 seconds ResearchTime, Button 10 und Hotkey ID of Squires
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 45, 1) # 0 food storage, 45 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 145, 1) # 3 gold storage, 145 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # you see, you might expect something here... WRONG
     throwing_techniques_tech.resource_costs = (foodcost, goldcost, nothing)
 
-    string_start_throwing_techniques_tech = 32336
+    storage.throwingTechniquesStringID = string_start_throwing_techniques_tech = 32336
     throwing_techniques_tech.language_dll_name = string_start_throwing_techniques_tech
     throwing_techniques_tech.language_dll_description = string_start_throwing_techniques_tech + 1000
     throwing_techniques_tech.language_dll_help = string_start_throwing_techniques_tech + 100000
@@ -297,6 +297,7 @@ def thrower_upgrades_t (df: DatFile):
     wooden_grip_tech.resource_costs = (foodcost, goldcost, nothing)
 
     string_start_wooden_grip_tech = 32337
+    storage.throwerBlacksmithStringIDs.append(string_start_wooden_grip_tech)
     wooden_grip_tech.language_dll_name = string_start_wooden_grip_tech
     wooden_grip_tech.language_dll_description = string_start_wooden_grip_tech + 1000
     wooden_grip_tech.language_dll_help = string_start_wooden_grip_tech + 100000
@@ -323,6 +324,7 @@ def thrower_upgrades_t (df: DatFile):
     holster_tech.resource_costs = (foodcost, goldcost, nothing)
 
     string_start_holster_tech = 32338
+    storage.throwerBlacksmithStringIDs.append(string_start_holster_tech)
     holster_tech.language_dll_name = string_start_holster_tech
     holster_tech.language_dll_description = string_start_holster_tech + 1000
     holster_tech.language_dll_help = string_start_holster_tech + 100000
@@ -348,6 +350,7 @@ def thrower_upgrades_t (df: DatFile):
     balanced_weaponry_tech.resource_costs = (foodcost, goldcost, nothing)
 
     string_start_balanced_weaponry = 32339
+    storage.throwerBlacksmithStringIDs.append(string_start_balanced_weaponry)
     balanced_weaponry_tech.language_dll_name = string_start_balanced_weaponry
     balanced_weaponry_tech.language_dll_description = string_start_balanced_weaponry + 1000
     balanced_weaponry_tech.language_dll_help = string_start_balanced_weaponry + 100000
@@ -369,11 +372,11 @@ def shield_boss_t (df: DatFile):
     storage.shieldBossUpgradeName = shield_boss_tech.name = "Shield Boss"
     shield_boss_tech.research_locations[0] = ResearchLocation (12, 30, 11, 418011) # 12 in Barracks, 30 seconds ResearchTime, Button 11 und Hotkey ID of Elite Hoplite
     foodcost: ResearchResourceCost = ResearchResourceCost (1, 160, 1) # 1 wood storage, 160 cost, 1 deduct yes
-    goldcost: ResearchResourceCost = ResearchResourceCost (3, 95, 1) # 3 gold storage, 95 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 115, 1) # 3 gold storage, 115 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # have a nice day
     shield_boss_tech.resource_costs = (foodcost, goldcost, nothing)
 
-    string_start_shield_boss = 32340
+    storage.shieldBossStringID = string_start_shield_boss = 32340
     shield_boss_tech.language_dll_name = string_start_shield_boss
     shield_boss_tech.language_dll_description = string_start_shield_boss + 1000
     shield_boss_tech.language_dll_help = string_start_shield_boss + 100000
