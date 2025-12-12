@@ -20,7 +20,6 @@ def run_add_technologies (df: DatFile):
     unit_upgrades_t (df)
     thrower_upgrades_t (df)
     shield_boss_t (df)
-    japanese_staggering_attackspeed_t (df)
     billman_auto_upgrade (df)
 
 def make_avail_techs (df: DatFile):
@@ -393,21 +392,7 @@ def shield_boss_t (df: DatFile):
     df.techs.append (shield_boss_tech_2)
     logging.debug (f"Added Shield Boss tech at ID {storage.shieldBossTechId2}")
 
-def japanese_staggering_attackspeed_t (df: DatFile):
-    agetechs = [104, 101, 102, 103]
-    technames = [10, 15, 20, 25]
-    for idx, jap_effect in enumerate(storage.japaneseStaggeredAS_IDs):
-        japanese_staggering_as_tech = helpers.create_empty_tech()
-        japanese_staggering_as_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
-        japanese_staggering_as_tech.effect_id = jap_effect
-        japanese_staggering_as_tech.civ = 5 # Japanese
-        japanese_staggering_as_tech.repeatable = 1
-        japanese_staggering_as_tech.required_tech_count = 1
-        japanese_staggering_as_tech.name = f"C-Bonus, {technames [idx]} Inf Attack Spd"
-        df.techs.append(japanese_staggering_as_tech)
-
-
-
+    
 
 def billman_auto_upgrade (df: DatFile):
     # @Billman Auto Upgrade Tech in Castle Age

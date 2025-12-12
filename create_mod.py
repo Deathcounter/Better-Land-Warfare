@@ -148,11 +148,11 @@ def creating_moving_mod_files():
             filecontent.clear()
 
 def check_opening_path ():
-    jsonNames = ["icons.json", "materials.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "civTechTrees.json"]
+    jsonNames = ["icons.json", "materials.json", "techtreepreviewpanel.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "civTechTrees.json"]
     for idx, jsonName in enumerate(jsonNames):
         Pathname = (storage.blwDatPath / jsonName)
         if (not Pathname.exists()):
-            if (idx in [0,1]):
+            if (idx in [0,2]):
                 print(f"No file named {jsonName} found in blw dat folder.")
                 print(f"\nSuggested Troubleshoot:\n* Copy {jsonName} from the gamefiles (\\Steam\\steamapps\\common\\AoE2DE\\widgetui) in the blw dat folder")
             else:

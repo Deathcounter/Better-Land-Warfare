@@ -66,6 +66,7 @@ throwingTechniquesID: int
 throwerBlacksmithIDs = []
 
 japaneseStaggeredAS_IDs = []
+vikingStaggeredHP_IDs = []
 
 shieldBossId: int
 

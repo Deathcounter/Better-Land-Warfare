@@ -117,7 +117,18 @@ def french_change (df: DatFile):
     df.effects[523].effect_commands[0].d = 1.20
     df.effects[523].effect_commands[1].d = 1.20
     logging.debug ("Successfully changed Franks")
-    
+
+def japanese_change (df: DatFile):
+    # @Civ Bonus Staggering Attack Speed buff
+    # deactivate the previous attack speed buff
+    df.effects[339].effect_commands.clear()
+    multipliers = [0.90909, 0.95652, 0.95833, 0.96]
+    percentages = [10, 15, 20, 25]
+    for idx, multiplier in enumerate(multipliers):
+        storage.japaneseStaggeredAS_IDs.append(len(df.effects))
+        japenese_attackspeed_effect: Effect = Effect (f"C-Bonus, Inf +{percentages[idx]}% Attack Spd", [EffectCommand (5, -1, 6, 10, multiplier), EffectCommand (5, 1831, -1, 10, multiplier)])
+        df.effects.append(japenese_attackspeed_effect)
+
 def jurchens_change (df: DatFile):
     # @CivBonus Jurchens
     # All Lancer Units (Steppe-, Fire- and regular Lancer) attack +25% faster (20% in coding terms)
@@ -220,3 +231,12 @@ def vikings_change (df: DatFile):
     for command in df.effects[394].effect_commands:
         command.d = 0.9 #changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount.
         logging.debug ("Successfully changed Vikings")
+    # delete current bonus
+    df.effects[416].effect_commands.clear()
+
+    multipliers = [0.90909, 1.04762, 1.04545, 1.04348]
+    percentages = [5, 10, 15, 20]
+    for idx, multiplier in enumerate(multipliers):
+        storage.vikingStaggeredHP_IDs.append(len(df.effects))
+        japenese_attackspeed_effect: Effect = Effect (f"C-Bonus, Inf +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
+        df.effects.append(japenese_attackspeed_effect)

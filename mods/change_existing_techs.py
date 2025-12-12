@@ -20,6 +20,7 @@ def run_change_existing_techs(df: DatFile):
     move_elite_genitour_to_castle (df)
     change_gambesons_to_give_HP (df)
     blacksmith_infantry_attack_upgrades (df)
+    japanese_staggering_attackspeed (df)
 
 
 def change_armenian_early_barracks_techs (df: DatFile):
@@ -69,3 +70,29 @@ def blacksmith_infantry_attack_upgrades (df: DatFile):
                 
             remove_Thrower_attack: EffectCommand = EffectCommand(4, thrower, -1, 9, value)     
             df.effects[infantry_attack_upgrade].effect_commands.append(remove_Thrower_attack)
+
+def japanese_staggering_attackspeed (df: DatFile):
+    agetechs = [104, 101, 102, 103]
+    technames = [10, 15, 20, 25]
+    for idx, jap_effect in enumerate(storage.japaneseStaggeredAS_IDs):
+        japanese_staggering_as_tech = helpers.create_empty_tech()
+        japanese_staggering_as_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
+        japanese_staggering_as_tech.effect_id = jap_effect
+        japanese_staggering_as_tech.civ = 5 # Japanese
+        japanese_staggering_as_tech.repeatable = 1
+        japanese_staggering_as_tech.required_tech_count = 1
+        japanese_staggering_as_tech.name = f"C-Bonus, {technames [idx]} Inf Attack Spd"
+        df.techs.append(japanese_staggering_as_tech)
+
+def vikings_staggering_HP (df: DatFile):
+    agetechs = [104, 101, 102, 103]
+    technames = [10, 15, 20, 25]
+    for idx, vik_effect in enumerate(storage.vikingStaggeredHP_IDs):
+        viking_staggering_HP_tech = helpers.create_empty_tech()
+        viking_staggering_HP_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
+        viking_staggering_HP_tech.effect_id = vik_effect
+        viking_staggering_HP_tech.civ = 11 # Vikings
+        viking_staggering_HP_tech.repeatable = 1
+        viking_staggering_HP_tech.required_tech_count = 1
+        viking_staggering_HP_tech.name = f"C-Bonus, +{technames [idx]}% HP"
+        df.techs.append(viking_staggering_HP_tech)

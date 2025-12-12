@@ -20,7 +20,6 @@ def run_add_effects (df: DatFile):
     unit_upgrades_e (df)
     thrower_upgrades_e (df)
     shield_boss_e (df)
-    japanese_staggering_attackspeed_e (df)
     billman_auto_upgrade (df)
     logging.info("Added all new effects sucessfully")
 
@@ -188,18 +187,6 @@ def shield_boss_e (df: DatFile):
     df.effects.append(shield_boss_effect)
     logging.info (f"Successfully added Shield Boss effect at ID {storage.shieldBossId}")
    
-
-def japanese_staggering_attackspeed_e (df: DatFile):
-    # deactivate the previous attack speed buff
-    df.effects[339].effect_commands.clear()
-    multipliers = [0.90909, 0.95652, 0.95833, 0.96]
-    percentages = [10, 15, 20, 25]
-    for idx, multiplier in enumerate(multipliers):
-        storage.japaneseStaggeredAS_IDs.append(len(df.effects))
-        japenese_attackspeed_effect: Effect = Effect (f"C-Bonus, Inf {percentages[idx]} Attack Spd", [EffectCommand (5, -1, 6, 10, multiplier), EffectCommand (5, 1831, -1, 10, multiplier)])
-        df.effects.append(japenese_attackspeed_effect)
-    
-
 def billman_auto_upgrade (df: DatFile):
     # @Billman Auto Upgrade Effect in Castle Age
                                                 #Attr. Modifier Multiply(5), Billman (ID), Class (-1), Attr. Train Time (101), * 0.425 = 40s -> 17s

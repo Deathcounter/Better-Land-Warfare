@@ -20,10 +20,12 @@ REPLACE_CIV_NAMES = {"Franks": "French", "Britons": "British", "Byzantines": "By
 
 
 def run_post_mod_json_editing():
-    create_modified_unitCategoriesJson()
-    create_modified_futureAvailUnitsJson()
-    create_modified_unitlinesJson()
-    create_modified_civTechTreesJson()
+    if (not storage.lightmode):
+        create_modified_unitCategoriesJson()
+        create_modified_futureAvailUnitsJson()
+        create_modified_unitlinesJson()
+        create_modified_civTechTreesJson()
+    create_modified_techtreepreviewpanelJson()
 
 def create_modified_unitCategoriesJson():
     iconFilePath = (storage.blwDatPath / "unitcategories.json").resolve() # Path of input json File
@@ -755,3 +757,119 @@ def build_BLW_siegeDict(civname: str) -> list [dict]:
     }
     techDict.append(flameThrowerDict)
     return techDict
+
+def create_modified_techtreepreviewpanelJson():
+    ttpreviewPath = (storage.blwDatPath / "techtreepreviewpanel.json").resolve() # Path of input json File
+    with open(ttpreviewPath,"r", encoding="utf-8") as f:
+        data = json.load(f)    # Load the data of Json File
+    lastButtonnumber = 3
+    billmanDict =  {
+                        "Widget":{
+                            "Type": "TechTreeButton",
+                            "Name": "",
+                            "ViewPort": {
+                                "xorigin": 300-75,
+                                "yorigin": 0,
+                                "width": 70,
+                                "height": 65,
+                                "alignment": "TopLeft"
+                            },
+                            "Help": "Billman Line",
+                            "IconValues": [
+                                {
+                                    "TechId": storage.billmanAvailTechID,
+                                    "UnitId": storage.BillmanIDs[0]
+                                },
+                                {
+                                    "TechId": storage.billmanUpgradeTechs[0],
+                                    "UnitId": storage.BillmanIDs[1]
+                                },
+                                {
+                                    "TechId": storage.billmanUpgradeTechs[1],
+                                    "UnitId": storage.BillmanIDs[2]
+                                }
+                            ]
+                        }
+                    }
+    shieldBossDict =  {
+                        "Widget":{
+                            "Type": "TechTreeButton",
+                            "Name": "",
+                            "ViewPort": {
+                                "xorigin": 300-75,
+                                "yorigin": 0,
+                                "width": 70,
+                                "height": 65,
+                                "alignment": "TopLeft"
+                            },
+                            "Help": "Billman Line",
+                            "IconValues": [
+                                {
+                                    "TechId": storage.billmanAvailTechID,
+                                    "UnitId": storage.BillmanIDs[0]
+                                },
+                                {
+                                    "TechId": storage.billmanUpgradeTechs[0],
+                                    "UnitId": storage.BillmanIDs[1]
+                                },
+                                {
+                                    "TechId": storage.billmanUpgradeTechs[1],
+                                    "UnitId": storage.BillmanIDs[2]
+                                }
+                            ]
+                        }
+                    }
+    
+    
+    entireDict = data.get("Collection")
+    widgets = entireDict.setdefault("Widgets", [])
+    widget = widgets[0].get("Widget", {}) # at first I didnt understand that Widget is just another Dict in Widgets, so asked AI why widgets[0].get("ChildWidgets")
+    childWidgets = widget.get("ChildWidgets")
+    # this is getting absurd
+    subwidget = childWidgets[0].get("Widget", {}) # line 39 in the file
+    realChildWidgets = subwidget.get("ChildWidgets", []) # line 59 in the file
+
+    # And I didnt use AI for this
+    
+    for widgetDict in realChildWidgets:
+        widget = widgetDict.get("Widget", {})
+        if (widget.get("Name")=="Items1"): #Barrack Units Widget
+            inserted = 0
+            lastWidget = widget.get("ChildWidgets", [])
+            for idx, unitWidget in enumerate(lastWidget):
+                realUnitWidget = unitWidget.get("Widget", {})
+                if (inserted != 0):
+                    realUnitWidget["Name"] = idx+inserted
+                    viewPortDict = realUnitWidget.get("ViewPort")
+                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + (75 * inserted)
+                if (realUnitWidget.get("Help") == "Spearman Line"):
+                    billmanDict["Name"] = str("Button"+idx)
+                    billmanDict["Viewport"].get("xorigin")
+                    lastWidget.insert(idx+1, billmanDict)
+                    inserted += 1
+                if (realUnitWidget.get("Help") == "Gambesons"):
+                    shiel
+                    lastWidget.insert(idx+1, shieldbossDict)
+                    inserted += 1
+
+        if (widget.get("Name")=="Items1"): #Barrack Units Widget
+            inserted = 0
+            lastWidget = widget.get("ChildWidgets", [])
+            for idx, unitWidget in enumerate(lastWidget):
+                realUnitWidget = unitWidget.get("Widget", {})
+                if (inserted):
+                    button = f"Button{str(lastButtonnumber)}"
+                    realUnitWidget["Name"] = button
+                    lastButtonnumber += 1
+                    viewPortDict = realUnitWidget.get("ViewPort")
+                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + 75
+                if (realUnitWidget.get("Help") == "Spearman Line"):
+                    lastWidget.insert(idx+1, billmanDict)
+                    inserted = 1
+                
+
+
+    
+    outputFilePath = (storage.widgetUIFolder / "techtreepreviewpanel.json").resolve() # Path of output Json File        
+    with open(outputFilePath, "w", encoding="utf-8") as output:
+        json.dump(data, output, indent=2, ensure_ascii=False)
