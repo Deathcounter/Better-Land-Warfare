@@ -337,7 +337,7 @@ def add_Thrower_line(df: DatFile):
 
     name_list = ('Dart Thrower', 'Knife Thrower', 'Hatchet Thrower', 'Ninja')
     storage.throwerNames = name_list
-    hp_list = (35, 40, 45, 50)
+    hp_list = (35, 40, 45, 45)
     speed_list = (1, 1.05, 1.05, 1.1) 
     frame_delay_list = (16, 14, 14, 12)
 

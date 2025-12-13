@@ -363,6 +363,7 @@ def create_modified_civTechTreesJson():
     # ugh, let's just hope no new civ will ever, EVER have Archery or Stable techs one age earlier
     armenianunits: list[dict] = civs[armenianidx].setdefault("civ_techs_units", []) 
 
+    # ARMENIANS
     # Essentially what this does (have the vanilla Armenian tech tree open to understand better, imagine Shield Boss below Gambesons):
     # Save Arson dict in a temporary variable (that actually gets done mulitple times because of the loop)
     # Add *' Gambesons and Shield Boss after Flailwarrior (flailWarrioridx+1 and +2 - overwrites arson and Gambesons - the overwritten Gambesons is already duplicate *' ), 
@@ -762,13 +763,13 @@ def create_modified_techtreepreviewpanelJson():
     ttpreviewPath = (storage.blwDatPath / "techtreepreviewpanel.json").resolve() # Path of input json File
     with open(ttpreviewPath,"r", encoding="utf-8") as f:
         data = json.load(f)    # Load the data of Json File
-    lastButtonnumber = 3
+
     billmanDict =  {
                         "Widget":{
                             "Type": "TechTreeButton",
                             "Name": "",
                             "ViewPort": {
-                                "xorigin": 300-75,
+                                "xorigin": 0,
                                 "yorigin": 0,
                                 "width": 70,
                                 "height": 65,
@@ -796,31 +797,79 @@ def create_modified_techtreepreviewpanelJson():
                             "Type": "TechTreeButton",
                             "Name": "",
                             "ViewPort": {
-                                "xorigin": 300-75,
+                                "xorigin": 0,
                                 "yorigin": 0,
                                 "width": 70,
                                 "height": 65,
                                 "alignment": "TopLeft"
                             },
-                            "Help": "Billman Line",
+                            "Help": "Shield Boss",
                             "IconValues": [
                                 {
-                                    "TechId": storage.billmanAvailTechID,
-                                    "UnitId": storage.BillmanIDs[0]
-                                },
-                                {
-                                    "TechId": storage.billmanUpgradeTechs[0],
-                                    "UnitId": storage.BillmanIDs[1]
-                                },
-                                {
-                                    "TechId": storage.billmanUpgradeTechs[1],
-                                    "UnitId": storage.BillmanIDs[2]
+                                    "TechId": storage.shieldBossTechId
                                 }
                             ]
                         }
                     }
-    
-    
+    throwerDict =   {
+                        "Widget":{
+                            "Type": "TechTreeButton",
+                            "Name": "",
+                            "ViewPort": {
+                                "xorigin": 0,
+                                "yorigin": 0,
+                                "width": 70,
+                                "height": 65,
+                                "alignment": "TopLeft"
+                            },
+                            "Help": "Thrower Line",
+                            "IconValues": [
+                                {
+                                    "TechId": storage.dartthrowerAvailTechID,
+                                    "UnitId": storage.ThrowerIDs[0]
+                                },
+                                {
+                                    "TechId": storage.throwerUpgradeTechs[0],
+                                    "UnitId": storage.ThrowerIDs[1]
+                                },
+                                {
+                                    "TechId": storage.throwerUpgradeTechs[1],
+                                    "UnitId": storage.ThrowerIDs[2],
+                                    "ExcludeCivs": True,
+                                        "CivIds": [
+                                           "JAPANESE-CIV"
+                                        ]
+                                },
+                                {
+                                    "TechId": storage.throwerUpgradeTechs[2],
+                                    "UnitId": storage.ThrowerIDs[3],
+                                    "CivIds": [
+                                       "JAPANESE-CIV"
+                                        ]
+                                }
+                            ]
+                        }
+
+                    }
+    throwingTechniquesDict = {
+                        "Widget":{
+                            "Type": "TechTreeButton",
+                            "Name": "",
+                            "ViewPort": {
+                                "xorigin": 0,
+                                "yorigin": 0,
+                                "width": 70,
+                                "height": 65,
+                                "alignment": "TopLeft"
+                            },
+                            "Help": "Throwing Techniques",
+                            "IconValues": [
+                                {
+                                    "TechId": storage.throwingTechniquesTechID
+                                }
+                            ]
+                        }
+                    }
     entireDict = data.get("Collection")
     widgets = entireDict.setdefault("Widgets", [])
     widget = widgets[0].get("Widget", {}) # at first I didnt understand that Widget is just another Dict in Widgets, so asked AI why widgets[0].get("ChildWidgets")
@@ -833,43 +882,82 @@ def create_modified_techtreepreviewpanelJson():
     
     for widgetDict in realChildWidgets:
         widget = widgetDict.get("Widget", {})
-        if (widget.get("Name")=="Items1"): #Barrack Units Widget
+        # Barrack Widget
+        if (widget.get("Name")=="Items1"): 
             inserted = 0
             lastWidget = widget.get("ChildWidgets", [])
-            for idx, unitWidget in enumerate(lastWidget):
+            boolflag = False
+            # Ok so the goal is to add a new unit and a new tech. Billman after Spearman, Shield Boss after Gambeson (no civ specific preview so I can't make shieldBoss and upgrade of Gambesons)
+            for idx, unitWidget in enumerate(lastWidget, 1): # so I go through the Widget List of Items1
+                realUnitWidget = unitWidget.get("Widget", {})  # get the real Widget not the fake one
+                if (inserted != 0 and boolflag): # this adds xorigin and Button ID to all non added techs
+                    realUnitWidget["Name"] = "Button" + str(idx) # idx starts at 1!!! this means my (desired) button ID is always my index
+                    viewPortDict = realUnitWidget.get("ViewPort")
+                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + (75 * inserted) # I need to add 75 for every insert, before each insert increases the objects xorigin by 75
+                boolflag = True    # this flag is telling me that after I Insert, the tech I just inserted will NOT get an extra +1 or +75
+                if (realUnitWidget.get("Help") == "Spearman Line"): # Add after Spearman ID
+                    billmanWidget = billmanDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = billmanWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75 # I copy the xorigin of the Spearman, and add +75
+                    billmanWidget["Name"] = "Button" + str(idx+1) # Same with Button
+                    lastWidget.insert(idx, billmanDict) # this inserts it after the Spearman Line
+                    inserted += 1 # one insert = +75 for everyone else
+                    boolflag = False # bool flag to prevent the code to add additional values as they are already added
+
+                # Listen, now that I am done with the code, I come to think what if I just increase everything by 75 including the tech I just added, but I messed up so I came up with that
+                # But now it works also somehow adding the Archery Stuff broke it too?
+
+                # Same with Shield Boss
+                if (realUnitWidget.get("Help") == "Gambesons"):
+                    shieldBossWidget = shieldBossDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = shieldBossWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75
+                    shieldBossWidget["Name"] = "Button" + str(idx+1)
+                    lastWidget.insert(idx, shieldBossDict)
+                    inserted += 1
+                    boolflag = False
+                #@MayBreak looks good, idk if actually future proof or if the next tech after Battle Drills will not have some messed up values           
+                
+        # Archery Range Widget
+        if (widget.get("Name")=="Items2"):
+            inserted = 0
+            lastWidget = widget.get("ChildWidgets", [])
+            boolflag = False
+            for idx, unitWidget in enumerate((lastWidget), 1):
                 realUnitWidget = unitWidget.get("Widget", {})
-                if (inserted != 0):
-                    realUnitWidget["Name"] = idx+inserted
+                if (inserted != 0 and boolflag):
+                    realUnitWidget["Name"] = "Button" + str(idx)
                     viewPortDict = realUnitWidget.get("ViewPort")
                     viewPortDict["xorigin"] = viewPortDict.get("xorigin") + (75 * inserted)
-                if (realUnitWidget.get("Help") == "Spearman Line"):
-                    billmanDict["Name"] = str("Button"+idx)
-                    billmanDict["Viewport"].get("xorigin")
-                    lastWidget.insert(idx+1, billmanDict)
+                boolflag = True
+                if (realUnitWidget.get("Help") == "Skirmisher Line"):
+                    throwerWidget = throwerDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = throwerWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75
+                    throwerWidget["Name"] = "Button" + str(idx+1)
+                    lastWidget.insert(idx, throwerDict)
                     inserted += 1
-                if (realUnitWidget.get("Help") == "Gambesons"):
-                    shiel
-                    lastWidget.insert(idx+1, shieldbossDict)
-                    inserted += 1
+                    boolflag = False
 
-        if (widget.get("Name")=="Items1"): #Barrack Units Widget
-            inserted = 0
-            lastWidget = widget.get("ChildWidgets", [])
-            for idx, unitWidget in enumerate(lastWidget):
-                realUnitWidget = unitWidget.get("Widget", {})
-                if (inserted):
-                    button = f"Button{str(lastButtonnumber)}"
-                    realUnitWidget["Name"] = button
-                    lastButtonnumber += 1
-                    viewPortDict = realUnitWidget.get("ViewPort")
-                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + 75
-                if (realUnitWidget.get("Help") == "Spearman Line"):
-                    lastWidget.insert(idx+1, billmanDict)
-                    inserted = 1
-                
+                if (realUnitWidget.get("Help") == "Thumb Ring"): #@MayBreak - because I append it to the Elephant Archer, - but what if Ele Archer isnt the last Unit anymore
+                    throwingTechniquesWidget = throwingTechniquesDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = throwingTechniquesWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75 # +100 instead of +75 because the techs are 25 px away from the units and TT is the first tech
+                    throwingTechniquesWidget["Name"] = "Button" + str(idx+1)
+                    lastWidget.insert(idx, throwingTechniquesDict)
+                    inserted += 1
+                    boolflag = False     
 
 
     
     outputFilePath = (storage.widgetUIFolder / "techtreepreviewpanel.json").resolve() # Path of output Json File        
     with open(outputFilePath, "w", encoding="utf-8") as output:
-        json.dump(data, output, indent=2, ensure_ascii=False)
+        json.dump(data, output, indent=3, ensure_ascii=False)

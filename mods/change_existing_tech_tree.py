@@ -17,7 +17,7 @@ NAME = "change_existing_civs"
 #@NewCivs
 CIV_TECH_MATRIX = {
     "Armenians":    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "Aztecs":       [0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1],
+    "Aztecs":       [0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1],
     "Bengalis":     [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
     "Berbers":      [0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0],
     "Bohemians":    [0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1],
@@ -92,7 +92,7 @@ def add_BLL_tech_tree (df: DatFile):
     storage.billmanUpgradeTechs[0],         # slot 10 -> Scytheman
     storage.billmanUpgradeTechs[1]          # slot 11 -> Flail Warrior
     ]
-
+    #@NewCivs
     missing_civ_amount = -7 # I am expected to not include the 6 chronical civs + Gaia. Needs to be updated for each new non-standard civ.
 
     
