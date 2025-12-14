@@ -2,11 +2,11 @@
 #For example, when I add a new unit, I need to access to it's ID to make the (make avail) effect. Then I need the ID of that effect to add the corresponding technology of it
 from pathlib import Path 
 
-lightmode = True #if True basically disables function who might take a longer time and shouldn't be resolved every test run - AKA Debug Mode
+lightmode = True # if True basically disables function who might take a longer time and shouldn't be resolved every test run - AKA Debug Mode
 
 # constants
 techStrings =   ["Scytheman", "FlailWarrior", "HeavyLancer", "KnifeThrower", "HatchetThrower", "Ninja", 
-                "ThrowingTechniques", "WoodenGrip", "Holster", "BalancedWeaponry", "ShieldBoss"]
+                "ThrowingTechniques", "WoodenGrip", "Holster", "BalancedWeaponry", "ShieldBoss", "EliteGenitour"]
 
 
 #sounds
@@ -105,6 +105,7 @@ throwingTechniquesIconID = si+7
 throwerBlacksmithIconIDs = [si+8, si+9, si+10]
 
 shieldBossIconID = si+11
+eliteGenitourIconID = si+12
 
 #tech names
 throwerUpgradeNames = []

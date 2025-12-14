@@ -316,6 +316,8 @@ def add_Thrower_line(df: DatFile):
     base.type_50.blast_attack_level = 3
     base.type_50.blast_damage = 1
 
+    base.creatable.creatable_type = 5 # this makes it so that in a unit formation, the Thrower is at the back, and not mixed like gbetos are in the base game
+
     base.type_50.graphic_displacement = [0, 0.5, 1.5]
 
     base.type_50.attacks.clear() #delete all info from cataphract to future proof
@@ -349,11 +351,11 @@ def add_Thrower_line(df: DatFile):
     displayed_m_armor_list = (0, 1, 1, 1)
     displayed_p_armor_list = (0, 0, 1, 0)
 
-                                    # melee,               spearman,         skirmisher,          standard building,       armored units           
-    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(27,2), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(90,1))
-    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2))
-    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,3), AttackOrArmor(90,2))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(27,3), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
+                                    # melee,            skirmisher,          standard building,       armored units           
+    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(90,1))
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2))
+    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2))
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
     armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))

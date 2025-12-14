@@ -22,8 +22,12 @@ def run_change_existing_units (df: DatFile):
     give_firelancers_lancer_class (df)
     move_condo_trainbutton (df)
     move_genitour_trainbutton (df)
+    change_ranged_infantry_formation (df)
     buff_iron_pagoda (df)
     nerf_rattan_archers (df)
+    buff_samurai (df)
+    buff_woadraider (df)
+    buff_berserkers (df)
     if (not storage.lightmode):
         add_armored_unit_class (df)
 
@@ -63,6 +67,15 @@ def move_genitour_trainbutton (df: DatFile):
         civ.units[1012].creatable.train_locations[0].button_id = 12 # moves Elite-Genitour train button to 12
     logging.debug("Moved Genitour to Button 12")
 
+
+def change_ranged_infantry_formation (df: DatFile):
+    for civ in df.civs:
+        civ.units[1013].creatable.creatable_type = 5 # classifies gbetos as an archer so they are positioned in the back
+        civ.units[1015].creatable.creatable_type = 5 # Elite
+        civ.units[281].creatable.creatable_type = 5 # classifies throwing axemen
+        civ.units[531].creatable.creatable_type = 5
+    logging.debug("Ranged Infantry formation changed")
+
 def buff_iron_pagoda (df: DatFile):
     # actually its a nerf, but since I change Jurchens Civ bonus, it's a buff. 2.15 -> 1.72 originally. Now 1.72 -> 1.85
     for civ in df.civs:
@@ -91,4 +104,26 @@ def add_armored_unit_class (df: DatFile):
                     civ.units[unit.id].type_50.armours.append(AttackOrArmor(90,0))
                     logging.debug(f"Appended Armored Unit class to {civ.units[unit.id].name}")
     logging.info("Added Armored Unit Armor Class")
-            
+
+# following changes are not actually buffs, but just make the UUs the same as they are now (roughly, maybe slight nerfs)
+
+def buff_samurai (df: DatFile):
+
+    for civ in df.civs:
+        civ.units[291].type_50.reload_time = 1.8 # = 1.5 (-17,666%) attack speed compared to 1.43 now in Castle
+        civ.units[560].type_50.reload_time = 1.8 # = 1.44 (-20%) attack speed compared to 1.43 now in Imp
+    logging.debug("Buffed Samurai Attack Speed")
+
+def buff_woadraider (df: DatFile):
+    
+    for civ in df.civs:
+        civ.units[232].speed = 1.2 # = 1.344 (+12%) speed compared to 1.35 now in Castle
+        civ.units[534].speed = 1.2 # = 1.416 (+18%) speed compared to 1.4 now in Imp
+    logging.debug("Buffed Woad Rider Speed")
+
+def buff_berserkers (df: DatFile):
+
+    for civ in df.civs:
+        civ.units[692].hit_points = 57 # = 65.55 HP (+15%) compared to 65 now in Castle
+        civ.units[694].hit_points = 63 # = 75.6 HP (+20%) compared to 74 now in Imp
+    logging.debug("Buffed Berserker HP")   

@@ -20,7 +20,9 @@ def run_change_existing_techs(df: DatFile):
     move_elite_genitour_to_castle (df)
     change_gambesons_to_give_HP (df)
     blacksmith_infantry_attack_upgrades (df)
-    japanese_staggering_attackspeed (df)
+    japanese_staggering_inf_attackspeed (df)
+    vikings_staggering_inf_HP (df)
+    # remove_chieftains_cavattack_for_throwers (df)
 
 
 def change_armenian_early_barracks_techs (df: DatFile):
@@ -48,6 +50,7 @@ def move_elite_genitour_to_castle (df: DatFile):
     #moving Elite Genitour Upgrade to Castle in order to make space for thrower line and upgrade
     df.effects[38].effect_commands[2].d = 9 #changes the Berber Teambonus [38] to move the research location to button 9 instead of 14
     df.techs[599].research_locations[0].location_id = 82 #changes the research location of Elite Genitour [599] from Archery Range to Castle (82)
+    df.techs[599].icon_id = storage.eliteGenitourIconID
 
 
 # technically should be in change_existing_effect.py but don't tell Police pls
@@ -62,16 +65,16 @@ def blacksmith_infantry_attack_upgrades (df: DatFile):
     infantry_attack_upgrade_IDs = [67, 68, 75]
     for infantry_attack_upgrade in infantry_attack_upgrade_IDs:
         for thrower in storage.ThrowerIDs:
-                                                # Attr. Modifier +-(4), ThrowerId, Class -1, Attack(9), Amount (-1), Melee Attackclass (4)
+                                                
             if (infantry_attack_upgrade == 75):
                 value = -1026 #turns into negative -1 for melee Attack class
             else:
                 value = -1025 #turns into negative -2 for melee Attack class (Blast Furnace)
-                
+                                                                # Attr. Modifier +-(4), ThrowerId, Class -1, Attack(9), Amount (-1), Melee Attackclass (4)
             remove_Thrower_attack: EffectCommand = EffectCommand(4, thrower, -1, 9, value)     
             df.effects[infantry_attack_upgrade].effect_commands.append(remove_Thrower_attack)
 
-def japanese_staggering_attackspeed (df: DatFile):
+def japanese_staggering_inf_attackspeed (df: DatFile):
     agetechs = [104, 101, 102, 103]
     technames = [10, 15, 20, 25]
     for idx, jap_effect in enumerate(storage.japaneseStaggeredAS_IDs):
@@ -84,7 +87,7 @@ def japanese_staggering_attackspeed (df: DatFile):
         japanese_staggering_as_tech.name = f"C-Bonus, {technames [idx]} Inf Attack Spd"
         df.techs.append(japanese_staggering_as_tech)
 
-def vikings_staggering_HP (df: DatFile):
+def vikings_staggering_inf_HP (df: DatFile):
     agetechs = [104, 101, 102, 103]
     technames = [10, 15, 20, 25]
     for idx, vik_effect in enumerate(storage.vikingStaggeredHP_IDs):
@@ -96,3 +99,13 @@ def vikings_staggering_HP (df: DatFile):
         viking_staggering_HP_tech.required_tech_count = 1
         viking_staggering_HP_tech.name = f"C-Bonus, +{technames [idx]}% HP"
         df.techs.append(viking_staggering_HP_tech)
+
+
+# This is actually not needed, Bonus attacks can only be applied to units that already have an attack against that unit. Thats why so many units have an attack against classes of 0
+# Throwers do not have bonus vs cavs nor camels. I coded it anyway in case I need it. They will still generate gold tho, so little I can change about that (I dont want to edit effects.xs)
+
+def remove_chieftains_cavattack_for_throwers (df: DatFile):
+    for thrower in storage.ThrowerIDs:
+        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -2053) # turns into -5 for cavalry class (256* classnumber - amount)
+        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -7684) # turns into -4 for camel class (e.g 256 * 30 = 7680 - 4 = -7684)
+        df.effects[517].effect_commands.append(remove_thrower_chieftains)

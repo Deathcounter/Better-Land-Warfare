@@ -18,8 +18,10 @@ def run_change_existing_civs (df: DatFile):
     armenians_change (df)
     burgundian_change (df)
     burmese_change (df)
+    celts_change (df)
     dravidian_change (df)
     french_change (df)
+    goths_change (df)
     jurchens_change (df)
     malian_change (df)
     slavs_change (df)
@@ -85,6 +87,23 @@ def burmese_change (df: DatFile):
             df.effects[effect].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(1, 4)))
     logging.debug ("Successfully changed Burmese")
 
+
+def celts_change (df: DatFile):
+    # @CivBonus Celts
+    # Infantry moves 6/12/18% faster (instead of 5 per Age)
+    df.effects[392].effect_commands.clear()
+
+    effects = [905, 906, 907]
+    multipliers = [1.06, 1.05660, 1.05357]
+    percentages = [6, 12, 18]
+    for idx, effect in enumerate(effects):
+        df.effects[effect].name = f"C-Bonus, Infantry +{percentages[idx]}% speed"
+        for command in df.effects[effect].effect_commands:
+            command.d = multipliers[idx]
+        
+
+
+
 def dravidian_change (df: DatFile):
     # @CivBonus Dravidians
     # Minor Change
@@ -117,6 +136,18 @@ def french_change (df: DatFile):
     df.effects[523].effect_commands[0].d = 1.20
     df.effects[523].effect_commands[1].d = 1.20
     logging.debug ("Successfully changed Franks")
+
+def goths_change (df: DatFile):
+    # @CivBonus Goths
+    # Infantry 5% cheaper per Age starting in Dark Age (instead of 15/20/25/30 per Age)
+
+    effects = [342, 765, 766, 767]
+    multipliers = [0.95, 0.94737, 0.94444, 0.94117]
+    percentages = [5, 10, 15, 20]
+    for idx, effect in enumerate(effects):
+        df.effects[effect].name = f"C-Bonus, Infantry +{percentages[idx]}% cheaper"
+        for command in df.effects[effect].effect_commands:
+            command.d = multipliers[idx]
 
 def japanese_change (df: DatFile):
     # @Civ Bonus Staggering Attack Speed buff
@@ -231,10 +262,12 @@ def vikings_change (df: DatFile):
     for command in df.effects[394].effect_commands:
         command.d = 0.9 #changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount.
         logging.debug ("Successfully changed Vikings")
+    
+    # Vikings Staggering Infantry HP (instead of +20% in Feudal)
     # delete current bonus
-    df.effects[416].effect_commands.clear()
+    df.effects[428].effect_commands.clear()
 
-    multipliers = [0.90909, 1.04762, 1.04545, 1.04348]
+    multipliers = [1.05, 1.04762, 1.04545, 1.04348]
     percentages = [5, 10, 15, 20]
     for idx, multiplier in enumerate(multipliers):
         storage.vikingStaggeredHP_IDs.append(len(df.effects))

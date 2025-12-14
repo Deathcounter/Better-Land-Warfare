@@ -100,7 +100,7 @@ def create_modified_futureAvailUnitsJson():
                     if (i == 1 and techlist[i] == 1): # Checks if Civ has Shieldboss (1) available. I actually just use the non Gambeson Shield Boss here because it will only show up if needed
                         RequiredAge = 3 if civ != "Armenians" else 2 # obviously armenians -.-
                         shieldBossDict = {
-                            "ID": storage.shieldBossTechId,
+                            "ID": storage.shieldBossTechId2,
                             "Name": storage.shieldBossUpgradeName,
                             "RequiredAge": RequiredAge
                         }
@@ -224,14 +224,14 @@ def create_modified_futureAvailUnitsJson():
                     stableTechs = building.setdefault("Techs", []) if isinstance(building, dict) else None
                     stableUnits = building.setdefault("Units", []) if isinstance(building, dict) else None
                     
-                    if (i == 9 and techlist[i] == 1):
+                    if (i == 8 and techlist[i] == 1):
                         lancerUnitDict = {
                             "ID": storage.LancerIDs[0],
                             "Name": storage.lancerNames[0],
                             "RequiredAge": 3
                         }
                         stableUnits.append(lancerUnitDict)
-                    if (i == 10 and techlist[i] == 1):
+                    if (i == 9 and techlist[i] == 1):
                         heavyLancerUnitDict = {
                             "ID": storage.LancerIDs[1],
                             "Name": storage.lancerNames[1],
