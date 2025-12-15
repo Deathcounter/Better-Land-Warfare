@@ -24,7 +24,7 @@ def run_post_mod_json_editing():
         create_modified_unitCategoriesJson()
         create_modified_futureAvailUnitsJson()
         create_modified_unitlinesJson()
-        create_modified_civTechTreesJson()
+    create_modified_civTechTreesJson()
     create_modified_techtreepreviewpanelJson()
 
 def create_modified_unitCategoriesJson():
@@ -309,6 +309,7 @@ def create_modified_civTechTreesJson():
     lancerUnitAmount = len(storage.LancerIDs)
 
     armenianidx = 0
+    moveUUcivs = []
     for cividx, civ in enumerate(civs):
         civname: str = civ.get("civ_id")
         civname = civname.capitalize() # civTechTree contains all civs with Uppercase letters: "AZTECS" - but both my global Dict use "Aztecs" -> capitalize() needed
@@ -318,6 +319,11 @@ def create_modified_civTechTreesJson():
             continue # No civ, No service
         if civname == "Armenians":
             armenianidx = cividx    # store which ID is armenians so I can change civs[armenianidx] later
+        
+        
+        if civname in ["Incas", "Jurchens", "Wei"]:
+            moveUUcivs.append(cividx)
+
         unitDicts = build_BLW_unitDict(civname) # compounds all Dictionaries into a single list of Dictionaries
         techDicts = build_BLW_techDict(civname) # same with techs
         siegeDicts = build_BLW_siegeDict(civname)
@@ -387,6 +393,27 @@ def create_modified_civTechTreesJson():
             unit["Link ID"] = 602
             unit["Age ID"] = 2
             break # all done, all changed, lets break out of the loop to save time
+
+
+    # in here I essentially just move the UU to below the Elite Skirmisher. This makes it so that throwing technique doesnt need its own row
+    UUnames = ["Slinger", "Xianbei Raider", "Grenadier"]
+    for cividx, shuffleciv in enumerate(moveUUcivs):
+        shufflecivUnits: list[dict] = civs[shuffleciv].setdefault("civ_techs_units", []) 
+        for unitidx, unit in enumerate(shufflecivUnits):
+            if unit.get("Name") == "Elite Skirmisher":
+                newUUslot = unitidx + 1 # storing where I will insert it (after ES)
+            if unit.get("Name") == UUnames[cividx]:
+                unit["Link ID"] = 6 # I need to link it below the Skirmisher
+                storeUUdict = unit # storing the UU
+                shufflecivUnits.pop(unitidx) # delete UU from Tech tree since we stored it
+                shufflecivUnits.insert(newUUslot, storeUUdict) # insert the dict
+            if unit.get("Name") == "Parthian Tactics": # for some reason, Parthian Tactics for civs with Archery Ranged UU comes before Thumbring, instead of after it
+                tempPT = unit # storing Parthian tactics
+                shufflecivUnits.pop(unitidx)
+            if unit.get("Name") == "Thumb Ring": # for civ with an archery UU the Thumbring is below that UU, being linked with the UU - makes sense for the base game but not blw
+                unit["Link ID"] = -1 # removes that link
+                shufflecivUnits.insert(unitidx+1, tempPT) # adds Parthian Tactics after TR
+                break
 
     outputFilePath = (storage.datFolder / "civTechTrees.json").resolve() # Path of output Json File        
     with open(outputFilePath, "w", encoding="utf-8") as output:
@@ -870,6 +897,55 @@ def create_modified_techtreepreviewpanelJson():
                             ]
                         }
                     }
+    lancerDict =   {
+                        "Widget":{
+                            "Type": "TechTreeButton",
+                            "Name": "",
+                            "ViewPort": {
+                                "xorigin": 0,
+                                "yorigin": 0,
+                                "width": 70,
+                                "height": 65,
+                                "alignment": "TopLeft"
+                            },
+                            "Help": "Lancer Line",
+                            "IconValues": [
+                                {
+                                    "TechId": storage.lancerAvailTechID,
+                                    "UnitId": storage.LancerIDs[0]
+                                },
+                                {
+                                    "TechId": storage.lancerUpgradeTech,
+                                    "UnitId": storage.LancerIDs[1]
+                                }
+                            ]
+                        }
+                    }
+    flameThrowerDict =  {
+                            "Widget":{
+                                "Type": "TechTreeButton",
+                                "Name": "",
+                                "ViewPort": {
+                                    "xorigin": 0,
+                                    "yorigin": 0,
+                                    "width": 70,
+                                    "height": 65,
+                                    "alignment": "TopLeft"
+                                },
+                                "Help": "Flamethrower",
+                                "IconValues": [
+                                    {
+                                        "TechId": storage.lancerAvailTechID,
+                                        "UnitId": storage.LancerIDs[0]
+                                    },
+                                    {
+                                        "TechId": storage.lancerUpgradeTech,
+                                        "UnitId": storage.LancerIDs[1]
+                                    }
+                                ]
+                            }
+                        }
+
     entireDict = data.get("Collection")
     widgets = entireDict.setdefault("Widgets", [])
     widget = widgets[0].get("Widget", {}) # at first I didnt understand that Widget is just another Dict in Widgets, so asked AI why widgets[0].get("ChildWidgets")
@@ -956,6 +1032,51 @@ def create_modified_techtreepreviewpanelJson():
                     inserted += 1
                     boolflag = False     
 
+        # Stable Widget
+        if (widget.get("Name")=="Items3"):
+            inserted = 0
+            lastWidget = widget.get("ChildWidgets", [])
+            boolflag = False
+            for idx, unitWidget in enumerate((lastWidget), 1):
+                realUnitWidget = unitWidget.get("Widget", {})
+                if (inserted != 0 and boolflag):
+                    realUnitWidget["Name"] = "Button" + str(idx)
+                    viewPortDict = realUnitWidget.get("ViewPort")
+                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + (75 * inserted)
+                boolflag = True
+                if (realUnitWidget.get("Help") == "Hei Guang Cavalry Line"):
+                    lancerWidget = lancerDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = lancerWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75
+                    lancerWidget["Name"] = "Button" + str(idx+1)
+                    lastWidget.insert(idx, lancerDict)
+                    inserted += 1
+                    boolflag = False
+
+        # Workshop Widget
+        if (widget.get("Name")=="Items4"):
+            inserted = 0
+            lastWidget = widget.get("ChildWidgets", [])
+            boolflag = False
+            for idx, unitWidget in enumerate((lastWidget), 1):
+                realUnitWidget = unitWidget.get("Widget", {})
+                if (inserted != 0 and boolflag):
+                    realUnitWidget["Name"] = "Button" + str(idx)
+                    viewPortDict = realUnitWidget.get("ViewPort")
+                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + (75 * inserted)
+                boolflag = True
+                if (realUnitWidget.get("Help") == "Flaming Camel"):
+                    flameThrowerWidget = flameThrowerDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = flameThrowerWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75
+                    flameThrowerWidget["Name"] = "Button" + str(idx+1)
+                    lastWidget.insert(idx, flameThrowerDict)
+                    inserted += 1
+                    boolflag = False
 
     
     outputFilePath = (storage.widgetUIFolder / "techtreepreviewpanel.json").resolve() # Path of output Json File        
