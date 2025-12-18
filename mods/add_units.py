@@ -62,7 +62,7 @@ def add_Billman_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(17, 12, 3, 16735) # 17s train time, barracks (12), button 3, hotkey ID (Flemish Militia)
+    train_location_final: TrainLocation = TrainLocation(17, 12, 3, 416009) # 17s train time, barracks (12), button 3, hotkey ID (Incendiary Raft)
     base.creatable.train_locations.append(train_location_final)
 
     
@@ -84,12 +84,12 @@ def add_Billman_line(df: DatFile):
     # armored units are units whose combined base armor 3 or higher, new armor class needed
                                         # melee,              cavalry,        armored units,        elephant,             camel
     attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1))
-    attack_list_scyteman        = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2))
+    attack_list_scytheman        = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2))
     attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3))
 
                                 # melee,                pierce,             infantry,     shock infantry (eagle)
     armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
-    armor_list_scyteman =       (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
+    armor_list_scytheman =       (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
     armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,3), AttackOrArmor(29,0))
 
     storage.billmanUnitIcons = icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
@@ -127,8 +127,8 @@ def add_Billman_line(df: DatFile):
                 attack_billman: AttackOrArmor = attack_list_billman [index] 
                 billman_variant.type_50.attacks.append (attack_billman)
             elif idx == 1:
-                attack_scyteman: AttackOrArmor = attack_list_scyteman [index] 
-                billman_variant.type_50.attacks.append (attack_scyteman)
+                attack_scytheman: AttackOrArmor = attack_list_scytheman [index] 
+                billman_variant.type_50.attacks.append (attack_scytheman)
             elif idx == 2:
                 attack_flail_warrior: AttackOrArmor = attack_list_flail_warrior [index] 
                 billman_variant.type_50.attacks.append (attack_flail_warrior)
@@ -140,8 +140,8 @@ def add_Billman_line(df: DatFile):
                 armor_billman: AttackOrArmor = armor_list_billman [index]
                 billman_variant.type_50.armours.append (armor_billman)
             elif idx == 1:
-                armor_scyteman: AttackOrArmor = armor_list_scyteman [index] 
-                billman_variant.type_50.armours.append (armor_scyteman)
+                armor_scytheman: AttackOrArmor = armor_list_scytheman [index] 
+                billman_variant.type_50.armours.append (armor_scytheman)
             elif idx == 2:
                 armor_flail_warrior: AttackOrArmor = armor_list_flail_warrior [index] 
                 billman_variant.type_50.armours.append (armor_flail_warrior)
@@ -193,7 +193,7 @@ def add_Lancer_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(35, 101, 13, 16737) # 35s train time, stable (101), button 13 - gets changed below, hotkey ID (Shrivamsha Rider)
+    train_location_final: TrainLocation = TrainLocation(35, 101, 13, 416007) # 35s train time, stable (101), button 13 - gets changed below, hotkey ID (Monoreme)
     base.creatable.train_locations.append(train_location_final)
 
     
@@ -328,7 +328,7 @@ def add_Thrower_line(df: DatFile):
 
     base.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(30, 87, 9, 16743) # 30s train time, archery range (87), button 9, hotkey ID (Slinger)
+    train_location_final: TrainLocation = TrainLocation(30, 87, 9, 416008) # 30s train time, archery range (87), button 9, hotkey ID (Galley - Antiquity)
     base.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, militia has correct values.... for now
@@ -480,6 +480,8 @@ def add_FlameThrower(df: DatFile):
     
     flame_thrower.creatable.idle_attack_graphic = -1
 
+    flame_thrower.bird.attack_sound = 476
+
     flame_thrower.type_50.attacks.clear() #delete all info from flamethrower to future proof
     flame_thrower.type_50.armours.clear()
 
@@ -497,7 +499,7 @@ def add_FlameThrower(df: DatFile):
 
     flame_thrower.creatable.train_locations.clear()
     
-    train_location_final: TrainLocation = TrainLocation(65, 49, 13, 16734) # train time, Siege Workshop (49), button 13, hotkey ID (Flaming Camel)
+    train_location_final: TrainLocation = TrainLocation(65, 49, 13, 416012) # train time, Siege Workshop (49), button 13, hotkey ID (Leviathan)
     flame_thrower.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, copy has correct values.... for now

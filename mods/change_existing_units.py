@@ -105,6 +105,21 @@ def add_armored_unit_class (df: DatFile):
                     logging.debug(f"Appended Armored Unit class to {civ.units[unit.id].name}")
     logging.info("Added Armored Unit Armor Class")
 
+
+def buff_longsword (df: DatFile):
+    # reduce the attack speed off Longswords and Upgrade from 2.0 to 1.9
+    unitList = [77, 473, 567, 1793] # Longswords, Two-Handed Swordsman, Champion, Legionary
+    for civ in df.civs:
+        for unitID in unitList: # all the unit above
+            civ.units[unitID].type_50.reload_time = 1.9
+            civ.units[unitID].type_50.displayed_reload_time = 1.9
+            #if (unitID not in [77, 1793]): # not Longsword and Legionary
+            #   civ.units[unitID].type_50.displayed_attack =- 1
+            #   for attack in civ.units[unitID].type_50.attacks:
+            #       if (attack.class_ == 4):
+            #           attack.amount =- 1
+
+
 # following changes are not actually buffs, but just make the UUs the same as they are now (roughly, maybe slight nerfs)
 
 def buff_samurai (df: DatFile):

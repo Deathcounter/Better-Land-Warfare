@@ -22,10 +22,13 @@ def run_change_existing_civs (df: DatFile):
     dravidian_change (df)
     french_change (df)
     goths_change (df)
+    japanese_change (df)
     jurchens_change (df)
+    khitans_change (df)
     malian_change (df)
     slavs_change (df)
     spanish_change (df)
+    teutons_change (df)
     poles_change (df)
     vietnamese_change (df)
     vikings_change (df)
@@ -170,6 +173,13 @@ def jurchens_change (df: DatFile):
     for lancer in storage.LancerIDs:
         df.effects[994].effect_commands.append (EffectCommand (5, lancer, -1, 10, 0.8)) # Attr. Modifier Multiply(5), lancer, Class -1, Reload Time (10), Amount (x0.8)
     logging.debug ("Successfully changed Jurchens")
+
+def khitans_change (df: DatFile):
+    # @Teambonus Khitans
+    # Teambonus attack reduction by 1
+    for command in df.effects[989].effect_commands:
+        command.d = helpers.amount_type_to_d(1, 15)
+
 
 def malian_change (df: DatFile):
     # @CivBonus Malians

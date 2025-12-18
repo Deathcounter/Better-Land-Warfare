@@ -6,8 +6,10 @@ import hashlib
 import pickle
 import logging
 import json
+import shutil
 
 from pathlib import Path
+from time import sleep
 
 from genieutils.datfile import DatFile
 
@@ -43,13 +45,15 @@ def main():
     create_file_structure()
     print("Editing Jsons before ingame modifications")
     pre_mod_json_editing.run_pre_mod_json_editing()
-    print("Moving files into Modfolders")
-    creating_moving_mod_files()
+    print("creating language files")
+    creating_lang_files()
     print("Changing all the ingame units, techs etc.")
     make_ingame_modifications()
-    print ("Editing Jsons to fit the game")
+    print("Editing Jsons to fit the game")
     post_mod_json_editing.run_post_mod_json_editing() # some json files require data from the Ingame altering, such as Unit IDs
-
+    print("Moving remaining files into place")
+    #if (not storage.lightmode):
+    creating_moving_files()
 
 # this function checks if all folders and files exist in the directory. It also reads the first informations (languages in language file), last vanilla tech index etc.
 def reading_blw_dat_folder():
@@ -96,6 +100,10 @@ def reading_blw_dat_folder():
     # store for later use
     if last_tech_key is not None:
         storage.si = last_tech_key # store highest key as integer
+        logging.info (f"Found last Vanilla Icon at {last_tech_key}")
+        print(f"Last Vanilla Icon is at ID {last_tech_key} - you should check that is correct")
+        if not storage.lightmode:
+            sleep(3)
     
 
 
@@ -127,32 +135,33 @@ def create_file_structure():
 
 
 
-# this function actually creates or moves the file from blw dat to the mod folders, exlucding jsons that get altered in pre_mod_json_files()
-def creating_moving_mod_files():
-    idx = -2
-    languageFilePath = (Path(__file__).parent / "blw dat" / "constants" / "key-value-modded-strings-utf8.txt") 
+# This function creates the language files
+# The structure of the modded string.txt always has: //NewLang=[language] and then all the text in that language.
+# Then again NewLang, and the last New Lang never ends until End of Document 
+def creating_lang_files():
+    idx = -2 # start with -2 because the file starts with NewLang (start read -1), and ends with NewLang (end read at 0)
+    languageFilePath = (Path(__file__).parent / "blw dat" / "constants" / "key-value-modded-strings-utf8.txt") # open File
     filecontent = []
     with open(languageFilePath, "r", encoding="utf-8") as langfile:
-        for line in langfile:
+        for line in langfile: # read document line for line
             if line.startswith("//NewLang"):
-                idx+=1
-                if idx>=0:
+                idx+=1 # increase whenever reading "//NewLang"
+                if idx>=0: # only at the start needed
                     with open(storage.languageFolders[idx] / "key-value-modded-strings-utf8.txt", "w", encoding="utf-8") as outputfile:
-                        outputfile.write(''.join(filecontent))
-                        filecontent.clear()
-                
+                        outputfile.write(''.join(filecontent)) # Writing like this reduces execution time compared to append (According to Reddit)
+                        filecontent.clear() # File written, clear the variable to repeat the for loop
             else:
-                filecontent.append(line)
+                filecontent.append(line) # if the line is not starting with NewLang, just append the line
         with open(storage.languageFolders[idx+1] / "key-value-modded-strings-utf8.txt", "w", encoding="utf-8") as outputfile:
-            outputfile.write(''.join(filecontent))
-            filecontent.clear()
+            outputfile.write(''.join(filecontent)) # the last language file
+            filecontent.clear() # just freeing up the variable
 
 def check_opening_path ():
-    jsonNames = ["icons.json", "materials.json", "techtreepreviewpanel.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "civTechTrees.json"]
-    for idx, jsonName in enumerate(jsonNames):
+    jsonNames = ["icons.json", "materials.json", "techtreepreviewpanel.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "civTechTrees.json"] # Json File Names
+    for idx, jsonName in enumerate(jsonNames): # Lopping
         Pathname = (storage.blwDatPath / jsonName)
-        if (not Pathname.exists()):
-            if (idx in [0,2]):
+        if (not Pathname.exists()): # if Path does not exist -> File not there
+            if (idx in [0,2]): # if one of the widgetUI files not here
                 print(f"No file named {jsonName} found in blw dat folder.")
                 print(f"\nSuggested Troubleshoot:\n* Copy {jsonName} from the gamefiles (\\Steam\\steamapps\\common\\AoE2DE\\widgetui) in the blw dat folder")
             else:
@@ -219,6 +228,18 @@ def get_file_hash(input_file: Path) -> str:
         return hashlib.file_digest(f, "sha256").hexdigest()
 
 
+def creating_moving_files():
+    for file in storage.constantsPath.iterdir(): # cycle through the constant folder in blw dat/constants
+        if file.suffix == ".dds":
+            for techidx, techname in enumerate(storage.techStrings, 1):
+                if file.name.startswith("_"+techname[:5].lower()):
+                    filenamestring = str(storage.si + techidx) + file.name
+                    newFile = storage.techIconFolder / filenamestring
+                    shutil.copy(file, newFile)
+                    # How to copy (not moving), rename and overwrite (in case already exists)
+        if file.suffix == ".wem":
+            newFile = storage.soundFolder / file.name
+            shutil.copy(file, newFile)
 
 if __name__ == "__main__":
     main()

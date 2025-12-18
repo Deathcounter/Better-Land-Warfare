@@ -24,8 +24,8 @@ def run_post_mod_json_editing():
         create_modified_unitCategoriesJson()
         create_modified_futureAvailUnitsJson()
         create_modified_unitlinesJson()
-    create_modified_civTechTreesJson()
-    create_modified_techtreepreviewpanelJson()
+        create_modified_civTechTreesJson()
+        create_modified_techtreepreviewpanelJson()
 
 def create_modified_unitCategoriesJson():
     iconFilePath = (storage.blwDatPath / "unitcategories.json").resolve() # Path of input json File
@@ -320,6 +320,8 @@ def create_modified_civTechTreesJson():
         if civname == "Armenians":
             armenianidx = cividx    # store which ID is armenians so I can change civs[armenianidx] later
         
+        if civname == "Tatars":
+            tataridx = cividx
         
         if civname in ["Incas", "Jurchens", "Wei"]:
             moveUUcivs.append(cividx)
@@ -394,8 +396,8 @@ def create_modified_civTechTreesJson():
             unit["Age ID"] = 2
             break # all done, all changed, lets break out of the loop to save time
 
-
-    # in here I essentially just move the UU to below the Elite Skirmisher. This makes it so that throwing technique doesnt need its own row
+    # Incas, Wei, Jurchens        
+    # Here I essentially just move the UU to below the Elite Skirmisher. This makes it so that throwing technique doesnt need its own row
     UUnames = ["Slinger", "Xianbei Raider", "Grenadier"]
     for cividx, shuffleciv in enumerate(moveUUcivs):
         shufflecivUnits: list[dict] = civs[shuffleciv].setdefault("civ_techs_units", []) 
@@ -414,6 +416,16 @@ def create_modified_civTechTreesJson():
                 unit["Link ID"] = -1 # removes that link
                 shufflecivUnits.insert(unitidx+1, tempPT) # adds Parthian Tactics after TR
                 break
+    
+    tatarunits: list[dict] = civs[tataridx].setdefault("civ_techs_units", []) 
+    for unitidx, unit in enumerate(tatarunits):
+        if unit.get("Name") == "Flaming Camel":
+            unit["Link ID"] = 36 # Link to Bombard Cannon
+            flaming_camel = unit
+            tatarunits.pop(unitidx)
+        if unit.get("Name") == "Bombard Cannon":
+            tatarunits.insert(unitidx+1, flaming_camel)
+            break
 
     outputFilePath = (storage.datFolder / "civTechTrees.json").resolve() # Path of output Json File        
     with open(outputFilePath, "w", encoding="utf-8") as output:
@@ -935,16 +947,38 @@ def create_modified_techtreepreviewpanelJson():
                                 "Help": "Flamethrower",
                                 "IconValues": [
                                     {
-                                        "TechId": storage.lancerAvailTechID,
-                                        "UnitId": storage.LancerIDs[0]
-                                    },
-                                    {
-                                        "TechId": storage.lancerUpgradeTech,
-                                        "UnitId": storage.LancerIDs[1]
+                                        "TechId": storage.flamethrowerAvailTechID,
+                                        "UnitId": storage.FlameThrowerID
                                     }
                                 ]
                             }
                         }
+    blacksmithDict = {
+                       "Widget": {
+                          "Type": "TechTreeButton",
+                          "Name": "",
+                          "ViewPort": {
+                             "xorigin": 0,
+                             "yorigin": 0,
+                             "width": 70,
+                             "height": 65,
+                             "alignment": "TopLeft"
+                          },
+                          "Help": "Wooden Grip",
+                          "IconValues": [
+                             {
+                                "TechId": storage.throwerBlacksmithTechIDs[0]
+                             },
+                             {
+                                "TechId": storage.throwerBlacksmithTechIDs[1]
+                             },
+                             {
+                                "TechId": storage.throwerBlacksmithTechIDs[2]
+                             }
+                          ]
+                       }
+                    }
+
 
     entireDict = data.get("Collection")
     widgets = entireDict.setdefault("Widgets", [])
@@ -1075,6 +1109,29 @@ def create_modified_techtreepreviewpanelJson():
                     vpDict["xorigin"] = currentorigin + 75
                     flameThrowerWidget["Name"] = "Button" + str(idx+1)
                     lastWidget.insert(idx, flameThrowerDict)
+                    inserted += 1
+                    boolflag = False
+        
+        # Blacksmith Widget
+        if (widget.get("Name")=="Items5"):
+            inserted = 0
+            lastWidget = widget.get("ChildWidgets", [])
+            boolflag = False
+            for idx, unitWidget in enumerate((lastWidget), 1):
+                realUnitWidget = unitWidget.get("Widget", {})
+                if (inserted != 0 and boolflag):
+                    realUnitWidget["Name"] = "Button" + str(idx)
+                    viewPortDict = realUnitWidget.get("ViewPort")
+                    viewPortDict["xorigin"] = viewPortDict.get("xorigin") + (75 * inserted)
+                boolflag = True
+                if (realUnitWidget.get("Help") == "Mail Armor"):
+                    blacksmithWidget = blacksmithDict.get("Widget")
+                    vp = realUnitWidget.get("ViewPort")
+                    currentorigin = vp.get("xorigin")
+                    vpDict = blacksmithWidget.get("ViewPort", {})
+                    vpDict["xorigin"] = currentorigin + 75
+                    blacksmithWidget["Name"] = "Button" + str(idx+1)
+                    lastWidget.insert(idx, blacksmithDict)
                     inserted += 1
                     boolflag = False
 

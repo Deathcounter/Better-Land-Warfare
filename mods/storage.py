@@ -95,7 +95,7 @@ shieldBossTechId2: int
 billmanAutoUpgradeAge3: int
 
 #tech icons
-si: int = 312 # Starting Icon, the last vanilla aoe2 Icon
+si: int = 0 # Starting Icon, the last vanilla aoe2 Icon, can change with each patch
 billmanIconIDs = [si+1, si+2]
 lancerIconID = si+3
 throwerIconIDs = [si+4, si+5, si+6]
