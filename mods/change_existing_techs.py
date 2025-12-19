@@ -22,7 +22,7 @@ def run_change_existing_techs(df: DatFile):
     blacksmith_infantry_attack_upgrades (df)
     japanese_staggering_inf_attackspeed (df)
     vikings_staggering_inf_HP (df)
-    # remove_chieftains_cavattack_for_throwers (df)
+    remove_chieftains_cavattack_for_throwers (df)
 
 
 def change_armenian_early_barracks_techs (df: DatFile):
@@ -50,8 +50,7 @@ def move_elite_genitour_to_castle (df: DatFile):
     #moving Elite Genitour Upgrade to Castle in order to make space for thrower line and upgrade
     df.effects[38].effect_commands[2].d = 9 #changes the Berber Teambonus [38] to move the research location to button 9 instead of 14
     df.techs[599].research_locations[0].location_id = 82 #changes the research location of Elite Genitour [599] from Archery Range to Castle (82)
-    df.techs[599].icon_id = storage.eliteGenitourIconID
-
+    df.techs[599].icon_id = storage.si + 12
 
 # technically should be in change_existing_effect.py but don't tell Police pls
 def change_gambesons_to_give_HP (df: DatFile):

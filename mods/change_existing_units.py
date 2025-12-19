@@ -25,6 +25,7 @@ def run_change_existing_units (df: DatFile):
     change_ranged_infantry_formation (df)
     buff_iron_pagoda (df)
     nerf_rattan_archers (df)
+    buff_longsword (df)
     buff_samurai (df)
     buff_woadraider (df)
     buff_berserkers (df)

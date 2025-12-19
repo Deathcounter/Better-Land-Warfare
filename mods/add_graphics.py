@@ -58,6 +58,7 @@ def change_yodit_death_scream (df: DatFile):
     storage.yoditDeathScreamID = len(df.graphics)
     yodit_death_scream: Graphic = copy.deepcopy(df.graphics[3901]) # Yodit Death Graphic
     yodit_death_scream.sound_id = 294 # generic man death scream
+    yodit_death_scream.wwise_sound_id = -1501358160 # reversed engineered by getting the information from Militia Death (1099) Graphic
     yodit_death_scream.angle_count = 16
     df.graphics.append(yodit_death_scream)
     logging.info("Added Manly Yodit Death Scream")

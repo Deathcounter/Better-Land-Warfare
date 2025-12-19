@@ -82,10 +82,10 @@ def add_Billman_line(df: DatFile):
     base.creatable.displayed_pierce_armour = 0
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
-                                        # melee,              cavalry,        armored units,        elephant,             camel
-    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1))
-    attack_list_scytheman        = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2))
-    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3))
+                                        # melee,              cavalry,        armored units,        elephant,             camel             standard building
+    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1), AttackOrArmor(21,0))
+    attack_list_scytheman       = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2), AttackOrArmor(21,0))
+    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3), AttackOrArmor(21,1))
 
                                 # melee,                pierce,             infantry,     shock infantry (eagle)
     armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
@@ -352,10 +352,10 @@ def add_Thrower_line(df: DatFile):
     displayed_p_armor_list = (0, 0, 1, 0)
 
                                     # melee,            skirmisher,          standard building,       armored units           
-    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,1), AttackOrArmor(90,1))
-    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2))
-    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
+    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,0), AttackOrArmor(90,2))
+    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,2))
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,0), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
     armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))
@@ -477,19 +477,24 @@ def add_FlameThrower(df: DatFile):
 
     flame_thrower.type_50.reload_time = 0.25
     flame_thrower.type_50.displayed_reload_time = 0.25
+
+    flame_thrower.type_50.blast_width = 0.2
+    flame_thrower.type_50.blast_attack_level = 1 # so they can only destroy trees and no gold
     
     flame_thrower.creatable.idle_attack_graphic = -1
 
     flame_thrower.bird.attack_sound = 476
+    flame_thrower.bird.wwise_attack_sound_id = -311600688 # reverse engineered using # print(json.dumps(dataclasses.asdict(dfBase.civs[0].units[280]), indent=2)) in create_mod.py
 
     flame_thrower.type_50.attacks.clear() #delete all info from flamethrower to future proof
     flame_thrower.type_50.armours.clear()
 
     flame_thrower.type_50.displayed_attack = 5
-                                        #melee,             building class,       gunpowder,              ships,           fishing ships     So that flamethrowers only deal 5 damage to trees
-    flame_thrower.type_50.attacks = [AttackOrArmor(4, 5), AttackOrArmor(11,8), AttackOrArmor(23,3), AttackOrArmor(16,3), AttackOrArmor(34,3), AttackOrArmor(92, -17)] 
+                                        #melee,             building class,      standardbuilding,    stone defenses,           gunpowder,          So that flamethrowers only deal 5 damage to trees
+    flame_thrower.type_50.attacks = [AttackOrArmor(4,5) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,3), AttackOrArmor(92, -6)] 
                                         #melee,                 pierce,             rams,                   siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
+    # Flamethrower damage vs buildings per minute (with masonry, and architecture) 2400 (1440, 720)
     
     flame_thrower.type_50.displayed_melee_armour = -3
     flame_thrower.creatable.displayed_pierce_armour = 12
@@ -503,10 +508,10 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.creatable.train_locations.append(train_location_final)
 
     # thrower.resource_storages - not needed, copy has correct values.... for now
-    foodcost: ResourceCost = ResourceCost (1, 65, 1) # 1 wood storage, 65 cost, 1 deduct yes
-    goldcost: ResourceCost = ResourceCost (3, 105, 1) # 3 gold storage, 105 cost, 1 deduct yes
+    woodcost: ResourceCost = ResourceCost (1, 80, 1) # 1 wood storage, 80 cost, 1 deduct yes
+    goldcost: ResourceCost = ResourceCost (3, 110, 1) # 3 gold storage, 110 cost, 1 deduct yes
     headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
-    flame_thrower.creatable.resource_costs = (foodcost, goldcost, headroom)
+    flame_thrower.creatable.resource_costs = (woodcost, goldcost, headroom)
 
     storage.flamethrowerStringID = string_start_flamer = 300639
     

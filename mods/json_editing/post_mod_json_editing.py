@@ -451,7 +451,7 @@ def build_BLW_techDict(civname: str) -> list [dict]:
         "Node ID": storage.throwingTechniquesTechID,
         "Node Status": NodeStatus,
         "Node Type": "Research",
-        "Picture Index": storage.throwingTechniquesIconID,
+        "Picture Index": storage.si + 7,
         "Prerequisite IDs": [
           0,
           0,
@@ -495,7 +495,7 @@ def build_BLW_techDict(civname: str) -> list [dict]:
         "Node ID": NodeID,
         "Node Status": NodeStatus,
         "Node Type": "Research",
-        "Picture Index": storage.shieldBossIconID,
+        "Picture Index": storage.si + 11,
         "Prerequisite IDs": [
           0,
           0,
@@ -732,7 +732,7 @@ def build_BLW_blacksmithDict(civname: str, techAvailability) -> list [dict]:
             "Node ID": storage.throwerBlacksmithTechIDs[idx],
             "Node Status": NodeStatus,
             "Node Type": "Research",
-            "Picture Index": storage.throwerBlacksmithIconIDs[idx],
+            "Picture Index": storage.si + 8 + idx,
             "Prerequisite IDs": [
               0,
               0,

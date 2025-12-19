@@ -2,7 +2,7 @@
 #For example, when I add a new unit, I need to access to it's ID to make the (make avail) effect. Then I need the ID of that effect to add the corresponding technology of it
 from pathlib import Path 
 
-lightmode = True # if True basically disables function who might take a longer time and shouldn't be resolved every test run - AKA Debug Mode
+lightmode = False # if True basically disables function who might take a longer time and shouldn't be resolved every test run - AKA Debug Mode
 
 # constants
 techStrings =   ["Scytheman", "FlailWarrior", "HeavyLancer", "KnifeThrower", "HatchetThrower", "Ninja", 

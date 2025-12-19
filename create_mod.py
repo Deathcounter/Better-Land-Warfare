@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-
+import dataclasses
 import argparse
 import hashlib
 import pickle
@@ -101,7 +101,7 @@ def reading_blw_dat_folder():
     if last_tech_key is not None:
         storage.si = last_tech_key # store highest key as integer
         logging.info (f"Found last Vanilla Icon at {last_tech_key}")
-        print(f"Last Vanilla Icon is at ID {last_tech_key} - you should check that is correct")
+        print(f"Last Vanilla Icon is at ID {last_tech_key} - you should check if that is correct")
         if not storage.lightmode:
             sleep(3)
     
@@ -181,6 +181,8 @@ def make_ingame_modifications():
         dfBase = DatFile.parse("datfiles/base_game.dat")
         write_cache(dfBase, cache_file)
 
+    # print(json.dumps(dataclasses.asdict(dfBase.civs[0].units[280]), indent=2)) Here you can show all data of a unit, very useful to reverse engineer
+    # print(json.dumps(dataclasses.asdict(dfBase.graphics[1099]), indent=2)) # needed for Yodit Death Scream graphic
     print("Base data loaded")
     print("Applying modifications")
     
@@ -192,8 +194,8 @@ def make_ingame_modifications():
     add_technologies.run_add_technologies (dfBase)
     add_tasks.run_add_tasks (dfBase)
     change_existing_units.run_change_existing_units (dfBase)
-    change_existing_techs.run_change_existing_techs (dfBase)
     change_existing_civs.run_change_existing_civs (dfBase)
+    change_existing_techs.run_change_existing_techs (dfBase)
     change_existing_tech_tree.run_change_tech_tree (dfBase)
     
     print("Modifications completed")
@@ -243,3 +245,14 @@ def creating_moving_files():
 
 if __name__ == "__main__":
     main()
+
+def dat_to_json():
+    parser = argparse.ArgumentParser(
+        prog='dat-to-json',
+        description='Read a genie engine dat file and print the json representation to stdout',
+    )
+    parser.add_argument('filename', type=Path, help='The dat file to read')
+    args = parser.parse_args()
+
+    dat_file = DatFile.parse(args.filename)
+    print(json.dumps(dataclasses.asdict(dat_file), indent=2))
