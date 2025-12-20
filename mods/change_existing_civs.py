@@ -282,9 +282,9 @@ def vikings_change (df: DatFile):
     # Feudal Age Warcost Discount -10% HP cost instead of 15%/15%/20%
     effects = [394, 386]
     discounts = [0.9, 0.94444]
-    for effect in effects:
+    for idx, effect in enumerate(effects):
         for command in df.effects[effect].effect_commands:
-            command.d = discounts 
+            command.d = discounts[idx]
     # changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount
     # and C-Bonus, Warship cost age3 to x0.944444 for an multiplitive 15% discount
     # C-Bonus, Warship cost age4 stays 20% and tehrefore needs no changes
@@ -298,6 +298,6 @@ def vikings_change (df: DatFile):
     percentages = [5, 10, 15, 20]
     for idx, multiplier in enumerate(multipliers):
         storage.vikingStaggeredHP_IDs.append(len(df.effects))
-        japenese_attackspeed_effect: Effect = Effect (f"C-Bonus, Inf +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
-        df.effects.append(japenese_attackspeed_effect)
+        viking_HP_effect: Effect = Effect (f"C-Bonus, Inf +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
+        df.effects.append(viking_HP_effect)
     logging.debug ("Successfully changed Vikings")

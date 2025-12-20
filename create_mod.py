@@ -242,6 +242,13 @@ def creating_moving_files():
         if file.suffix == ".wem":
             newFile = storage.soundFolder / file.name
             shutil.copy(file, newFile)
+        if file.suffix == ".png":
+            if file.stem.startswith("thumbnail Da"):
+                newFile = storage.dataModFolder / "thumbnail.png"
+                shutil.copy(file, newFile)
+            if file.stem.startswith("thumbnail UI"):
+                newFile = storage.UIModFolder / "thumbnail.png"
+                shutil.copy(file, newFile)
 
 if __name__ == "__main__":
     main()
