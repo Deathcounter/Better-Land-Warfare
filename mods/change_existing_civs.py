@@ -26,6 +26,7 @@ def run_change_existing_civs (df: DatFile):
     jurchens_change (df)
     khitans_change (df)
     malian_change (df)
+    roman_change (df)
     slavs_change (df)
     spanish_change (df)
     teutons_change (df)
@@ -217,11 +218,21 @@ def poles_change (df: DatFile):
     df.effects[tech_tree_id].effect_commands = new_ec_list
     logging.debug ("Successfully changed Poles")
 
+
+def roman_change (df: DatFile):
+    # @CivBonus Romans
+    # Scale Mail Armor effect doubled (instead of all armor upgrades)
+    romantechs = [890, 891] # C-Bonus, Double Chain Mail and C-Bonus, Double Plate Mail
+    for tech in romantechs:
+        df.techs[tech].effect_id = -1
+    logging.debug ("Successfully changed Romans")
+
 def slavs_change (df: DatFile):
     # @CivTech Slavs
     # Druzhina: Melee Infantry deals trample damage (exluding Thrower-line)
     for thrower in storage.ThrowerIDs: # remove the blast width of thrower again
         df.effects[569].effect_commands.append (EffectCommand (4, thrower, -1, 22, -0.5)) # Attr. Modifier Multiply(4), thrower, Class -1, blast_width (22), Amount (-0.5)
+    logging.debug ("Successfully changed Slavs")
 
 def spanish_change (df: DatFile):
     # @CivBonus Spanish
@@ -268,10 +279,16 @@ def vietnamese_change (df: DatFile):
 
 def vikings_change (df: DatFile):
     # @Civ bonus Vikings
-    # Feudal Age Warcost Discount -10% HP cost
-    for command in df.effects[394].effect_commands:
-        command.d = 0.9 #changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount.
-        logging.debug ("Successfully changed Vikings")
+    # Feudal Age Warcost Discount -10% HP cost instead of 15%/15%/20%
+    effects = [394, 386]
+    discounts = [0.9, 0.94444]
+    for effect in effects:
+        for command in df.effects[effect].effect_commands:
+            command.d = discounts 
+    # changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount
+    # and C-Bonus, Warship cost age3 to x0.944444 for an multiplitive 15% discount
+    # C-Bonus, Warship cost age4 stays 20% and tehrefore needs no changes
+    
     
     # Vikings Staggering Infantry HP (instead of +20% in Feudal)
     # delete current bonus
@@ -283,3 +300,4 @@ def vikings_change (df: DatFile):
         storage.vikingStaggeredHP_IDs.append(len(df.effects))
         japenese_attackspeed_effect: Effect = Effect (f"C-Bonus, Inf +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
         df.effects.append(japenese_attackspeed_effect)
+    logging.debug ("Successfully changed Vikings")

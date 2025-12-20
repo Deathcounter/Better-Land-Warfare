@@ -409,13 +409,20 @@ def create_modified_civTechTreesJson():
                 storeUUdict = unit # storing the UU
                 shufflecivUnits.pop(unitidx) # delete UU from Tech tree since we stored it
                 shufflecivUnits.insert(newUUslot, storeUUdict) # insert the dict
+                # @MayBreak
+                # I can't follow the code here, because Wei and Jurchens have Thumbring coming before Parthian Tactics, the order should actually be switched and Incas be the exception
             if unit.get("Name") == "Parthian Tactics": # for some reason, Parthian Tactics for civs with Archery Ranged UU comes before Thumbring, instead of after it
                 tempPT = unit # storing Parthian tactics
-                shufflecivUnits.pop(unitidx)
+                popidx = unitidx # storing index of old Parthian Tactics
             if unit.get("Name") == "Thumb Ring": # for civ with an archery UU the Thumbring is below that UU, being linked with the UU - makes sense for the base game but not blw
                 unit["Link ID"] = -1 # removes that link
                 shufflecivUnits.insert(unitidx+1, tempPT) # adds Parthian Tactics after TR
                 break
+        # this code is messy, its just that Incas is Slingers is followed by Parthian Tactics, then Thumbring. While Grenadier and Xianbei Raider are followed by Thumbring, then Parthian Tactics
+        if cividx == 0:
+            shufflecivUnits.pop(popidx) # remove the duplicate Parthian Tactics for Incas
+        if cividx != 0:
+            shufflecivUnits.pop(popidx+2) # remove the duplicate Parthian Tactics for Wei, Jurchens
     
     tatarunits: list[dict] = civs[tataridx].setdefault("civ_techs_units", []) 
     for unitidx, unit in enumerate(tatarunits):
@@ -655,7 +662,7 @@ def build_lancerDict(civname: str, availability: list[int]) -> list[dict]:
     LinkIDs.insert(0, -1) 
     TriggerTechIDs = []
     TriggerTechIDs.insert(0, -1)
-    TriggerTechIDs.insert(0, storage.lancerUpgradeTech)
+    TriggerTechIDs.insert(1, storage.lancerUpgradeTech)
     lancerDictList = []        
     lancerAvailList = []
     lancerAvailList.extend((availability[8], availability[9]))

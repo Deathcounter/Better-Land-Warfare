@@ -120,7 +120,7 @@ def add_Billman_line(df: DatFile):
         billman_variant.type_50.displayed_melee_armour = displayed_m_armor_list [idx]
 
         if idx == 0:
-            billman_variant.creatable.train_locations[0] = TrainLocation(40, 12, 3, 16735) #billman is 40s in Feudal, then 17 in Castle Age
+            billman_variant.creatable.train_locations[0] = TrainLocation(40, 12, 3, 416009) #billman is 40s in Feudal, then 17 in Castle Age
 
         for index in range(len(attack_list_billman)):
             if idx == 0:

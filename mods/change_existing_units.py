@@ -26,6 +26,7 @@ def run_change_existing_units (df: DatFile):
     buff_iron_pagoda (df)
     nerf_rattan_archers (df)
     buff_longsword (df)
+    buff_huskarl (df)
     buff_samurai (df)
     buff_woadraider (df)
     buff_berserkers (df)
@@ -123,6 +124,17 @@ def buff_longsword (df: DatFile):
 
 # following changes are not actually buffs, but just make the UUs the same as they are now (roughly, maybe slight nerfs)
 
+def buff_huskarl (df: DatFile):
+    foodcost: ResourceCost = ResourceCost (0, 67, 1) # 0 food storage, 68 cost, 1 deduct yes
+    goldcost: ResourceCost = ResourceCost (3, 33, 1) # 3 gold storage, 32 cost, 1 deduct yes
+    headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
+    huskarls = [41, 555, 759, 761]
+    for civ in df.civs:
+        for huskarl in huskarls:
+            civ.units[huskarl].creatable.resource_costs = (foodcost, goldcost, headroom)
+            # 68 - 15% = 57,8 food compared to 57 now
+
+    
 def buff_samurai (df: DatFile):
 
     for civ in df.civs:
