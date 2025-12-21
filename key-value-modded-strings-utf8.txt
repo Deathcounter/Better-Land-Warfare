@@ -2,13 +2,13 @@
 
 300630 "Billman"
 301630 "Create Billman"
-321630 "Build <b>Billman<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers and Monks. Easier to convert. Gains additional attack when defeating military units\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor, to Scytheman (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+321630 "Build <b>Billman<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers and Monks. Easier to convert. Gains additional attack when defeating military units.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor, to Scytheman (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300631 "Scytheman"
 301631 "Create Scytheman"
-321631 "Create <b>Scytheman<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers and Monks. Easier to convert. Gains additional attack when defeating military units\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor, to Flailman (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+321631 "Create <b>Scytheman<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers and Monks. Easier to convert. Gains additional attack when defeating military units.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor, to Flailman (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300632 "Flail Warrior"
 301632 "Create Flail Warrior"
-321632 "Create <b>Flail Warrior<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers and Monks. Easier to convert. Gains additional attack when defeating military units\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+321632 "Create <b>Flail Warrior<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers and Monks. Easier to convert. Gains additional attack when defeating military units.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300633 "Dart Thrower"
 301633 "Create Dart Thrower"
 321633 "Create <b>Dart Thrower<b> (<cost>)\nRanged Infantry with fast attack dealing melee damage. Strong vs. Skirmisher-line, buildings and Siege Weapons. Weak vs. Infantry, Light Cavalry and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); attack, missed attack damage, to Knife Thrower (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
@@ -20,7 +20,7 @@
 321635 "Create <b>Hatchet Thrower<b> (<cost>)\nRanged Infantry with fast attack dealing melee damage. Strong vs. Skirmisher-line, buildings and Siege Weapons. Weak vs. Infantry, Light Cavalry and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); attack, missed attack damage, to Knife Thrower (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300636 "Ninja"
 301636 "Create Ninja"
-321636 "Create <b>Ninja<b> (<cost>)\nJapenese unique ranged Infantry with fast attack dealing melee damage. Strong vs. Skirmisher-line, Unique Units, buildings and Siege Weapons. Weak vs. Infantry, Light Cavalry and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); attack, missed attack damage, to Knife Thrower (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+321636 "Create <b>Ninja<b> (<cost>)\nJapanese unique ranged Infantry with fast attack dealing melee damage. Strong vs. Skirmisher-line, Unique Units, buildings and Siege Weapons. Weak vs. Infantry, Light Cavalry and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); attack, missed attack damage, to Knife Thrower (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
 300637 "Lancer"
 301637 "Create Lancer"
 321637 "Create <b>Lancer<b> (<cost>)\nBulky armored Heavy Cavalry with longer reach. Strong vs Armored Units, Infantry. Weak vs. Spearman-line, Ranged Soldiers, Scorpions and Monks.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP, to Heavy Lancer (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
@@ -103,9 +103,6 @@
 IDS_CIVTIPS_44_3 "Research Fereters in your Castle to nullify enemy bonus damage against your Barrack Units. Warrior Monks also receive less bonus damage, while also healing faster."
 8406 "Research Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)"
 28406 "Research <b>Fereters<b> (<cost>)\nBarrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster."
-
-//Bohemians
-120188 "Gunpowder and Monk civilization\n\n• Mining Camp technologies free\n• Blacksmiths and Universities cost -100 wood\n• Spearman- and Billman-line deals +20% bonus damage\n• Fervor and Sanctity affect Villagers\n• Chemistry and Hand Cannoneer available in Castle Age\n\n<b>Unique Units:<b>\nHussite Wagon (Siege Gunpowder Unit), Houfnice (Siege Gunpowder Unit)\n\n<b>Unique Techs:<b>\n• Wagenburg Tactics (Gunpowder Units move +15% faster)\n• Hussite Reforms (Monks and Monastery technologies gold cost is replaced by food cost)\n\n<b>Team Bonus:<b>\nMarkets work +80% faster"
 
 //Burmese
 120179 "Infantry and Cavalry civilization\n\n• Lumber Camp technologies free\n• Barrack Units +1/+2/+3 attack in Feudal/Castle/Imperial Age\n• Battle Elephants +1 melee/+1 pierce armor\n• Monastery technologies cost -50%\n\n<b>Unique Unit:<b>\nArambai (Ranged Mounted Unit)\n\n<b>Unique Techs:<b>\n• Manipur Cavalry (Cavalry +4 attack vs. Ranged Soldiers)\n• Howdah (Battle Elephants +1 melee/+1 pierce armor)\n\n<b>Team Bonus:<b>\nRelics visible on the map at the start of the game"

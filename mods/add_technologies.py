@@ -143,9 +143,9 @@ def unit_upgrades_t (df: DatFile):
     flailWarrior_upgrade_tech.name = "Flail Warrior"
     storage.billmanUpgradeNames.append(flailWarrior_upgrade_tech.name)
     flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 180, 8, 418008) # 12 in Barracks, 180 seconds ResearchTime, Button 8 and Hotkey ID (Incendiary Ship)
-    foodcost: ResearchResourceCost = ResearchResourceCost (0, 775, 1) # 0 food storage, 775 cost, 1 deduct yes
-    goldcost: ResearchResourceCost = ResearchResourceCost (3, 450, 1) # 3 gold storage, 450 cost, 1 deduct yes
-    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #  nothing
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 625, 1) # 0 food storage, 650 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 625, 1) # 3 gold storage, 625 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing
     flailWarrior_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 
     string_start_flailWarrior_tech = 32331
@@ -239,7 +239,7 @@ def unit_upgrades_t (df: DatFile):
     ninja_upgrade_tech.name = "Ninja"
     storage.throwerUpgradeNames.append(ninja_upgrade_tech.name)
     ninja_upgrade_tech.civ = 5 # Japanese
-    ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 14, 418007) # 87 in Archery Range, 25 seconds ResearchTime, Button 14 and Hotkey ID (Elite Galley)
+    ninja_upgrade_tech.research_locations[0] = ResearchLocation (87, 55, 14, 418007) # 87 in Archery Range, 55 seconds ResearchTime, Button 14 and Hotkey ID (Elite Galley)
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 475, 1) # 0 food storage, 475 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 425, 1) # 3 gold storage, 425 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # thanks for keep reading this, not many will

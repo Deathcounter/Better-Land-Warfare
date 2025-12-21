@@ -87,10 +87,10 @@ def add_Billman_line(df: DatFile):
     attack_list_scytheman       = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2), AttackOrArmor(21,0))
     attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3), AttackOrArmor(21,1))
 
-                                # melee,                pierce,             infantry,     shock infantry (eagle)
-    armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,1), AttackOrArmor(29,0))
-    armor_list_scytheman =       (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,2), AttackOrArmor(29,0))
-    armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,3), AttackOrArmor(29,0))
+                                    # melee,                pierce,             infantry,     shock infantry (eagle)
+    armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0))
+    armor_list_scytheman =      (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0))
+    armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0))
 
     storage.billmanUnitIcons = icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
 
@@ -410,9 +410,13 @@ def add_Thrower_line(df: DatFile):
             elif idx == 2:
                 attack_hatchetthrower: AttackOrArmor = attack_list_hatchet_thrower [index] 
                 thrower_variant.type_50.attacks.append (attack_hatchetthrower)
+                thrower_variant.line_of_sight = 5
+                thrower_variant.bird.search_radius = 5
             elif idx == 3:
                 attack_ninja: AttackOrArmor = attack_list_ninja [index] 
                 thrower_variant.type_50.attacks.append (attack_ninja)
+                thrower_variant.line_of_sight = 6
+                thrower_variant.bird.search_radius = 6
                 if index+1 == len(attack_list_dart_thrower):
                     thrower_variant.type_50.attacks.append (attack_list_ninja [index+1]) # add the extra attack vs unique units
             else:

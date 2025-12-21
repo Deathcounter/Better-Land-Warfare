@@ -23,6 +23,7 @@ def run_change_existing_units (df: DatFile):
     move_condo_trainbutton (df)
     move_genitour_trainbutton (df)
     change_ranged_infantry_formation (df)
+    nerf_siegetower_garrisoncapacity (df)
     buff_iron_pagoda (df)
     nerf_rattan_archers (df)
     buff_longsword (df)
@@ -78,6 +79,10 @@ def change_ranged_infantry_formation (df: DatFile):
         civ.units[531].creatable.creatable_type = 5
     logging.debug("Ranged Infantry formation changed")
 
+def nerf_siegetower_garrisoncapacity (df: DatFile):
+    for civ in df.civs:
+        civ.units[1105].garrison_capacity = 5
+        
 def buff_iron_pagoda (df: DatFile):
     # actually its a nerf, but since I change Jurchens Civ bonus, it's a buff. 2.15 -> 1.72 originally. Now 1.72 -> 1.85
     for civ in df.civs:
