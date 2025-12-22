@@ -75,8 +75,10 @@ def change_ranged_infantry_formation (df: DatFile):
     for civ in df.civs:
         civ.units[1013].creatable.creatable_type = 5 # classifies gbetos as an archer so they are positioned in the back
         civ.units[1015].creatable.creatable_type = 5 # Elite
-        civ.units[281].creatable.creatable_type = 5 # classifies throwing axemen
+        civ.units[281].creatable.creatable_type = 5 # Throwing Axemen
         civ.units[531].creatable.creatable_type = 5
+        civ.units[1741].creatable.creatable_type = 5 # Chakram Thrower
+        civ.units[1743].creatable.creatable_type = 5
     logging.debug("Ranged Infantry formation changed")
 
 def nerf_siegetower_garrisoncapacity (df: DatFile):
@@ -93,10 +95,10 @@ def buff_iron_pagoda (df: DatFile):
     logging.debug("Buffed Iron Pagoda Attack Speed")
 
 def nerf_rattan_archers (df: DatFile):
-    # actually its a buff, since I change Vietnamese Civ bonus. 40/45 HP originally, now 35/40 HP + 25% -> 44/50 HP
+    # This is a nerf to Rattan Archers, even with the civ bonus affecting them. However I like the trade off off having less HP than the regular xbow
     for civ in df.civs:
-        civ.units[1129].hit_points = 35
-        civ.units[1131].hit_points = 40
+        civ.units[1129].hit_points = 30
+        civ.units[1131].hit_points = 35
     logging.debug("Nerfed Rattan Archer HP")
 
 def add_armored_unit_class (df: DatFile):

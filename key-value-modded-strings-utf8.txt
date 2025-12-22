@@ -97,6 +97,7 @@
 //Armors
 12490 "Armored Units"
 12491 "Lancers"
+12492 "Billman"
 
 //Armenians
 120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"
@@ -132,7 +133,7 @@ IDS_CIVTIPS_23_2 "Research Druzhina in your Castle to allow melee infantry units
 28269 "Research <b>Druzhina<b> (<cost>)\nMelee Infantry deals trample damage."
 
 //Poles
-120187 "Cavalry civilization\n\n• Folwark replaces Mill\n•Villagers regenerate 10/15/20 HP in Feudal/Castle/Imperial Age\n• Stone Miners generate gold in addition to stone\n• Stable technologies cost -75% gold\n\n<b>Unique Units:<b>\nObuch (Infantry), Winged Hussar (Cavalry)\n\n<b>Unique Techs:<b>\n• Szlachta Privileges (Knight-line costs -60% gold)\n• Lechitic Legacy (Scout Cavalry-line deals trample damage)\n\n<b>Team Bonus:<b>\nScout Cavalry-line +1 attack vs. Ranged Soldiers"
+120187 "Cavalry civilization\n\n• Folwark replaces Mill\n•Villagers regenerate 10/15/20 HP in Feudal/Castle/Imperial Age\n• Stone Miners generate gold in addition to stone\n• Stable technologies cost -60% gold\n\n<b>Unique Units:<b>\nObuch (Infantry), Winged Hussar (Cavalry)\n\n<b>Unique Techs:<b>\n• Szlachta Privileges (Knight-line costs -60% gold)\n• Lechitic Legacy (Scout Cavalry-line deals trample damage)\n\n<b>Team Bonus:<b>\nScout Cavalry-line +1 attack vs. Ranged Soldiers"
 
 //Romans
 120192 "Infantry civilization\n\n• Villagers gather, build, and repair +5% faster\n• Scale Mail Armor effect is doubled\n• Scorpions cost -60% gold\n• Galley-line and Dromons +1 melee/+1 pierce armor\n\n<b>Unique Unit:<b>\nCenturion (Cavalry), Legionary (Infantry)\n\n<b>Unique Techs:<b>\n• Ballistas (Scorpions attack +33% faster; Galley-line +2 attack)\n• Comitatenses (Militia-line, Knight-line, and Centurions train +50% faster and receive a charge attack)\n\n<b>Team Bonus:<b>\nScorpions minimum range reduced"

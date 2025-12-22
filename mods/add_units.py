@@ -82,15 +82,15 @@ def add_Billman_line(df: DatFile):
     base.creatable.displayed_pierce_armour = 0
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
-                                        # melee,              cavalry,        armored units,        elephant,             camel             standard building
-    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1), AttackOrArmor(21,0))
-    attack_list_scytheman       = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2), AttackOrArmor(21,0))
-    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3), AttackOrArmor(21,1))
+                                        # melee,              cavalry,        armored units,        elephant,             camel                 billman          standard building
+    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1), AttackOrArmor(92,3), AttackOrArmor(21,0))
+    attack_list_scytheman       = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2), AttackOrArmor(92,4), AttackOrArmor(21,0))
+    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3), AttackOrArmor(92,5), AttackOrArmor(21,1))
 
-                                    # melee,                pierce,             infantry,     shock infantry (eagle)
-    armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0))
-    armor_list_scytheman =      (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0))
-    armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0))
+                                    # melee,                pierce,             infantry,     shock infantry (eagle)    billman
+    armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
+    armor_list_scytheman =      (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
+    armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
 
     storage.billmanUnitIcons = icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
 
@@ -188,7 +188,7 @@ def add_Lancer_line(df: DatFile):
     base.type_50.armours.clear()
 
                             # adds the base attacks of Cavalry so that they can benefit from effects like "cavalry +2 attack vs siege, buildings etc." from various civ- and teambonuses
-    base.type_50.attacks = [AttackOrArmor(11,0), AttackOrArmor(14, 0), AttackOrArmor(20, 0), AttackOrArmor(21, 0), AttackOrArmor(38, 0), AttackOrArmor(39, -3) ]
+    base.type_50.attacks = [AttackOrArmor(11,0), AttackOrArmor(15, 0), AttackOrArmor(20, 0), AttackOrArmor(21, 0), AttackOrArmor(38, 0), AttackOrArmor(39, -3) ]
     base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
 
     base.creatable.train_locations.clear()
@@ -348,8 +348,8 @@ def add_Thrower_line(df: DatFile):
     accuracy_list = (65, 70, 75, 90)
 
     displayed_attack_list = (3, 4, 5, 4)
-    displayed_m_armor_list = (0, 1, 1, 1)
-    displayed_p_armor_list = (0, 0, 1, 0)
+    displayed_m_armor_list = (1, 1, 2, 1)
+    displayed_p_armor_list = (0, 1, 1, 1)
 
                                     # melee,                skirmisher,        standard building,    armored units           
     attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
@@ -358,10 +358,10 @@ def add_Thrower_line(df: DatFile):
     attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,0), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
-    armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))
-    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
-    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_dart_thrower    = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_hatchet_thrower = (AttackOrArmor(4,2), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
 
     storage.throwerUnitIcons = icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     
@@ -495,7 +495,7 @@ def add_FlameThrower(df: DatFile):
 
     flame_thrower.type_50.displayed_attack = 5
                                         #melee,             building class,      standardbuilding,    stone defenses,           gunpowder,          So that flamethrowers only deal 5 damage to trees
-    flame_thrower.type_50.attacks = [AttackOrArmor(4,5) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,2), AttackOrArmor(92, -5)] 
+    flame_thrower.type_50.attacks = [AttackOrArmor(4,5) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,2), AttackOrArmor(93, -5)] 
                                         #melee,                 pierce,             rams,                   siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
     # Flamethrower damage vs buildings per minute (with masonry, and architecture) 2400 (1440, 720)
