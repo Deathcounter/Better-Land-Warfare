@@ -1,6 +1,7 @@
 import json
 import logging
 import re
+import copy
 from pathlib import Path
 from mods import storage
 
@@ -309,6 +310,7 @@ def create_modified_civTechTreesJson():
     lancerUnitAmount = len(storage.LancerIDs)
 
     armenianidx = 0
+    armenian_techDicts = None
     moveUUcivs = []
     for cividx, civ in enumerate(civs):
         civname: str = civ.get("civ_id")
@@ -329,6 +331,9 @@ def create_modified_civTechTreesJson():
         unitDicts = build_BLW_unitDict(civname) # compounds all Dictionaries into a single list of Dictionaries
         techDicts = build_BLW_techDict(civname) # same with techs
         siegeDicts = build_BLW_siegeDict(civname)
+        if civname == "Armenians":
+            armenianidx = cividx    # store which ID is armenians so I can change civs[armenianidx] later
+            armenian_techDicts = copy.deepcopy(techDicts)
         units: list[dict] = civ.setdefault("civ_techs_units", [])
 
         boolflag = [1,1] # bool flags for when I want to insert before something. 
@@ -387,8 +392,9 @@ def create_modified_civTechTreesJson():
         if unit.get("Name") == "Gambesons":
             unit["Age ID"] = 2
             armenianunits[flailWarrioridx+1] = unit
-            techDicts[1]["Age ID"] = 2
-            armenianunits.insert(flailWarrioridx+2, techDicts[1]) 
+            if armenian_techDicts is not None:
+                armenian_techDicts[1]["Age ID"] = 2
+                armenianunits.insert(flailWarrioridx+2, copy.deepcopy(armenian_techDicts[1])) 
             armenianunits[idx+1] = tempArson
             armenianunits.pop(idx+2) # Removes a duplicate Shield Boss
         if unit.get("Name") == "Squires":

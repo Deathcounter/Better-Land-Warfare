@@ -24,7 +24,7 @@ def run_change_existing_units (df: DatFile):
     move_genitour_trainbutton (df)
     change_ranged_infantry_formation (df)
     nerf_siegetower_garrisoncapacity (df)
-    buff_iron_pagoda (df)
+    nerf_iron_pagoda (df)
     nerf_rattan_archers (df)
     buff_longsword (df)
     buff_huskarl (df)
@@ -85,14 +85,16 @@ def nerf_siegetower_garrisoncapacity (df: DatFile):
     for civ in df.civs:
         civ.units[1105].garrison_capacity = 5
         
-def buff_iron_pagoda (df: DatFile):
-    # actually its a nerf, but since I change Jurchens Civ bonus, it's a buff. 2.15 -> 1.72 originally. Now 1.72 -> 1.85
+def nerf_iron_pagoda (df: DatFile):
+    # actually its a nerf, It goes from 2.16 -> 1.728 to 2.37 -> 1.896
     for civ in df.civs:
-        civ.units[1908].type_50.reload_time = 1.85
-        civ.units[1908].type_50.displayed_reload_time = 1.85
-        civ.units[1910].type_50.reload_time = 1.85
-        civ.units[1910].type_50.displayed_reload_time = 1.85
-    logging.debug("Buffed Iron Pagoda Attack Speed")
+        civ.units[1908].type_50.reload_time = 2.37
+        civ.units[1908].type_50.displayed_reload_time = 2.37
+        civ.units[1908].type_50.armours.append (AttackOrArmor(91, 0))
+        civ.units[1910].type_50.reload_time = 2.37
+        civ.units[1910].type_50.displayed_reload_time = 2.37
+        civ.units[1908].type_50.armours.append (AttackOrArmor(91, 0))
+    logging.debug("Nerfed Iron Pagoda Attack Speed")
 
 def nerf_rattan_archers (df: DatFile):
     # This is a nerf to Rattan Archers, even with the civ bonus affecting them. However I like the trade off off having less HP than the regular xbow

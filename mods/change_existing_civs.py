@@ -168,13 +168,14 @@ def japanese_change (df: DatFile):
 
 def jurchens_change (df: DatFile):
     # @CivBonus Jurchens
-    # All Lancer Units (Steppe-, Fire- and regular Lancer) attack +25% faster (20% in coding terms)
-    affected_vanilla_unit_list = [1370, 1372, 1901, 1903] # Steppe- and Firelancers
+    # All Lancer Units (Iron Pagoda UU, Steppe-, Fire- and regular Lancer) attack +25% faster (20% in coding terms)
+    affected_vanilla_unit_list = [1370, 1372, 1901, 1903, 1908, 1910] # Iron Pagoda, Steppe- and Firelancers
     df.effects[994].effect_commands.clear() # Current Jurchen bonus is at ID 994
     for vanilla_unit in affected_vanilla_unit_list:
         df.effects[994].effect_commands.append (EffectCommand (5, vanilla_unit, -1, 10, 0.8)) # Attr. Modifier Multiply(4), vanilla unit, Class -1, Reload Time (10), Amount (x0.8)
     for lancer in storage.LancerIDs:
         df.effects[994].effect_commands.append (EffectCommand (5, lancer, -1, 10, 0.8)) # Attr. Modifier Multiply(5), lancer, Class -1, Reload Time (10), Amount (x0.8)
+    df.effects[994].name = f"C-Bonus, Lancers +25% attack speed"
     logging.debug ("Successfully changed Jurchens")
 
 def khitans_change (df: DatFile):

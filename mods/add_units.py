@@ -92,14 +92,14 @@ def add_Billman_line(df: DatFile):
     armor_list_scytheman =      (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
     armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
 
-    storage.billmanUnitIcons = icon_list = (706, 703, 705) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
+    storage.billmanUnitIcons = icon_list = (706, 705, 703) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
 
-    attack_graphic_list = (16797, 15813, 16786)
-    attack_graphic2_list = (16802, -1, -1)
-    dead_unit_list = (2454, 2394, 2450)
-    standing_graphic_list= ([16799, -1], [15816, -1], [16788, -1]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
-    dying_graphic_list = (16798, 15815, 16787)
-    walking_graphic_list = (16801, 15818, 16790)
+    attack_graphic_list = (storage.billmanAttackID, storage.scythemanAttackID, 15813)
+    attack_graphic2_list = (storage.billmanAttackID2, -1, -1)
+    dead_unit_list = (2454, 2450, 2394)
+    standing_graphic_list= ([16799, -1],[16788, -1],[15816, -1]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
+    dying_graphic_list = (16798, 16787, 15815)
+    walking_graphic_list = (16801, 16790, 15818)
 
     storage.billmanStringID = string_start_billman = 300630
 
@@ -284,15 +284,20 @@ def add_Lancer_line(df: DatFile):
         lancer_variant_4.creatable.train_locations[0].button_id = 4
         lancer_variant_13 = copy.deepcopy(lancer_variant)
         lancer_variant_13.creatable.train_locations[0].button_id = 13  
+        lancer_variant_2 = copy.deepcopy(lancer_variant)
+        lancer_variant_2.creatable.train_locations[0].button_id = 2  
 
         for idx in range(len(df.civs)):
-            if helpers.does_civ_have_unit (df, idx, 329): # if civ has Camels
+            if helpers.does_civ_have_unit (df, idx, 329) and idx is not 53: # if civ has Camels and is not Khitans
                 if helpers.does_civ_have_unit (df, idx, 1370): # if civ has Camels AND Steppe Lancers
                     button = 13
                     df.civs[idx].units.append(lancer_variant_13) # put the Lancer in Slot 13 (even tho those civs won't get lancers) - also Full tech tree is another can of worms
                 else:
                     button = 4
                     df.civs[idx].units.append(lancer_variant_4) # put the Lancer-line in Slot 4
+            elif idx == 53: # Khitans get Lancer on Button 2
+                button = 2
+                df.civs[idx].units.append(lancer_variant_2)
             else:
                 button = 3
                 lancer_variant.creatable.train_locations[0].button_id = 3 # put the Lancer-line in Slot 3 (normal stable slot)
@@ -348,8 +353,8 @@ def add_Thrower_line(df: DatFile):
     accuracy_list = (65, 70, 75, 90)
 
     displayed_attack_list = (3, 4, 5, 4)
-    displayed_m_armor_list = (1, 1, 2, 1)
-    displayed_p_armor_list = (0, 1, 1, 1)
+    displayed_m_armor_list = (1, 1, 1, 1)
+    displayed_p_armor_list = (0, 1, 2, 1)
 
                                     # melee,                skirmisher,        standard building,    armored units           
     attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
@@ -360,7 +365,7 @@ def add_Thrower_line(df: DatFile):
                                      # melee,               pierce,         infantry,     
     armor_list_dart_thrower    = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
     armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_hatchet_thrower = (AttackOrArmor(4,2), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,2), AttackOrArmor(1,0))
     armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
 
     storage.throwerUnitIcons = icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja

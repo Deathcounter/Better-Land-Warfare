@@ -16,6 +16,9 @@ dartSoundID: int
 dartProjectileGraphicID: int # with custom sound
 silentNorseWarriorID: int # removes the melee audio of Norse Warrior 
 silentNinjaID: int # and Ninja
+billmanAttackID: int # billman with Mace Attack Sound
+billmanAttackID2: int
+scythemanAttackID: int
 yoditDeathScreamID: int
 
 #units

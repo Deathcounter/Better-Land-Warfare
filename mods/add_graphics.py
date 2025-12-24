@@ -20,6 +20,8 @@ def run_add_graphics (df: DatFile):
     add_projectile_graphics (df)
     add_silent_norse_warrior_attack (df)
     add_silent_ninja_attack (df)
+    add_Billman_Maceman_attack (df)
+    add_Scytheman_Sparabara_attack (df)
     change_yodit_death_scream (df)
     logging.info("Added all Graphics")
 
@@ -52,6 +54,38 @@ def add_silent_ninja_attack (df: DatFile):
     silent_norse_warrior_attack.angle_sounds_used = 0
     df.graphics.append(silent_norse_warrior_attack)
     logging.info("Added Silent Ninja")
+
+
+def add_Billman_Maceman_attack (df: DatFile):
+    storage.billmanAttackID = len(df.graphics)
+    billman_attacksound: Graphic = copy.deepcopy(df.graphics[16797]) # Billman attack Graphic (Hills Tribesman Attack)
+    billman_attacksound.angle_sounds.clear()
+    billman_attacksound.angle_count = 16
+    billman_attacksound.sound_id = -1
+    billman_attacksound.wwise_sound_id = -1 #-1768200429 # reverse engineered (search for reverse engineered to understand how)
+    billman_attacksound.angle_sounds = copy.deepcopy(df.graphics[16802].angle_sounds) 
+    df.graphics.append(billman_attacksound)
+    
+    storage.billmanAttackID2 = len(df.graphics)
+    billman_attacksound_2: Graphic = copy.deepcopy(df.graphics[16802]) # Billman attack Graphic (Hills Tribesman Attack B)
+    billman_attacksound_2.angle_sounds.clear()
+    billman_attacksound_2.angle_count = 16
+    billman_attacksound_2.angle_sounds_used = 1
+    billman_attacksound_2.sound_id = -1
+    billman_attacksound_2.wwise_sound_id = -1
+    billman_attacksound_2.angle_sounds = copy.deepcopy(df.graphics[16802].angle_sounds)
+    df.graphics.append(billman_attacksound_2)
+
+
+def add_Scytheman_Sparabara_attack (df: DatFile):
+    storage.scythemanAttackID = len(df.graphics)
+    scytheman_attacksound: Graphic = copy.deepcopy(df.graphics[16786]) # Scytheman attack Graphic (Indian Tribesman Attack)
+    scytheman_attacksound.angle_sounds.clear()
+    scytheman_attacksound.angle_count = 16
+    scytheman_attacksound.angle_sounds_used = 0
+    scytheman_attacksound.sound_id = 713
+    scytheman_attacksound.wwise_sound_id = -1782155183
+    df.graphics.append(scytheman_attacksound)
 
 
 def change_yodit_death_scream (df: DatFile):
