@@ -62,8 +62,10 @@ def add_Billman_Maceman_attack (df: DatFile):
     billman_attacksound.angle_sounds.clear()
     billman_attacksound.angle_count = 16
     billman_attacksound.sound_id = -1
-    billman_attacksound.wwise_sound_id = -1 #-1768200429 # reverse engineered (search for reverse engineered to understand how)
-    billman_attacksound.angle_sounds = copy.deepcopy(df.graphics[16802].angle_sounds) 
+    billman_attacksound.wwise_sound_id = 0 #-1768200429 # reverse engineered (search for reverse engineered to understand how) 
+    billman_attacksound.angle_sounds = copy.deepcopy(df.graphics[15169].angle_sounds) # wwise sound id not needed because I use angle sounds, so I can use frame delay (sound delay)
+    for angle_sound in billman_attacksound.angle_sounds:
+        angle_sound.frame_num = 10
     df.graphics.append(billman_attacksound)
     
     storage.billmanAttackID2 = len(df.graphics)
@@ -72,8 +74,10 @@ def add_Billman_Maceman_attack (df: DatFile):
     billman_attacksound_2.angle_count = 16
     billman_attacksound_2.angle_sounds_used = 1
     billman_attacksound_2.sound_id = -1
-    billman_attacksound_2.wwise_sound_id = -1
-    billman_attacksound_2.angle_sounds = copy.deepcopy(df.graphics[16802].angle_sounds)
+    billman_attacksound_2.wwise_sound_id = 0
+    billman_attacksound_2.angle_sounds = copy.deepcopy(df.graphics[15169].angle_sounds)
+    for angle_sound in billman_attacksound_2.angle_sounds:
+        angle_sound.frame_num = 10
     df.graphics.append(billman_attacksound_2)
 
 

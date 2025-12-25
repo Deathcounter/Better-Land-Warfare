@@ -94,6 +94,9 @@
 8450 "Research Gambesons (Militia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP)"
 28450 "Research <b>Gambesons<b> (<cost>)\nMilitia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP."
 
+8258 "Research Arson (Melee Infantry +2 attack vs. buildings)"
+28258 "Research <b>Arson<b> (<cost>)\nMelee Infantry +2 attack vs. buildings."
+
 //Armors
 12490 "Armored Units"
 12491 "Lancers"

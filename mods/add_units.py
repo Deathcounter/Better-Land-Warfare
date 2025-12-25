@@ -313,8 +313,8 @@ def add_Thrower_line(df: DatFile):
     base.type_50.min_range = 1
     base.type_50.accuracy_dispersion = 0.6
 
-    base.type_50.reload_time = 1.5
-    base.type_50.displayed_reload_time = 1.5
+    base.type_50.reload_time = 1.6
+    base.type_50.displayed_reload_time = 1.6
     
     base.creatable.idle_attack_graphic = -1
 
@@ -353,20 +353,20 @@ def add_Thrower_line(df: DatFile):
     accuracy_list = (65, 70, 75, 90)
 
     displayed_attack_list = (3, 4, 5, 4)
-    displayed_m_armor_list = (1, 1, 1, 1)
-    displayed_p_armor_list = (0, 1, 2, 1)
+    displayed_m_armor_list = (0, 1, 1, 1)
+    displayed_p_armor_list = (0, 0, 1, 0)
 
                                     # melee,                skirmisher,        standard building,    armored units           
     attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
-    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,0), AttackOrArmor(90,2))
-    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,2))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,0), AttackOrArmor(90,2), AttackOrArmor (19, 3)) # extra attack vs unique units
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,3))
+    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,3))
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,3), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
-    armor_list_dart_thrower    = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
-    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,2), AttackOrArmor(1,0))
-    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
 
     storage.throwerUnitIcons = icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     

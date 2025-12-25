@@ -22,7 +22,7 @@ def run_change_existing_units (df: DatFile):
     give_firelancers_lancer_class (df)
     move_condo_trainbutton (df)
     move_genitour_trainbutton (df)
-    change_ranged_infantry_formation (df)
+    change_ranged_infantry_formation_and_building_damage (df)
     nerf_siegetower_garrisoncapacity (df)
     nerf_iron_pagoda (df)
     nerf_rattan_archers (df)
@@ -71,14 +71,16 @@ def move_genitour_trainbutton (df: DatFile):
     logging.debug("Moved Genitour to Button 12")
 
 
-def change_ranged_infantry_formation (df: DatFile):
+def change_ranged_infantry_formation_and_building_damage (df: DatFile):
+    affected_units = [1013, 1015, 281, 531, 1741, 1743]
     for civ in df.civs:
-        civ.units[1013].creatable.creatable_type = 5 # classifies gbetos as an archer so they are positioned in the back
-        civ.units[1015].creatable.creatable_type = 5 # Elite
-        civ.units[281].creatable.creatable_type = 5 # Throwing Axemen
-        civ.units[531].creatable.creatable_type = 5
-        civ.units[1741].creatable.creatable_type = 5 # Chakram Thrower
-        civ.units[1743].creatable.creatable_type = 5
+        for unit in affected_units:
+            civ.units[unit].creatable.creatable_type = 5 # classifies these units as an archer so they are positioned in the back
+            for attack_classes in civ.units[unit].type_50.attacks: # loop through all attacks
+                if attack_classes.class_ == 21: # if attack class is 21 = Standard Building
+                    attack_classes.amount += 2 # increase by 2
+
+                 
     logging.debug("Ranged Infantry formation changed")
 
 def nerf_siegetower_garrisoncapacity (df: DatFile):

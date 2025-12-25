@@ -20,6 +20,7 @@ def run_change_existing_techs(df: DatFile):
     move_elite_genitour_to_castle (df)
     change_gambesons_to_give_HP (df)
     blacksmith_infantry_attack_upgrades (df)
+    remove_throwing_infantry_from_arson (df)
     japanese_staggering_inf_attackspeed (df)
     vikings_staggering_inf_HP (df)
     remove_chieftains_cavattack_for_throwers (df)
@@ -73,6 +74,17 @@ def blacksmith_infantry_attack_upgrades (df: DatFile):
             remove_Thrower_attack: EffectCommand = EffectCommand(4, thrower, -1, 9, value)     
             df.effects[infantry_attack_upgrade].effect_commands.append(remove_Thrower_attack)
 
+def remove_throwing_infantry_from_arson (df: DatFile):
+    affected_vanilla_units = [1013, 1015, 281, 531, 1741, 1743]
+    for unit in affected_vanilla_units:
+                                            # Attr. Modifier +-(4), UnitID, Class -1, Attack(9), Amount (-2), Standard Building Attackclass (4)
+        remove_arson_attack: EffectCommand = EffectCommand(4, unit, -1, 9, -5378) 
+        df.effects[628].effect_commands.append(remove_arson_attack)
+    
+    for thrower in storage.ThrowerIDs:
+        remove_arson_attack: EffectCommand = EffectCommand(4, thrower, -1, 9, -5378) 
+        df.effects[628].effect_commands.append(remove_arson_attack)
+
 def japanese_staggering_inf_attackspeed (df: DatFile):
     agetechs = [104, 101, 102, 103]
     technames = [10, 15, 20, 25]
@@ -105,6 +117,6 @@ def vikings_staggering_inf_HP (df: DatFile):
 
 def remove_chieftains_cavattack_for_throwers (df: DatFile):
     for thrower in storage.ThrowerIDs:
-        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -2053) # turns into -5 for cavalry class (256* classnumber - amount)
-        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -7684) # turns into -4 for camel class (e.g 256 * 30 = 7680 - 4 = -7684)
+        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -2053) # turns into -5 for cavalry class (256* classnumber - amount) - I mean, add the amount and then turn the number negative
+        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -7684) # turns into -4 for camel class (e.g 256 * 30 = 7680 - 4 = -7684) arrow up |
         df.effects[517].effect_commands.append(remove_thrower_chieftains)
