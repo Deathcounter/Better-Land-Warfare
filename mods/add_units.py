@@ -328,7 +328,7 @@ def add_Thrower_line(df: DatFile):
     base.type_50.attacks.clear() #delete all info from cataphract to future proof
     base.type_50.armours.clear()
 
-    base.type_50.attacks = [AttackOrArmor(21,0), AttackOrArmor(15, 0)] # add attacks every infantry has to get (for Arson, Khitan Teambonus)
+    base.type_50.attacks = [AttackOrArmor(15, 0)] # add attacks every infantry has to get (Khitan Teambonus)
     base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
 
     base.creatable.train_locations.clear()
