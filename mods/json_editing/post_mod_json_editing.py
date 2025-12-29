@@ -358,7 +358,7 @@ def create_modified_civTechTreesJson():
             if unit.get("Name") == "Squires":
                 unit["Link ID"] = -1 # makes sure that Squares is in the first row of Castle Age
 
-            if unit.get("Name") == "Paladin":    
+            if unit.get("Name") in ["Paladin", "Savar"]:    
                 for unitindex in reversed(range(billmanUnitAmount+throwerUnitAmount,billmanUnitAmount+throwerUnitAmount+lancerUnitAmount)):
                     units.insert(idx+1, unitDicts[unitindex])
 

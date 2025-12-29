@@ -26,6 +26,7 @@ def run_change_existing_units (df: DatFile):
     nerf_siegetower_garrisoncapacity (df)
     nerf_iron_pagoda (df)
     nerf_rattan_archers (df)
+    buff_militia_MAA_against_shock (df)
     buff_longsword (df)
     buff_huskarl (df)
     buff_samurai (df)
@@ -121,6 +122,15 @@ def add_armored_unit_class (df: DatFile):
                     logging.debug(f"Appended Armored Unit class to {civ.units[unit.id].name}")
     logging.info("Added Armored Unit Armor Class")
 
+
+def buff_militia_MAA_against_shock (df: DatFile):
+    #increase bonus damage of militia vs shock infantry (so MAA wins vs Billman)
+    unitList = [74, 75]
+    for civ in df.civs:
+        for unitID in unitList: # all the unit above
+             for attack_classes in civ.units[unitID].type_50.attacks: # loop through all attacks
+                if attack_classes.class_ == 29: # if attack = Shock Infantry
+                    attack_classes.amount += 2 
 
 def buff_longsword (df: DatFile):
     # reduce the attack speed off Longswords and Upgrade from 2.0 to 1.9

@@ -74,25 +74,25 @@ def add_Billman_line(df: DatFile):
     
     name_list = ('Billman', 'Scytheman', 'Flail Warrior')
     storage.billmanNames = name_list
-    hp_list = (50, 60, 70) 
+    hp_list = (55, 60, 70) 
     speed_list = (1.08, 1.12, 1.2) 
 
-    displayed_attack_list = (5, 6, 7)
+    displayed_attack_list = (7, 8, 9)
     displayed_m_armor_list = (2, 3, 4)
     base.creatable.displayed_pierce_armour = 0
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
-                                        # melee,              cavalry,        armored units,        elephant,             camel                 billman          standard building
-    attack_list_billman         = (AttackOrArmor(4,5), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,8),  AttackOrArmor(30,1), AttackOrArmor(92,3), AttackOrArmor(21,0))
-    attack_list_scytheman       = (AttackOrArmor(4,6), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,14), AttackOrArmor(30,2), AttackOrArmor(92,4), AttackOrArmor(21,0))
-    attack_list_flail_warrior   = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,5), AttackOrArmor(5,18), AttackOrArmor(30,3), AttackOrArmor(92,5), AttackOrArmor(21,1))
+                                        # melee,              cavalry,        armored units,        elephant,              billman          standard building
+    attack_list_billman         = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,2), AttackOrArmor(5,8),  AttackOrArmor(92,2), AttackOrArmor(21,0))
+    attack_list_scytheman       = (AttackOrArmor(4,8), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,14), AttackOrArmor(92,3), AttackOrArmor(21,0))
+    attack_list_flail_warrior   = (AttackOrArmor(4,9), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,18), AttackOrArmor(92,4), AttackOrArmor(21,1))
 
                                     # melee,                pierce,             infantry,     shock infantry (eagle)    billman
     armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
     armor_list_scytheman =      (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
     armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
 
-    storage.billmanUnitIcons = icon_list = (706, 705, 703) # Hills Tribeman, Rhompahaia Warrior, Indian Tribesman
+    storage.billmanUnitIcons = icon_list = (706, 705, 703) # Hills Tribeman, Indian Tribesman, Rhompahaia Warrior
 
     attack_graphic_list = (storage.billmanAttackID, storage.scythemanAttackID, 15813)
     attack_graphic2_list = (storage.billmanAttackID2, -1, -1)
@@ -313,8 +313,8 @@ def add_Thrower_line(df: DatFile):
     base.type_50.min_range = 1
     base.type_50.accuracy_dispersion = 0.6
 
-    base.type_50.reload_time = 1.6
-    base.type_50.displayed_reload_time = 1.6
+    base.type_50.reload_time = 1.5
+    base.type_50.displayed_reload_time = 1.5
     
     base.creatable.idle_attack_graphic = -1
 
