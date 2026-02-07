@@ -162,8 +162,10 @@ def buff_huskarl (df: DatFile):
 def buff_samurai (df: DatFile):
 
     for civ in df.civs:
-        civ.units[291].type_50.reload_time = 1.8 # = 1.5 (-17,666%) attack speed compared to 1.43 now in Castle
+        civ.units[291].type_50.reload_time = 1.8 # = 1.5 (-15%) attack speed compared to 1.43 now in Castle
+        civ.units[291].type_50.displayed_reload_time = 1.8
         civ.units[560].type_50.reload_time = 1.8 # = 1.44 (-20%) attack speed compared to 1.43 now in Imp
+        civ.units[560].type_50.displayed_reload_time = 1.8
     logging.debug("Buffed Samurai Attack Speed")
 
 def buff_woadraider (df: DatFile):

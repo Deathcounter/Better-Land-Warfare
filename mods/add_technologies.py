@@ -58,7 +58,7 @@ def make_avail_techs (df: DatFile):
     flamethrower_avail_tech = helpers.create_empty_tech()
     flamethrower_avail_tech.repeatable = 1
     flamethrower_avail_tech.effect_id = storage.flamethrowerAvailID
-    flamethrower_avail_tech.required_techs = (103, 47, 285, -1, -1, -1) 
+    flamethrower_avail_tech.required_techs = (103, -1, -1, -1, -1, -1) 
     flamethrower_avail_tech.required_tech_count = 2
     flamethrower_avail_tech.name = "Flamethrower (make avail)"
     df.techs.append(flamethrower_avail_tech)
@@ -397,7 +397,9 @@ def shield_boss_t (df: DatFile):
 def billman_auto_upgrade (df: DatFile):
     # @Billman Auto Upgrade Tech in Castle Age
     billman_auto_upgrade_tech = helpers.create_empty_tech()
+    billman_auto_upgrade_tech.name = "BillmanAutoUpgrade Age3"
     billman_auto_upgrade_tech.required_techs = (102, storage.billmanAvailTechID, -1, -1, -1, -1)
     billman_auto_upgrade_tech.effect_id = storage.billmanAutoUpgradeAge3
     billman_auto_upgrade_tech.repeatable = 1
     billman_auto_upgrade_tech.required_tech_count = 2
+    df.techs.append(billman_auto_upgrade_tech)

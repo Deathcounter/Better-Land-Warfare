@@ -189,8 +189,8 @@ def shield_boss_e (df: DatFile):
    
 def billman_auto_upgrade (df: DatFile):
     # @Billman Auto Upgrade Effect in Castle Age
-                                                #Attr. Modifier Multiply(5), Billman (ID), Class (-1), Attr. Train Time (101), * 0.425 = 40s -> 17s
-    billman_auto_upgrade_effect: Effect = Effect ("Upgrade Billman in Age3", [EffectCommand (5, storage.BillmanIDs[0], -1, 101, 0.425)]) 
+                                                #Attr. Modifier Multiply(5), Billman (ID), Class (-1), Attr. Train Time (101), * 0.5 = 34s -> 17s
+    billman_auto_upgrade_effect: Effect = Effect ("Upgrade Billman in Age3", [EffectCommand (5, storage.BillmanIDs[0], -1, 101, 0.5)]) 
     storage.billmanAutoUpgradeAge3 = len(df.effects)
     df.effects.append(billman_auto_upgrade_effect)
     logging.debug (f"Added auto upgrade effect of Billman in Castle Age at ID {storage.billmanAutoUpgradeAge3}")

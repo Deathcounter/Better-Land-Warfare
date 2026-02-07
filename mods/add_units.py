@@ -29,6 +29,8 @@ def run_add_units(df: DatFile):
     add_Thrower_line (df)
     logging.info("Flamethrower")
     add_FlameThrower (df)
+    logging.info("Siege Hook Ballista")
+    add_SiegeHookBalista (df)
     # print("1." + str(helpers.does_civ_have_unit(df, 1, 329))) # false
     
 
@@ -75,7 +77,7 @@ def add_Billman_line(df: DatFile):
     name_list = ('Billman', 'Scytheman', 'Flail Warrior')
     storage.billmanNames = name_list
     hp_list = (55, 60, 70) 
-    speed_list = (1.08, 1.12, 1.2) 
+    speed_list = (1.12, 1.14, 1.2) 
 
     displayed_attack_list = (7, 8, 9)
     displayed_m_armor_list = (2, 3, 4)
@@ -120,7 +122,7 @@ def add_Billman_line(df: DatFile):
         billman_variant.type_50.displayed_melee_armour = displayed_m_armor_list [idx]
 
         if idx == 0:
-            billman_variant.creatable.train_locations[0] = TrainLocation(40, 12, 3, 416009) #billman is 40s in Feudal, then 17 in Castle Age
+            billman_variant.creatable.train_locations[0] = TrainLocation(34, 12, 3, 416009) #billman is 34s in Feudal, then 17 in Castle Age
 
         for index in range(len(attack_list_billman)):
             if idx == 0:
@@ -179,8 +181,8 @@ def add_Lancer_line(df: DatFile):
     base.type_50.reload_time = 2
     base.type_50.displayed_reload_time = 2
 
-    base.type_50.max_range = 0.5
-    base.type_50.displayed_range = 0.5
+    base.type_50.max_range = 0.6
+    base.type_50.displayed_range = 0.6
     
     base.creatable.idle_attack_graphic = -1
 
@@ -188,6 +190,7 @@ def add_Lancer_line(df: DatFile):
     base.type_50.armours.clear()
 
                             # adds the base attacks of Cavalry so that they can benefit from effects like "cavalry +2 attack vs siege, buildings etc." from various civ- and teambonuses
+                                #All buildings      #Archers              #Siege Weapon      #Standard Buidling         #Skirmisher            Royal Heirs
     base.type_50.attacks = [AttackOrArmor(11,0), AttackOrArmor(15, 0), AttackOrArmor(20, 0), AttackOrArmor(21, 0), AttackOrArmor(38, 0), AttackOrArmor(39, -3) ]
     base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
 
@@ -206,16 +209,16 @@ def add_Lancer_line(df: DatFile):
     name_list = ('Lancer', 'Heavy Lancer')
     storage.lancerNames = name_list
     hp_list = (115, 145)
-    speed_list = (1.25, 1.3) 
+    speed_list = (1.3, 1.3) 
 
-    displayed_attack_list = (8, 10)
+    displayed_attack_list = (9, 11)
     displayed_m_armor_list = (3, 5)
     displayed_p_armor_list = (0, 1)
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
-                                # melee,                camel               armored units
-    attack_list_lancer      = (AttackOrArmor(4,8),  AttackOrArmor(30,2), AttackOrArmor(90,6)) 
-    attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(90,9))
+                                    # melee,                camel               armored units
+    attack_list_lancer      = (AttackOrArmor(4,9),  AttackOrArmor(30,2), AttackOrArmor(90,6)) 
+    attack_list_heavylancer = (AttackOrArmor(4,11), AttackOrArmor(30,3), AttackOrArmor(90,9))
 
                                 # melee,                pierce,             cavalry           lancer unit
     armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,4), AttackOrArmor(91,0))
@@ -313,8 +316,8 @@ def add_Thrower_line(df: DatFile):
     base.type_50.min_range = 1
     base.type_50.accuracy_dispersion = 0.6
 
-    base.type_50.reload_time = 1.5
-    base.type_50.displayed_reload_time = 1.5
+    base.type_50.reload_time = 1.6
+    base.type_50.displayed_reload_time = 1.6
     
     base.creatable.idle_attack_graphic = -1
 
@@ -325,9 +328,9 @@ def add_Thrower_line(df: DatFile):
 
     base.type_50.graphic_displacement = [0, 0.5, 1.5]
 
-    base.type_50.attacks.clear() #delete all info from cataphract to future proof
+    base.type_50.attacks.clear() #delete all info from militia to future proof
     base.type_50.armours.clear()
-
+                                #Archers
     base.type_50.attacks = [AttackOrArmor(15, 0)] # add attacks every infantry has to get (Khitan Teambonus)
     base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
 
@@ -473,16 +476,16 @@ def add_FlameThrower(df: DatFile):
     storage.FlameThrowerID = flame_thrower.id
     flame_thrower.enabled = 0
 
-    flame_thrower.hit_points = 85
+    flame_thrower.hit_points = 135
     flame_thrower.speed = 0.85
 
     flame_thrower.line_of_sight = 7
     flame_thrower.bird.search_radius = 7
 
-    flame_thrower.type_50.max_range = 6
-    flame_thrower.type_50.displayed_range = 6
+    flame_thrower.type_50.max_range = 5
+    flame_thrower.type_50.displayed_range = 5
 
-    flame_thrower.type_50.min_range = 2
+    flame_thrower.type_50.min_range = 1
 
     flame_thrower.type_50.reload_time = 0.25
     flame_thrower.type_50.displayed_reload_time = 0.25
@@ -499,14 +502,14 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.armours.clear()
 
     flame_thrower.type_50.displayed_attack = 5
-                                        #melee,             building class,      standardbuilding,    stone defenses,           gunpowder,          So that flamethrowers only deal 5 damage to trees
-    flame_thrower.type_50.attacks = [AttackOrArmor(4,5) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,2), AttackOrArmor(93, -5)] 
-                                        #melee,                 pierce,             rams,                   siege                                          
-    flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,12), AttackOrArmor(17,0), AttackOrArmor(20,0), AttackOrArmor(31,0)] # Leitis Armor
+                                        #melee,             building class,      standardbuilding,    stone defenses,           gunpowder,         siege              So that flamethrowers only deal 5 damage to trees
+    flame_thrower.type_50.attacks = [AttackOrArmor(4,5) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,3), AttackOrArmor(20,3), AttackOrArmor(93, -9)] 
+                                        #melee,                 pierce,               siege                                          
+    flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,14), AttackOrArmor(20,20), AttackOrArmor(31,0)] # Leitis Armor
     # Flamethrower damage vs buildings per minute (with masonry, and architecture) 2400 (1440, 720)
     
     flame_thrower.type_50.displayed_melee_armour = -3
-    flame_thrower.creatable.displayed_pierce_armour = 12
+    flame_thrower.creatable.displayed_pierce_armour = 14
 
     storage.flamethrowerUnitIcon = flame_thrower.icon_id = 144 # not really needed cause the base flame thrower already has it
 
@@ -532,3 +535,133 @@ def add_FlameThrower(df: DatFile):
         logging.debug(f'adding {flame_thrower.name} for civ {civ.name}')
         civ.units.append(flame_thrower)
     logging.info(f"SUCCESS: {flame_thrower.name} added")
+
+
+def add_SiegeHookBalista (df: DatFile):
+    # @Siege Hook Balista
+
+    
+    base = copy.deepcopy(df.civs[0].units[188]) # copy flamethrower
+    base.enabled = 0
+
+    base.type_50.min_range = 1.5
+
+    base.type_50.reload_time = 5.5
+    base.type_50.displayed_reload_time = 5.5
+    
+    base.outline_size_x = 0.5
+    base.outline_size_y = 0.5
+    base.outline_size_z = 2
+    
+    base.creatable.idle_attack_graphic = -1
+    base.type_50.frame_delay = 12
+
+    base.type_50.blast_attack_level = 2
+    base.type_50.blast_damage = 1
+    
+    base.type_50.accuracy_percent = 100
+
+    base.bird.attack_sound = 476
+    base.bird.wwise_attack_sound_id = -311600688 # reverse engineered using # print(json.dumps(dataclasses.asdict(dfBase.civs[0].units[280]), indent=2)) in create_mod.py
+
+    base.type_50.attacks.clear() #delete all info from flamethrower to future proof
+    base.type_50.armours.clear()
+
+    base.type_50.attacks = [AttackOrArmor(15, 0)] # add attacks every infantry has to get (Khitan Teambonus)
+    base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
+
+    base.creatable.train_locations.clear()
+    train_location_final: TrainLocation = TrainLocation(50, 49, 11, 416011) # train time, Siege Workshop (49), button 13, hotkey ID (Catapult Ship)
+    
+    base.creatable.train_locations.append(train_location_final)
+    woodcost: ResourceCost = ResourceCost (1, 140, 1) # 1 wood storage, 140 cost, 1 deduct yes
+    goldcost: ResourceCost = ResourceCost (3, 125, 1) # 3 gold storage, 125 cost, 1 deduct yes
+    headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
+    base.creatable.resource_costs = (woodcost, goldcost, headroom)
+    
+    name_list = ('Siege Hook Ballista', 'Heavy Lancer')
+    storage.siegehookNames = name_list
+
+    hp_list = (85, 105)
+    speed_list = (0.75) 
+
+    range_list = (6,9)
+    displayed_range_list = (6,9)
+
+    displayed_attack_list = (12, 15)
+    displayed_m_armor_list = (3, 4)
+    displayed_p_armor_list = (2, 3)
+
+                                    # melee,                skirmisher,        standard building,    armored units           
+    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,3))
+
+#------------------
+    SiegeHookB = copy.deepcopy(df.civs[0].units[188]) # copy flamethrower
+
+    SiegeHookB.name = "Siege Hook Balista"
+    storage.siegehookbalistaName = SiegeHookB.name
+
+
+    SiegeHookB.id = len(df.civs[0].units)  # assign new ID
+    storage.siegehookbalistaID = SiegeHookB.id
+    SiegeHookB.enabled = 0
+
+    SiegeHookB.hit_points = 105
+    SiegeHookB.speed = 0.75
+
+    SiegeHookB.line_of_sight = 10
+    SiegeHookB.bird.search_radius = 10
+
+    SiegeHookB.type_50.max_range = 9
+    SiegeHookB.type_50.displayed_range = 9
+
+    SiegeHookB.type_50.min_range = 1.5
+
+    SiegeHookB.type_50.reload_time = 5.5
+    SiegeHookB.type_50.displayed_reload_time = 5.5
+    SiegeHookB.type_50.blast_width = 0.35
+    SiegeHookB.type_50.blast_attack_level = 6 # so they can only destroy trees and no gold
+    
+    SiegeHookB.creatable.idle_attack_graphic = -1
+
+    SiegeHookB.bird.attack_sound = 476
+    SiegeHookB.bird.wwise_attack_sound_id = -311600688 # reverse engineered using # print(json.dumps(dataclasses.asdict(dfBase.civs[0].units[280]), indent=2)) in create_mod.py
+
+    SiegeHookB.type_50.attacks.clear() #delete all info from flamethrower to future proof
+    SiegeHookB.type_50.armours.clear()
+
+    SiegeHookB.type_50.displayed_attack = 15
+
+                                        #pierce,             building class,      heavy siege,          cavalry,          stone defenses,       Stone Walls and Gates,       Castles
+    SiegeHookB.type_50.attacks = [AttackOrArmor(3,15) , AttackOrArmor(11,12), AttackOrArmor(21,12), AttackOrArmor(8,8), AttackOrArmor(13, 120), AttackOrArmor(22, 120), AttackOrArmor(26, 120) ] 
+                                        #melee,                 pierce,       heavy siege,           siege                                          
+    SiegeHookB.type_50.armours = [AttackOrArmor(4,4), AttackOrArmor(3,3), AttackOrArmor(21,0), AttackOrArmor(20,0)] 
+    
+    SiegeHookB.type_50.displayed_melee_armour = 4
+    SiegeHookB.creatable.displayed_pierce_armour = 3
+
+    storage.flamethrowerUnitIcon = SiegeHookB.icon_id = 0 # not really needed cause the base flame thrower already has it
+
+
+    SiegeHookB.creatable.train_locations.clear()
+    
+    train_location_final: TrainLocation = TrainLocation(50, 49, 11, 416011) # train time, Siege Workshop (49), button 11, hotkey ID (Catapult Ship)
+    SiegeHookB.creatable.train_locations.append(train_location_final)
+
+    # flamethrower.resource_storages - not needed, copy has correct values.... for now
+    woodcost: ResourceCost = ResourceCost (1, 140, 1) # 1 wood storage, 140 cost, 1 deduct yes
+    goldcost: ResourceCost = ResourceCost (3, 125, 1) # 3 gold storage, 125 cost, 1 deduct yes
+    headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
+    SiegeHookB.creatable.resource_costs = (woodcost, goldcost, headroom)
+
+    storage.flamethrowerStringID = string_start_flamer = 300640
+    
+    SiegeHookB.language_dll_name = string_start_flamer
+    SiegeHookB.language_dll_creation = string_start_flamer + 1000
+    SiegeHookB.language_dll_help = string_start_flamer + 100000
+
+    for civ in df.civs:
+        logging.debug(f'adding {SiegeHookB.name} for civ {civ.name}')
+        civ.units.append(SiegeHookB)
+    logging.info(f"SUCCESS: {SiegeHookB.name} added")

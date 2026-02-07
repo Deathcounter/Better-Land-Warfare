@@ -790,14 +790,14 @@ def build_BLW_siegeDict(civname: str) -> list [dict]:
         "Node Type": "Unit",
         "Picture Index": storage.flamethrowerUnitIcon,
         "Prerequisite IDs": [
-          47,
+          0,
           0,
           0,
           0,
           0
         ],
         "Prerequisite Types": [
-          "Tech",
+          "None",
           "None",
           "None",
           "None",
