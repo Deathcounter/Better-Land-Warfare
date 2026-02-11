@@ -24,6 +24,7 @@ def run_change_existing_techs(df: DatFile):
     japanese_staggering_inf_attackspeed (df)
     vikings_staggering_inf_HP (df)
     remove_chieftains_cavattack_for_throwers (df)
+    chemistry_1attack_flamethrower(df)
 
 
 def change_armenian_early_barracks_techs (df: DatFile):
@@ -118,5 +119,9 @@ def vikings_staggering_inf_HP (df: DatFile):
 def remove_chieftains_cavattack_for_throwers (df: DatFile):
     for thrower in storage.ThrowerIDs:
         remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -2053) # turns into -5 for cavalry class (256* classnumber - amount) - I mean, add the amount and then turn the number negative
-        remove_thrower_chieftains: EffectCommand = EffectCommand(4, thrower, -1, 9, -7684) # turns into -4 for camel class (e.g 256 * 30 = 7680 - 4 = -7684) arrow up |
+        remove_thrower_chieftains2: EffectCommand = EffectCommand(4, thrower, -1, 9, -7684) # turns into -4 for camel class (e.g 256 * 30 = 7680 - 4 = -7684) arrow up |
         df.effects[517].effect_commands.append(remove_thrower_chieftains)
+        df.effects[517].effect_commands.append(remove_thrower_chieftains2)
+
+def chemistry_1attack_flamethrower(df: DatFile):  # Attr. Modifier +-(4), flammenwerfer, Class -1, Attack (9), Amount (+1), AttackClass Melee (4)
+    df.effects[47].effect_commands.append(EffectCommand (4, storage.FlameThrowerID, -1, 9, helpers.amount_type_to_d(1, 4)))

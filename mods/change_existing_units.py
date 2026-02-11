@@ -79,7 +79,7 @@ def change_ranged_infantry_formation_and_building_damage (df: DatFile):
             civ.units[unit].creatable.creatable_type = 5 # classifies these units as an archer so they are positioned in the back
             for attack_classes in civ.units[unit].type_50.attacks: # loop through all attacks
                 if attack_classes.class_ == 21: # if attack class is 21 = Standard Building
-                    if unit is not 1013: # Gbeto only gets 1 and later 2
+                    if unit != 1013: # Gbeto only gets 1 and later 2
                         attack_classes.amount += 2 # increase by 2
                     else:
                         attack_classes.amount += 1

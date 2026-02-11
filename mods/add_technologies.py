@@ -59,7 +59,7 @@ def make_avail_techs (df: DatFile):
     flamethrower_avail_tech.repeatable = 1
     flamethrower_avail_tech.effect_id = storage.flamethrowerAvailID
     flamethrower_avail_tech.required_techs = (103, -1, -1, -1, -1, -1) 
-    flamethrower_avail_tech.required_tech_count = 2
+    flamethrower_avail_tech.required_tech_count = 1
     flamethrower_avail_tech.name = "Flamethrower (make avail)"
     df.techs.append(flamethrower_avail_tech)
     logging.debug (f"Added Flamethrower (make avail) tech at ID {storage.flamethrowerAvailTechID}")
@@ -110,10 +110,10 @@ def unit_upgrades_t (df: DatFile):
     scytheman_upgrade_tech.required_tech_count = 2
     scytheman_upgrade_tech.name = "Scytheman"
     storage.billmanUpgradeNames.append(scytheman_upgrade_tech.name)
-    scytheman_upgrade_tech.research_locations[0] = ResearchLocation (12, 80, 8, 418008) # 12 in Barracks, 80 seconds ResearchtTime, Button 8 and Hotkey ID (Incendiary Ship)
-    foodcost: ResearchResourceCost = ResearchResourceCost (0, 250, 1) # 0 food storage, 250 cost, 1 deduct yes
-    goldcost: ResearchResourceCost = ResearchResourceCost (3, 175, 1) # 3 gold storage, 175 cost, 1 deduct yes
-    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) #
+    scytheman_upgrade_tech.research_locations[0] = ResearchLocation (12, 75, 8, 418008) # 12 in Barracks, 80 seconds ResearchtTime, Button 8 and Hotkey ID (Incendiary Ship)
+    foodcost: ResearchResourceCost = ResearchResourceCost (0, 185, 1) # 0 food storage, 185 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 135, 1) # 3 gold storage, 135 cost, 1 deduct yes
+    nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0)
     scytheman_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 
     string_start_scytheman_tech = 32330
@@ -142,7 +142,7 @@ def unit_upgrades_t (df: DatFile):
     flailWarrior_upgrade_tech.required_tech_count = 2
     flailWarrior_upgrade_tech.name = "Flail Warrior"
     storage.billmanUpgradeNames.append(flailWarrior_upgrade_tech.name)
-    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 180, 8, 418008) # 12 in Barracks, 180 seconds ResearchTime, Button 8 and Hotkey ID (Incendiary Ship)
+    flailWarrior_upgrade_tech.research_locations[0] = ResearchLocation (12, 175, 8, 418008) # 12 in Barracks, 180 seconds ResearchTime, Button 8 and Hotkey ID (Incendiary Ship)
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 625, 1) # 0 food storage, 650 cost, 1 deduct yes
     goldcost: ResearchResourceCost = ResearchResourceCost (3, 625, 1) # 3 gold storage, 625 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing

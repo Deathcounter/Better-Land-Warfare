@@ -30,28 +30,28 @@ BillmanIDs = []
 LancerIDs = []
 ThrowerIDs = []
 FlameThrowerID: int
-siegehookIDs = []
+HookCartIDs = []
 
 #unit names
 billmanNames = []
 lancerNames = []
 throwerNames = []
 flamethrowerName = str
-siegehookNames = []
+hookcartNames = []
 
 #unit icons
 billmanUnitIcons = []
 lancerUnitIcons = []
 throwerUnitIcons = []
 flamethrowerUnitIcon = []
-siegehookUnitIcons = []
+hookcartUnitIcons = []
 
 #unit languagestrings 
 billmanStringID: int
 lancerStringID: int
 throwerStringID: int
 flamethrowerStringID: int
-siegehookStringID: int
+hookcartStringID: int
 
 #tech languagestrings
 throwingTechniquesStringID: int
@@ -64,12 +64,12 @@ billmanAvailID: int
 lancerAvailID: int
 dartthrowerAvailID: int 
 flamethrowerAvailID: int
-siegehookAvailID: int
+hookcartAvailID: int
 
 billmanUpgradeIDs = []
 lancerUpgradeID: int
 throwerUpgradeIDs = []
-siegehookUpgradeID: int
+hookcartUpgradeID: int
 
 throwingTechniquesID: int
 throwerBlacksmithIDs = []
@@ -86,7 +86,7 @@ billmanAvailTechID: int
 lancerAvailTechID: int
 dartthrowerAvailTechID: int 
 flamethrowerAvailTechID: int
-siegehookAvailTechID:int
+hookcartAvailTechID:int
 
 armenian_scyteman_req_ID: int
 armenian_flailWarrior_req_ID: int
@@ -121,7 +121,7 @@ eliteGenitourIconID = si+12
 throwerUpgradeNames = []
 billmanUpgradeNames = []
 lancerUpgradeName = str
-siegehookUpgradeName = str
+hookcartUpgradeName = str
 
 throwingTechniquesUpgradeName = str
 throwerBlacksmithUpgradeNames = []

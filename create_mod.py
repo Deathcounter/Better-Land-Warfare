@@ -40,7 +40,7 @@ supported_languages = []
 # Once this is complete, you can write the new object to a new file using the DatFile.save method
 def main():
     print("Reading File structure")
-    reading_blw_dat_folder()
+    reading_bll_dat_folder()
     print("Create Modfolders")
     create_file_structure()
     print("Editing Jsons before ingame modifications")
@@ -56,7 +56,7 @@ def main():
     creating_moving_files()
 
 # this function checks if all folders and files exist in the directory. It also reads the first informations (languages in language file), last vanilla tech index etc.
-def reading_blw_dat_folder():
+def reading_bll_dat_folder():
     storage.blwDatPath = (Path(__file__).parent / "blw dat")
     storage.constantsPath = (storage.blwDatPath / "constants") 
     languageFilePath = (storage.blwDatPath / "constants" / "key-value-modded-strings-utf8.txt") 
