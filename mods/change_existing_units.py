@@ -23,7 +23,6 @@ def run_change_existing_units (df: DatFile):
     move_condo_trainbutton (df)
     move_genitour_trainbutton (df)
     change_ranged_infantry_formation_and_building_damage (df)
-    nerf_siegetower_garrisoncapacity (df)
     nerf_iron_pagoda (df)
     nerf_rattan_archers (df)
     buff_militia_MAA_against_shock (df)
@@ -86,10 +85,6 @@ def change_ranged_infantry_formation_and_building_damage (df: DatFile):
 
                  
     logging.debug("Ranged Infantry formation changed")
-
-def nerf_siegetower_garrisoncapacity (df: DatFile):
-    for civ in df.civs:
-        civ.units[1105].garrison_capacity = 5
         
 def nerf_iron_pagoda (df: DatFile):
     # actually its a nerf, It goes from 2.16 -> 1.728 to 2.37 -> 1.896
@@ -113,7 +108,7 @@ def add_armored_unit_class (df: DatFile):
     # Give all units whose base unit has more than 3 combined armor the armored unit class (= armor class) lancer have bonus against
     unitList: list[Unit] = []
     unitList = helpers.find_units_with_3_combined_armor(df)
-    removeUnits = [6, 7, 1155, 1010, 1012] # Excluding Skirms
+    removeUnits = [6, 7, 1155, 1010, 1012, 2562, 2564] # Excluding Skirms, Genitours, Guecha Warrior
     for civ in df.civs:
         for unit in unitList:
             if (AttackOrArmor(90,0) not in civ.units[unit.id].type_50.armours):

@@ -26,13 +26,16 @@ def run_change_existing_civs (df: DatFile):
     jurchens_change (df)
     khitans_change (df)
     malian_change (df)
+    muisca_change (df)
     roman_change (df)
     slavs_change (df)
     spanish_change (df)
     teutons_change (df)
+    tupi_change (df)
     poles_change (df)
     vietnamese_change (df)
     vikings_change (df)
+    persian_architecture (df)
     logging.info("Successfully changed Civilizations")
 
 
@@ -121,7 +124,7 @@ def dravidian_change (df: DatFile):
     effect_command_list = []
 
     for tech_id in discount_techs:
-        effect_command_list.extend(helpers.discount_tech(df, tech_id, 50)) # returns an EffectCommand list with: Tech Cost Modifier (Set/+/-) (101), Technology (tech_id int) , Amount (-50%), All resource Storages (because no specified resource)
+        effect_command_list.extend(helpers.new_discount_tech(df, tech_id, 50)) # returns an EffectCommand list with: Tech Cost Modifier (Set/+/-) (101), Technology (tech_id int) , Amount (-50%), All resource Storages (because no specified resource)
     for effect_command in effect_command_list:
         df.effects[tech_tree_id].effect_commands.append(effect_command)
     logging.debug ("Successfully changed Dravidians")    
@@ -193,9 +196,18 @@ def malian_change (df: DatFile):
     affected_effects = [618, 619, 620] # C-Bonus, inf +1 armor feudal (castle/imp)
 
     for effect in affected_effects:
-        for billman in storage.BillmanIDs:     # Attr. Modifier +-(4), billman, Class -1, Attack (9), Amount (1), Armorclass Pierce (3)
+        for billman in storage.BillmanIDs:     # Attr. Modifier +-(4), billman, Class -1, Armor(8), Amount (1), Armorclass Pierce (3)
             df.effects[effect].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(1, 3)))
     logging.debug ("Successfully changed Malians")
+
+def muisca_change (df: DatFile):
+    # @CivBonus Mapuche
+    # Minor Change
+    # Champi Warriors and Archery Range Units +1/2/3 melee armor in Feudal/Castle/Imperial Age (add Thrower-line in there)
+
+    for thrower in storage.ThrowerIDs:     # Attr. Modifier +-(4), thrower, Class -1, Armor (8), Amount (1), Armorclass Pierce (4)
+        df.effects[1369].effect_commands.append (EffectCommand (4, thrower, -1, 8, helpers.amount_type_to_d(1, 4)))
+    logging.debug ("Successfully changed Muisca")
 
 def poles_change (df: DatFile):
     # @CivBonus Poles
@@ -211,10 +223,10 @@ def poles_change (df: DatFile):
 
     # afterwards add my reduction (Husbandry costs no gold)
     
-    stable_techs = [435, 254, 786, 209, storage.lancerUpgradeTech]
+    stable_techs = [435, 254, 428, 786, 209, 265, storage.lancerUpgradeTech]
 
     for stable_tech in stable_techs:
-        new_ec_list.extend(helpers.discount_tech(df, stable_tech, 60, 3)) # returns an EffectCommand list with: Tech Cost Modifier (Set/+/-) (101), Technology (tech_id int) , Amount (-60%), Gold (3)
+        new_ec_list.extend(helpers.new_discount_tech(df, stable_tech, 60, 3)) # returns an EffectCommand list with: Tech Cost Modifier (Set/+/-) (101), Technology (tech_id int) , Amount (-60%), Gold (3)
 
     df.effects[tech_tree_id].effect_commands.clear()
     df.effects[tech_tree_id].effect_commands = new_ec_list
@@ -266,6 +278,16 @@ def teutons_change (df: DatFile):
             df.effects[effect].effect_commands.append (EffectCommand (4, lancer, -1, 8, helpers.amount_type_to_d(1, 4)))
     logging.debug ("Successfully changed Teutons")    
 
+def tupi_change (df: DatFile):
+    # @CivBonus Tupi
+    # Minor Change
+    # Archery Range and Barracks upgrades cost -50% (must include Billman and Thrower upgrades)
+    discount_techs = [storage.billmanUpgradeTechs[0], storage.billmanUpgradeTechs[1], storage.shieldBossTechId, storage.shieldBossTechId2, 
+                      storage.throwerUpgradeTechs[0], storage.throwerUpgradeTechs[1], storage.throwingTechniquesTechID
+                      ]
+    for tech in discount_techs:
+        df.effects[1397].effect_commands.extend(helpers.new_discount_tech(df, tech, 50, 0))
+
 
 def vietnamese_change (df: DatFile):
     # @Civ bonus Vietnamese
@@ -281,17 +303,9 @@ def vietnamese_change (df: DatFile):
 
 def vikings_change (df: DatFile):
     # @Civ bonus Vikings
-    # Feudal Age Warcost Discount -10% HP cost instead of 15%/15%/20%
-    effects = [394, 386]
-    discounts = [0.9, 0.94444]
-    for idx, effect in enumerate(effects):
-        for command in df.effects[effect].effect_commands:
-            command.d = discounts[idx]
-    # changed the d of all C-Bonus, Warship cost age2 to x0.9 for an only 10% discount
-    # and C-Bonus, Warship cost age3 to x0.944444 for an multiplitive 15% discount
-    # C-Bonus, Warship cost age4 stays 20% and tehrefore needs no changes
-    
-    
+    # Feudal Age Warcost Discount -10% HP cost instead of 15%/15%/20% - obsolete, actually implemented with update 169123, I had it first tho :P
+    # discounts = [0.9, 0.94444]  10%/15% discount
+
     # Vikings Staggering Infantry HP (instead of +20% in Feudal)
     # delete current bonus
     df.effects[428].effect_commands.clear()
@@ -303,3 +317,8 @@ def vikings_change (df: DatFile):
         viking_HP_effect: Effect = Effect (f"C-Bonus, Inf +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
         df.effects.append(viking_HP_effect)
     logging.debug ("Successfully changed Vikings")
+
+def persian_architecture (df: DatFile):
+    logging.debug("Giving Persians the Central Asian building architectures")
+    #33 = Tatars, 8 = Persians
+    helpers.copy_architecture(df, 33, 8)

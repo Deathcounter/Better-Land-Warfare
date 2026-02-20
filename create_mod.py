@@ -157,7 +157,7 @@ def creating_lang_files():
             filecontent.clear() # just freeing up the variable
 
 def check_opening_path ():
-    jsonNames = ["icons.json", "materials.json", "techtreepreviewpanel.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "civTechTrees.json"] # Json File Names
+    jsonNames = ["icons.json", "materials.json", "techtreepreviewpanel.json", "unitcategories.json", "futuravailableunits.json", "unitlines.json", "CivTechTrees"] # Json File Names
     for idx, jsonName in enumerate(jsonNames): # Lopping
         Pathname = (storage.blwDatPath / jsonName)
         if (not Pathname.exists()): # if Path does not exist -> File not there

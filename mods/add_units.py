@@ -332,7 +332,7 @@ def add_Thrower_line(df: DatFile):
     base.type_50.armours.clear()
                                 #Archers
     base.type_50.attacks = [AttackOrArmor(15, 0)] # add attacks every infantry has to get (Khitan Teambonus)
-    base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
+    base.type_50.armours = [AttackOrArmor(31, 0)] # Leitis Armor
 
     base.creatable.train_locations.clear()
     
@@ -357,7 +357,7 @@ def add_Thrower_line(df: DatFile):
 
     displayed_attack_list = (3, 4, 5, 4)
     displayed_m_armor_list = (0, 1, 1, 1)
-    displayed_p_armor_list = (0, 0, 1, 0)
+    displayed_p_armor_list = (1, 1, 2, 1)
 
                                     # melee,                skirmisher,        standard building,    armored units           
     attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
@@ -366,10 +366,10 @@ def add_Thrower_line(df: DatFile):
     attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,3), AttackOrArmor (19, 3)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
-    armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,0), AttackOrArmor(1,0))
-    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
-    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0))
+    armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,2), AttackOrArmor(1,0))
+    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
 
     storage.throwerUnitIcons = icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     

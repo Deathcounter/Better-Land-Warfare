@@ -17,8 +17,8 @@ NAME = "change_existing_civs"
 #@NewCivs
 # from left to right: Shield Boss, Throwing Techniques, Wooden Grip, Holster, Balanced Weaponry, Knife Thrower, Hatchet Thrower, Lancer, Heavy Lancer, Scytheman, Flail Warrior
 CIV_TECH_MATRIX = {
-    "Armenians":    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "Aztecs":       [0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1],
+    "Armenians":    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "Aztecs":       [0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1],
     "Bengalis":     [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
     "Berbers":      [0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0],
     "Bohemians":    [0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1],
@@ -30,7 +30,7 @@ CIV_TECH_MATRIX = {
     "Celts":        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     "Chinese":      [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0],
     "Cumans":       [1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1],
-    "Dravidians":   [1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0],
+    "Dravidians":   [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0],
     "Ethiopians":   [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1],
     "French":       [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     "Georgians":    [0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1],
@@ -47,21 +47,24 @@ CIV_TECH_MATRIX = {
     "Koreans":      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     "Lithuanians":  [1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1],
     "Magyars":      [0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0],
-    "Malay":        [1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1],
+    "Malay":        [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1],
     "Malians":      [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
+    "Mapuche":      [0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1],
     "Mayan":        [0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
     "Mongols":      [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0],
+    "Muisca":       [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1],
     "Persians":     [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0],
     "Poles":        [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
     "Portuguese":   [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
     "Romans":       [1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0],
     "Saracens":     [1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
-    "Shu":          [0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1],
+    "Shu":          [0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1],
     "Sicilians":    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "Slavs":        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    "Slavs":        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     "Spanish":      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    "Tatars":       [1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0],
+    "Tatars":       [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0],
     "Teutons":      [0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+    "Tupi":         [0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1],
     "Turks":        [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0],
     "Vietnamese":   [0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
     "Vikings":      [1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
@@ -103,7 +106,7 @@ def add_BLL_tech_tree (df: DatFile):
         if cfg is None:
             # no custom maxtrix for this civ -> skip, +1 to the debug variable
             #CIV_TECH_MATRIX.update({civ.name, list[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}) - # doesnt work, wanted to give 0 to non AoE2 civs
-            logging.debug(f"No Tech matrix found for civ {civ.name}")
+            logging.info(f"No Tech matrix found for civ {civ.name}")
             missing_civ_amount += 1
             continue
         else:

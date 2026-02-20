@@ -140,12 +140,46 @@ def discount_tech (df: DatFile, tech: int, percentage: int, costtype = None) -> 
         if (costtype is None):
             for idx in range(len(types)):
                         # Tech Cost Modifier (Set/+/-) (101), Technology (Tech), type (idx), Mode +- (1) or Set (0), Amount (discount)
-                ec_list.append(EffectCommand (101, df.techs.index(df.techs[tech]), types[idx], mode, discount(amounts[idx])))
+                ec_list.append(EffectCommand (101, tech, types[idx], mode, discount(amounts[idx])))
         else:   
             # if a specific costtype is declared, it only discounts e.g the gold cost of a tech
             for idx, resources in enumerate(df.techs[tech].resource_costs):
                 if (resources.type == costtype): # determining where the type of the tech equals the specified type
-                    ec_list.append(EffectCommand (101, df.techs.index(df.techs[tech]), types[idx], mode, discount(df.techs[tech].resource_costs[idx].amount)))
+                    ec_list.append(EffectCommand (101, tech, types[idx], mode, discount(df.techs[tech].resource_costs[idx].amount)))
+        
+        return ec_list            
+    else:           
+        print("Something wrong in helpers.discount_tech")
+        return None
+
+    # Ever since the last Chieftains DLC, actually Shu discount too, the devs decided to discount techs by using Mode 2 and then multiplying it by percentage/100, e.g 0.5 for half.
+    # Previously they substracted a flat amount of resources using mode 1 and then the negative value
+    # Because of rounding and consistency, I will do the same... but only for the civ that also use the new methods lol
+    # whichResource: 0 = Food Storage, 1 = Wood Storage, 2 = Stone Storage, 3 = Gold Storage
+def new_discount_tech (df: DatFile, tech: int, percentage: int, whichResource = None) -> list [EffectCommand]:
+    if (df.techs[tech]):
+        ec_list: list[EffectCommand] = []
+        # Both Costs must be in the first two ResearchResourceCost
+        types: list[int] = [df.techs[tech].resource_costs[0].type, df.techs[tech].resource_costs[1].type]
+        amounts: list[int] = [df.techs[tech].resource_costs[0].amount, df.techs[tech].resource_costs[1].amount]
+        if percentage != 100:
+            mode = 2 
+            discount = percentage / 100
+        else: 
+            mode = 0 # Mode 2 = multiplying(*) Mode 1 = +-, Mode 0 = Set    
+            discount = 0
+
+        discount: float = percentage / 100 # calculating discount, making it negative with -abs and rounding by converting it to int()
+
+        if (whichResource is None):
+            for idx in range(len(types)):
+                        # Tech Cost Modifier (Set/+/-) (101), Technology (Tech), type (idx), Mode * (2) or Set (0), Amount (discount)
+                ec_list.append(EffectCommand (101, tech, types[idx], mode, discount))
+        else:   
+            # if a specific costtype is declared, it only discounts e.g the gold cost of a tech
+            for idx, resources in enumerate(df.techs[tech].resource_costs):
+                if (resources.type == whichResource): # determining where the type of the tech equals the specified type
+                    ec_list.append(EffectCommand (101, tech, types[idx], mode, discount))
         
         return ec_list            
     else:           
@@ -188,6 +222,9 @@ def create_empty_task() -> Task:
         enabled=-1,
     )
 
+# Hello, Deathcounter here, I used all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
+# - Credits to him, thank you <3
+
 
 def pack_amount_and_type(amount: int, typ: int) -> int:
     """Pack signed 8-bit amount and unsigned 8-bit type into an int (type in high byte, amount in low byte)."""
@@ -198,9 +235,6 @@ def pack_amount_and_type(amount: int, typ: int) -> int:
 
 def amount_type_to_d_test(amount: int, typ: int) -> float:
     return float(pack_amount_and_type(amount, typ))
-
-# Hello, Deathcounter here, I used all functions after this msg from helper.py from genieutils-examples https://github.com/Krakenmeister/genieutils-examples 
-# - Credits to him, thank you <3
 
 
 # EffectCommands D value is always a float, meaning it can only hold one value
@@ -241,3 +275,41 @@ def create_empty_tech() -> Tech:
         repeatable=0,
         research_locations=[ResearchLocation(-1,0,0,-1)],
     )
+
+# Copy all regional unit and building graphics from one civilization onto another - slighty edited to accustom my mod (I like the persian king, monk is the same as tatars anyway)
+# and obviously the castle stays persian
+def copy_architecture(df: DatFile, copyFrom: int, copyTo: int):
+    df.civs[copyTo].icon_set = df.civs[copyFrom].icon_set  # Holds no gameplay purpose but good for organization in AGE
+    for unit_id in range(len(df.civs[copyFrom].units)):
+        if df.civs[copyFrom].units[unit_id] is None:
+            continue
+        if (
+            df.civs[copyFrom].units[unit_id].class_ == 3 # Building
+            or df.civs[copyFrom].units[unit_id].class_ == 52 # Tower
+            or df.civs[copyFrom].units[unit_id].class_ == 27 # Wall
+            or df.civs[copyFrom].units[unit_id].class_ == 39 # Gate
+        ):
+            if(unit_id != 82): # except Castles
+                df.civs[copyTo].units[unit_id].standing_graphic = df.civs[copyFrom].units[unit_id].standing_graphic
+                df.civs[copyTo].units[unit_id].dying_graphic = df.civs[copyFrom].units[unit_id].dying_graphic
+                df.civs[copyTo].units[unit_id].undead_graphic = df.civs[copyFrom].units[unit_id].undead_graphic
+                df.civs[copyTo].units[unit_id].damage_graphics = df.civs[copyFrom].units[unit_id].damage_graphics
+                df.civs[copyTo].units[unit_id].building = df.civs[copyFrom].units[unit_id].building
+                df.civs[copyTo].units[unit_id].creatable.garrison_graphic = df.civs[copyFrom].units[unit_id].creatable.garrison_graphic
+        elif (
+            df.civs[copyFrom].units[unit_id].class_ == 59 # King
+            # or df.civs[copyFrom].units[unit_id].class_ == unit_classes.TRADE_CART
+            # or df.civs[copyFrom].units[unit_id].class_ == unit_classes.MONK
+            # or df.civs[copyFrom].units[unit_id].class_ == unit_classes.MONK_WITH_RELIC
+        ):
+            df.civs[copyTo].units[unit_id].standing_graphic = df.civs[copyFrom].units[unit_id].standing_graphic
+            df.civs[copyTo].units[unit_id].dying_graphic = df.civs[copyFrom].units[unit_id].dying_graphic
+            df.civs[copyTo].units[unit_id].undead_graphic = df.civs[copyFrom].units[unit_id].undead_graphic
+            df.civs[copyTo].units[unit_id].dead_fish.walking_graphic = df.civs[copyFrom].units[unit_id].dead_fish.walking_graphic
+            df.civs[copyTo].units[unit_id].type_50.attack_graphic = df.civs[copyFrom].units[unit_id].type_50.attack_graphic
+            """ if df.civs[copyFrom].units[unit_id].class_ == unit_classes.TRADE_CART:
+                for task_id in range(len(df.civs[copyFrom].units[unit_id].bird.tasks)):
+                    df.civs[copyTo].units[unit_id].bird.tasks[task_id].carrying_graphic_id = df.civs[copyFrom].units[unit_id].bird.tasks[task_id].carrying_graphic_id
+            elif df.civs[copyFrom].units[unit_id].class_ == unit_classes.MONK:
+                for task_id in range(len(df.civs[copyFrom].units[unit_id].bird.tasks)):
+                    df.civs[copyTo].units[unit_id].bird.tasks[task_id].proceeding_graphic_id = df.civs[copyFrom].units[unit_id].bird.tasks[task_id].proceeding_graphic_id """

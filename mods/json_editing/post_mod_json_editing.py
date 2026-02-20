@@ -11,10 +11,11 @@ logging.getLogger(__name__)
 NAME = "post_mod_json_editing"
 
 #@NewCivs
-CIV_NAMES = ["Aztecs", "Berbers", "Britons", "Burgundians", "Bulgarians", "Burmese", "Byzantines", "Celts", "Chinese", "Cumans", "Ethiopians", "Franks", "Goths", "Huns", "Incas",
-             "Indians", "Italians", "Japanese", "Khmer", "Koreans", "Lithuanians", "Magyars", "Malay", "Malians", "Mayans", "Mongols", "Persians", "Portuguese", "Saracens", "Sicilians",
-             "Slavs", "Spanish", "Tatars", "Teutons", "Turks", "Vietnamese", "Vikings", "Poles", "Bohemians", "Dravidians", "Bengalis", "Gurjaras", "Romans", "Armenians", "Georgians",
-             "Shu", "Wu", "Wei", "Jurchens", "Khitans"
+CIV_NAMES = ["Armenians", "Aztecs", "Bengalis", "Berbers", "Bohemians", "Britons", "Burgundians", "Bulgarians", "Burmese", "Byzantines", "Celts", "Chinese", 
+             "Cumans", "Dravidians","Ethiopians", "Franks", "Georgians", "Goths", "Gurjaras", "Huns", "Incas", "Indians", "Italians", "Japanese", "Jurchens", 
+             "Khitans", "Khmer", "Koreans", "Lithuanians", "Magyars", "Malay", "Malians", "Mapuche", "Mayans", "Mongols", "Muisca", "Persians", "Poles", 
+             "Portuguese", "Romans", "Saracens", "Shu", "Sicilians", "Slavs", "Spanish", "Tatars", "Teutons", "Tupi", "Turks", "Vietnamese", "Vikings", "Wei", 
+             "Wu", 
             ]
 
 REPLACE_CIV_NAMES = {"Franks": "French", "Britons": "British", "Byzantines": "Byzantine", "Indians": "Hindustanis", "Mayans": "Mayan"}
@@ -292,9 +293,160 @@ def create_modified_unitlinesJson():
     with open(outputFilePath, "w", encoding="utf-8") as output:
         json.dump(data, output, indent=2, ensure_ascii=False)
 
-
-
 def create_modified_civTechTreesJson():
+    from mods.change_existing_tech_tree import CIV_TECH_MATRIX
+    REPLACE_CIV_NAMES.update({"Magyar": "Magyars"}) # Another file, Another inconsistency with civ names - Need to change it here, because futureAvailUnits uses Magyars
+
+    throwerUnitAmount = len(storage.ThrowerIDs)-1 # the only reason why -1 is that the Ninja is in ThrowerIDs but I dont actually care while creating the tech tree
+    billmanUnitAmount = len(storage.BillmanIDs)
+    lancerUnitAmount = len(storage.LancerIDs)
+   
+    armenian_techDicts = None
+
+    
+    for civ in CIV_NAMES:
+        if civ == "Magyars":
+            civ = "Magyar"
+
+        jsonname = civ.upper()+".json"
+        
+        civTechTreePath = (storage.blwDatPath / "CivTechTrees" / jsonname).resolve() # Path of input json File
+        with open(civTechTreePath,"r", encoding="utf-8") as f:
+            data: dict = json.load(f)    # Load the data of Json File
+
+        civname: str = data.get("civ_id")
+        civname = civname.capitalize() # civTechTree contains all civs with Uppercase letters: "AZTECS" - but both my global Dict use "Aztecs" -> capitalize() needed
+        if (civname in REPLACE_CIV_NAMES):
+            civname = REPLACE_CIV_NAMES.get(civname)
+        if (civname not in CIV_TECH_MATRIX.keys()):
+            continue # No civ, No service
+
+        unitDicts = build_BLW_unitDict(civname) # compounds all Dictionaries into a single list of Dictionaries
+        techDicts = build_BLW_techDict(civname) # same with techs
+        siegeDicts = build_BLW_siegeDict(civname)
+
+        
+
+        units: list[dict] = data.setdefault("civ_techs_units", [])
+
+        boolflag = [1,1] # bool flags for when I want to insert before something. 
+        # Else it loops forever. cause - imagine a list of [0,2,1], if I say: if slot value = 1, insert x at that index -> [0,2,x,1], then in the next loop, idx+1 is "1" again causing infinite "x"s beinga dded
+        # ORDER: All Units and Techs, as well as their Dictbuilding is done from left to right as they are in the Tech Tree - this is also how the tech tree system of the game does it (within one building)
+        for idx, unit in enumerate(units):
+            # if "Cavalry Archer" in unit.values(): - to check if there even is an Cavalry Archer, but there should always be (unless non AoE2 civs)
+            if unit.get("Name") == "Cavalry Archer" and boolflag[0]: # Adding Thrower line before Cav Archer
+                boolflag[0] = 0
+                for unitindex in range(throwerUnitAmount): 
+                    units.insert(idx+unitindex, unitDicts[unitindex]) # insert at unitindex too, but I can also just use (reversed(range)) like below
+            if unit.get("Name") == "Thumb Ring" and boolflag[1]: # adding Throwing Techniques before Thumb Ring so all Techs are in the same column
+                units.insert(idx, techDicts[0])
+                boolflag[1] = 0
+            if unit.get("Name") == "Halberdier": # adding Billman line after Halbadier
+                for unitindex in reversed(range(throwerUnitAmount, billmanUnitAmount+throwerUnitAmount)):
+                    units.insert(idx+1, unitDicts[unitindex])
+            if unit.get("Name") == "Gambesons": # adding Shield Boss after Gambesons
+                units.insert(idx+1, techDicts[1]) 
+            if unit.get("Name") == "Squires":
+                unit["Link ID"] = -1 # makes sure that Squares is in the first row of Castle Age
+            if unit.get("Name") in ["Paladin", "Savar"]:    
+                for unitindex in reversed(range(billmanUnitAmount+throwerUnitAmount,billmanUnitAmount+throwerUnitAmount+lancerUnitAmount)):
+                    units.insert(idx+1, unitDicts[unitindex])
+            if unit.get("Name") == "Heavy Scorpion": # adding it after Heavy Scorpion in hopes they wont add a second Scorpion Upgrade for another civ, if they do, move it after Houfnice and Traction Trebs  
+                units.insert(idx+1, siegeDicts[0])
+            if unit.get("Name") == "Plate Mail Armor": # adding the Thrower Upgrades after Infantry Defense Upgrades
+                for techindex in reversed(range(2, len(storage.throwerBlacksmithIDs)+2)):
+                    units.insert(idx+1, techDicts[techindex]) 
+                break
+                
+
+        if civname == "Armenians":
+            armenian_techDicts = copy.deepcopy(techDicts)            
+            # ugh, let's just hope no new civ will ever, EVER have Archery or Stable techs one age earlier
+            armenianunits: list[dict] = data.setdefault("civ_techs_units", []) 
+
+            # ARMENIANS
+            # Essentially what this does (have the vanilla Armenian tech tree open to understand better, imagine Shield Boss below Gambesons):
+            # Save Arson dict in a temporary variable (that actually gets done mulitple times because of the loop)
+            # Add *' Gambesons and Shield Boss after Flailwarrior (flailWarrioridx+1 and +2 - overwrites arson and Gambesons - the overwritten Gambesons is already duplicate *' ), 
+            # Add Arson back after where Gambesons was, and remove the duplicate Shield Boss
+            # Done, and Squires(-1) and Spearman(+1) one Age earlier or later - and Link ID Squires with Arson so its below it (but no connection line due to lack of "Link Node Type": "Research)
+            for idx, unit in enumerate(armenianunits): # this shuffeling around of dictionary entries works as long as no more techs are added between Squires and Arson, else gg
+                if unit.get("Name") == "Spearman":
+                    unit["Age ID"] = 2
+                if unit.get("Name") == "Flail Warrior":
+                    flailWarrioridx = idx
+                if unit.get("Name") == "Arson":
+                    tempArson = unit
+                if unit.get("Name") == "Gambesons":
+                    unit["Age ID"] = 2
+                    armenianunits[flailWarrioridx+1] = unit
+                    if armenian_techDicts is not None:
+                        armenian_techDicts[1]["Age ID"] = 2
+                        armenianunits.insert(flailWarrioridx+2, copy.deepcopy(armenian_techDicts[1])) 
+                    armenianunits[idx+1] = tempArson
+                    armenianunits.pop(idx+2) # Removes a duplicate Shield Boss
+                if unit.get("Name") == "Squires":
+                    unit["Link ID"] = 602
+                    unit["Age ID"] = 2
+                    break # all done, all changed, lets break out of the loop to save time
+
+        # Incas, Wei, Jurchens        
+        # Here I essentially just move the UU to below the Elite Skirmisher. This makes it so that throwing technique doesnt need its own row
+        special_civs = ["Incas", "Tupi", "Muisca", "Mapuche", "Wei", "Jurchens"]
+        UUnames = ["Slinger", "Xianbei Raider", "Grenadier"]
+        if civname in special_civs:
+            Units: list[dict] = data.setdefault("civ_techs_units", []) 
+            if civname in special_civs[:4]: #if civ has slinger regional unit
+                UUindex = 0
+            elif civname == special_civs[4]:
+                UUindex = 1
+            else:
+                UUindex = 2
+            for unitidx, unit in enumerate(Units):
+                if unit.get("Name") == "Elite Skirmisher":
+                    newUUslot = unitidx + 1 # storing where I will insert it (after ES)
+                if unit.get("Name") == UUnames[UUindex]:
+                    unit["Link ID"] = 6 # I need to link it below the Skirmisher
+                    storeUUdict = unit # storing the UU
+                    Units.pop(unitidx) # delete UU from Tech tree since we stored it
+                    Units.insert(newUUslot, storeUUdict) # insert the dict
+                    # @MayBreak
+                    # I can't follow the code here, because Wei and Jurchens have Thumbring coming before Parthian Tactics, the order should actually be switched and Incas be the exception
+                if unit.get("Name") == "Parthian Tactics": # for some reason, Parthian Tactics for civs with Archery Ranged UU comes before Thumbring, instead of after it
+                    tempPT = unit # storing Parthian tactics
+                    popidx = unitidx # storing index of old Parthian Tactics
+                if unit.get("Name") == "Thumb Ring": # for civ with an archery UU the Thumbring is below that UU, being linked with the UU - makes sense for the base game but not blw
+                    unit["Link ID"] = -1 # removes that link
+                    Units.insert(unitidx+1, tempPT) # adds Parthian Tactics after TR
+                    break
+            # this code is messy, its just that Slingers is followed by Parthian Tactics, then Thumbring. While Grenadier and Xianbei Raider are followed by Thumbring, then Parthian Tactics
+            if UUindex == 0:
+                Units.pop(popidx) # remove the duplicate Parthian Tactics for Incas
+            if UUindex != 0:
+                Units.pop(popidx+2) # remove the duplicate Parthian Tactics for Wei, Jurchens
+
+        if civname == "Tatars":
+            tatarunits: list[dict] = data.setdefault("civ_techs_units", []) 
+            for unitidx, unit in enumerate(tatarunits):
+                if unit.get("Name") == "Flaming Camel":
+                    unit["Link ID"] = 36 # Link to Bombard Cannon
+                    flaming_camel = unit
+                    tatarunits.pop(unitidx)
+                if unit.get("Name") == "Bombard Cannon":
+                    tatarunits.insert(unitidx+1, flaming_camel)
+                    break
+
+        outputFilePath = (storage.datFolder / "CivTechTrees" / jsonname).resolve() # Path of output Json File        
+        outputFilePath.parent.mkdir(parents=True, exist_ok=True)
+        with open(outputFilePath, "w", encoding="utf-8") as output:
+            json.dump(data, output, indent=2, ensure_ascii=False)
+
+
+#------------------------
+#------------------------
+# Here is def create_modified_civTechTreesJson() before they moved all Civ Tech Trees from a single json file civTechTrees.json to a folder named "CivTechTrees" 
+# and each civ having it's own JSON file with the Civs Name (akin to the "civ_id": key inside the json dict) in UPPERCASE.json
+""" def create_modified_civTechTreesJson():
     from mods.change_existing_tech_tree import CIV_TECH_MATRIX
     REPLACE_CIV_NAMES.update({"Magyar": "Magyars"}) # Another file, Another inconsistency with civ names
 
@@ -443,7 +595,7 @@ def create_modified_civTechTreesJson():
     outputFilePath = (storage.datFolder / "civTechTrees.json").resolve() # Path of output Json File        
     with open(outputFilePath, "w", encoding="utf-8") as output:
         json.dump(data, output, indent=2, ensure_ascii=False)
-
+"""
 def build_BLW_techDict(civname: str) -> list [dict]:
     techDict: list [dict] = []
     from mods.change_existing_tech_tree import CIV_TECH_MATRIX
