@@ -216,7 +216,7 @@ def unit_upgrades_t (df: DatFile):
     storage.throwerUpgradeNames.append(hatchetThrower_upgrade_tech.name)
     hatchetThrower_upgrade_tech.research_locations[0] = ResearchLocation (87, 45, 14, 418007) # 87 in Archery Range, 45 seconds ResearchTime, Button 14 and Hotkey ID (Elite Galley)
     foodcost: ResearchResourceCost = ResearchResourceCost (0, 325, 1) # 0 food storage, 325 cost, 1 deduct yes
-    goldcost: ResearchResourceCost = ResearchResourceCost (3, 550, 1) # 3 gold storage, 550 cost, 1 deduct yes
+    goldcost: ResearchResourceCost = ResearchResourceCost (3, 725, 1) # 3 gold storage, 725 cost, 1 deduct yes
     nothing: ResearchResourceCost = ResearchResourceCost (-1, 0, 0) # nothing, yep, still nothing
     hatchetThrower_upgrade_tech.resource_costs = (foodcost, goldcost, nothing)
 

@@ -59,7 +59,7 @@ def add_Billman_line(df: DatFile):
 
     base.type_50.attacks.clear() # delete all info from militia to future proof
     base.type_50.armours.clear()
-    base.type_50.attacks = [AttackOrArmor(21,0), AttackOrArmor(15, 0)] # add attacks every infantry has to get (for Arson, Khitan Teambonus)
+    base.type_50.attacks = [AttackOrArmor(15, 0)] # add attacks every infantry has to get (for Arson, Khitan Teambonus)
     base.type_50.armours = [AttackOrArmor(31,0)] # Leitis Armor
 
     base.creatable.train_locations.clear()
@@ -69,28 +69,28 @@ def add_Billman_line(df: DatFile):
 
     
     # base.resource_storages - not needed, militia has correct values.... for now
-    foodcost: ResourceCost = ResourceCost (0, 45, 1) # 0 food storage, 45 cost, 1 deduct yes
+    foodcost: ResourceCost = ResourceCost (0, 40, 1) # 0 food storage, 40 cost, 1 deduct yes
     goldcost: ResourceCost = ResourceCost (3, 45, 1) # 3 gold storage, 45 cost, 1 deduct yes
     headroom: ResourceCost = ResourceCost (4, 1, 0) #  4 population headroom, 1 cost, 0 deduct no
     base.creatable.resource_costs = (foodcost, goldcost, headroom)
     
     name_list = ('Billman', 'Scytheman', 'Flail Warrior')
     storage.billmanNames = name_list
-    hp_list = (55, 60, 70) 
-    speed_list = (1.12, 1.14, 1.2) 
+    hp_list = (55, 65, 75) 
+    speed_list = (1.14, 1.18, 1.22) 
 
     displayed_attack_list = (7, 8, 9)
-    displayed_m_armor_list = (2, 3, 4)
+    displayed_m_armor_list = (1, 3, 4)
     base.creatable.displayed_pierce_armour = 0
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
                                         # melee,              cavalry,        armored units,        elephant,              billman          standard building
-    attack_list_billman         = (AttackOrArmor(4,7), AttackOrArmor(8,3), AttackOrArmor(90,2), AttackOrArmor(5,8),  AttackOrArmor(92,2), AttackOrArmor(21,0))
-    attack_list_scytheman       = (AttackOrArmor(4,8), AttackOrArmor(8,3), AttackOrArmor(90,3), AttackOrArmor(5,14), AttackOrArmor(92,3), AttackOrArmor(21,0))
+    attack_list_billman         = (AttackOrArmor(4,7), AttackOrArmor(8,1), AttackOrArmor(90,2), AttackOrArmor(5,8),  AttackOrArmor(92,2), AttackOrArmor(21,0))
+    attack_list_scytheman       = (AttackOrArmor(4,8), AttackOrArmor(8,2), AttackOrArmor(90,3), AttackOrArmor(5,14), AttackOrArmor(92,3), AttackOrArmor(21,0))
     attack_list_flail_warrior   = (AttackOrArmor(4,9), AttackOrArmor(8,3), AttackOrArmor(90,4), AttackOrArmor(5,18), AttackOrArmor(92,4), AttackOrArmor(21,1))
 
                                     # melee,                pierce,             infantry,     shock infantry (eagle)    billman
-    armor_list_billman  =       (AttackOrArmor(4,2), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
+    armor_list_billman  =       (AttackOrArmor(4,1), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
     armor_list_scytheman =      (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
     armor_list_flail_warrior =  (AttackOrArmor(4,4), AttackOrArmor(3,0), AttackOrArmor(1,0), AttackOrArmor(29,0), AttackOrArmor(92,0))
 
@@ -347,29 +347,29 @@ def add_Thrower_line(df: DatFile):
 
     name_list = ('Dart Thrower', 'Knife Thrower', 'Hatchet Thrower', 'Ninja')
     storage.throwerNames = name_list
-    hp_list = (35, 40, 45, 45)
+    hp_list = (35, 40, 50, 45)
     speed_list = (1, 1.05, 1.05, 1.1) 
     frame_delay_list = (16, 14, 14, 12)
 
-    range_list = (3, 4, 5, 6)
-    displayed_range_list = (3, 4, 5, 6)
+    range_list = (3, 4, 4, 6)
+    displayed_range_list = (3, 4, 4, 6)
     accuracy_list = (65, 70, 75, 90)
 
     displayed_attack_list = (3, 4, 5, 4)
-    displayed_m_armor_list = (0, 1, 1, 1)
+    displayed_m_armor_list = (0, 0, 1, 0)
     displayed_p_armor_list = (1, 1, 2, 1)
 
-                                    # melee,                skirmisher,        standard building,    armored units           
-    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1))
-    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,3))
-    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,3), AttackOrArmor(21,2), AttackOrArmor(90,3))
-    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,3), AttackOrArmor (19, 3)) # extra attack vs unique units
+                                    # melee,                skirmisher,        standard building,    armored units      Cavalry Archer        
+    attack_list_dart_thrower    = (AttackOrArmor(4,3), AttackOrArmor(38,2), AttackOrArmor(21,0), AttackOrArmor(90,1), AttackOrArmor(28,1))
+    attack_list_knife_thrower   = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,0), AttackOrArmor(90,2), AttackOrArmor(28,2))
+    attack_list_hatchet_thrower = (AttackOrArmor(4,5), AttackOrArmor(38,4), AttackOrArmor(21,1), AttackOrArmor(90,3), AttackOrArmor(28,3))
+    attack_list_ninja           = (AttackOrArmor(4,4), AttackOrArmor(38,3), AttackOrArmor(21,1), AttackOrArmor(90,2), AttackOrArmor(28,2), AttackOrArmor (19, 2)) # extra attack vs unique units
 
                                      # melee,               pierce,         infantry,     
     armor_list_dart_thrower    = (AttackOrArmor(4,0), AttackOrArmor(3,1), AttackOrArmor(1,0))
-    armor_list_knife_thrower   = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_knife_thrower   = (AttackOrArmor(4,0), AttackOrArmor(3,1), AttackOrArmor(1,0))
     armor_list_hatchet_thrower = (AttackOrArmor(4,1), AttackOrArmor(3,2), AttackOrArmor(1,0))
-    armor_list_ninja           = (AttackOrArmor(4,1), AttackOrArmor(3,1), AttackOrArmor(1,0))
+    armor_list_ninja           = (AttackOrArmor(4,0), AttackOrArmor(3,1), AttackOrArmor(1,0))
 
     storage.throwerUnitIcons = icon_list = (704, 693, 140, 299) # Phalangite, Rhodian Slinger, Norse Warrior, Ninja
     
@@ -502,8 +502,8 @@ def add_FlameThrower(df: DatFile):
     flame_thrower.type_50.armours.clear()
 
     flame_thrower.type_50.displayed_attack = 4
-                                        #melee,             building class,      standardbuilding,    stone defenses,           gunpowder,         siege              So that flamethrowers only deal 5 damage to trees
-    flame_thrower.type_50.attacks = [AttackOrArmor(4,4) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,3), AttackOrArmor(20,3), AttackOrArmor(93, -9)] 
+                                        #melee,             building class,      standard building,    stone defenses,           gunpowder,         siege                ships          So that flamethrowers only deal 5 damage to trees
+    flame_thrower.type_50.attacks = [AttackOrArmor(4,4) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,3), AttackOrArmor(20,3), AttackOrArmor(20,3), AttackOrArmor(93, -11)] # trees take damage from all sources, minus negative
                                         #melee,                 pierce,               siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,9), AttackOrArmor(20,20), AttackOrArmor(31,0)] # Leitis Armor
     # Flamethrower damage vs buildings per minute (with masonry, and architecture) 2400 (1440, 720)

@@ -22,10 +22,10 @@ def run_add_tasks (df: DatFile):
 
 
 # https://docs.google.com/document/d/1lrwcqVOS_PrXbOP8uedIw3KduWPF8xEo1rIEWvaDUQU/ refer to this document or Tiger Cavalry in A.G.E
-# Billman-line get attack (+2/+3/+4) when killing units (up to two times)
+# Billman-line get attack (+1/+2/+3) when killing units (up to two times)
 def add_Billman_killreward (df: DatFile):
     affected_classes = [0, 6, 12, 13, 18, 20, 22, 23, 35, 36, 43, 44, 47, 51, 53, 54, 55, 59]
-    billman_attack_gain = [2, 3, 4]
+    billman_attack_gain = [1, 2, 3]
     base_task = helpers.create_empty_task()
     base_task.action_type = 154
     base_task.proceeding_graphic_id = 12263 # Level up

@@ -119,12 +119,12 @@ def thrower_upgrades_e (df: DatFile):
     
 
 
-    #Wooden Grip: Thrower-line +1 attack; missed thrown weapons more accurate
+    #Wooden Grip: Thrower-line +2 attack; missed thrown weapons more accurate
     wooden_grip_ec: EffectCommand = []
     for thrower_id in range(len(storage.ThrowerIDs)):
                             
                             # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Attack (9), Amount (1), Class Melee Attack (4)
-        wooden_grip_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 9, amount_type_to_d(1, 4))) 
+        wooden_grip_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 9, amount_type_to_d(2, 4))) 
 
                                 # Attr. Modifier Multiply (5), Thrower Unit (ID), Class (-1), Attr. attack dispersion (64), Amount (0.5 = halved)
         wooden_grip_ec.append(EffectCommand(5, storage.ThrowerIDs[thrower_id], -1, 64, 0.5)) 
@@ -153,11 +153,19 @@ def thrower_upgrades_e (df: DatFile):
 
 
 
-    #Balanced Weaponry: Thrower-line +1 attack; thrown weapons move faster
+    #Balanced Weaponry: Thrower-line +1 attack, +1 range; thrown weapons move faster
     balanced_weaponry_ec: EffectCommand = []
     for thrower_id in range(len(storage.ThrowerIDs)):
-        
+    #+1 attack 
         balanced_weaponry_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 9, amount_type_to_d(1, 4))) # adds +1 melee attack
+
+    #+1 range
+                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Range (12), Amount (1)
+        balanced_weaponry_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 12, 1))
+                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. LoS (1), Amount (1)
+        balanced_weaponry_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 1, 1))
+                                # Attr. Modifier +-(4), Thrower Unit (ID), Class (-1), Attr. Search Radius (23), Amount (1)
+        balanced_weaponry_ec.append(EffectCommand(4, storage.ThrowerIDs[thrower_id], -1, 23, 1)) 
 
     for thrower_projectile in range(len(storage.ThrowerProjectileIDs)):
                                                     #Attr. Modifier +-(4), Projectiles Unit (ID), Class (-1), Attr. Speed (19), = 2 -> increases speed from 6 to 8
