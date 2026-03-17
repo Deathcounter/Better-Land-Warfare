@@ -17,9 +17,10 @@ dartProjectileGraphicID: int # with custom sound
 silentNorseWarriorID: int # removes the melee audio of Norse Warrior 
 silentNinjaID: int # and Ninja
 billmanAttackID: int # billman with Mace Attack Sound
-billmanAttackID2: int
-scythemanAttackID: int
+billmanAttackID2: int # second attack animation
+scythemanAttackID: int 
 yoditDeathScreamID: int
+heavylancerlancingID: int # heavy lancer lancing attack sound (not knight)
 
 #units
 deadLancerUnitID: int
@@ -76,6 +77,7 @@ throwerBlacksmithIDs = []
 
 japaneseStaggeredAS_IDs = []
 vikingStaggeredHP_IDs = []
+vietStaggeredHP_IDs = []
 
 shieldBossId: int
 

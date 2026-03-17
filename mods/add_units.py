@@ -211,21 +211,21 @@ def add_Lancer_line(df: DatFile):
     hp_list = (115, 145)
     speed_list = (1.3, 1.3) 
 
-    displayed_attack_list = (9, 11)
+    displayed_attack_list = (8, 10)
     displayed_m_armor_list = (3, 5)
     displayed_p_armor_list = (0, 1)
 
     # armored units are units whose combined base armor 3 or higher, new armor class needed
                                     # melee,                camel               armored units
-    attack_list_lancer      = (AttackOrArmor(4,9),  AttackOrArmor(30,2), AttackOrArmor(90,6)) 
-    attack_list_heavylancer = (AttackOrArmor(4,11), AttackOrArmor(30,3), AttackOrArmor(90,9))
+    attack_list_lancer      = (AttackOrArmor(4,8),  AttackOrArmor(30,2), AttackOrArmor(90,6)) 
+    attack_list_heavylancer = (AttackOrArmor(4,10), AttackOrArmor(30,3), AttackOrArmor(90,9))
 
                                 # melee,                pierce,             cavalry           lancer unit
     armor_list_lancer       = (AttackOrArmor(4,3), AttackOrArmor(3,0), AttackOrArmor(8,4), AttackOrArmor(91,0))
     armor_list_heavylancer  = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(91,0))
 
     storage.lancerUnitIcons = icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
-    attack_graphic_list = (15801, 15138)
+    attack_graphic_list = (15801, storage.heavylancerlancingID)
     attack_graphic2_list = (-1, -1)
     dead_unit_list = (2392, storage.deadLancerUnitID)
     standing_graphic_list= ([15804, 15802], [15140, 15764]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
@@ -503,7 +503,7 @@ def add_FlameThrower(df: DatFile):
 
     flame_thrower.type_50.displayed_attack = 4
                                         #melee,             building class,      standard building,    stone defenses,           gunpowder,         siege                ships          So that flamethrowers only deal 5 damage to trees
-    flame_thrower.type_50.attacks = [AttackOrArmor(4,4) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,3), AttackOrArmor(20,3), AttackOrArmor(20,3), AttackOrArmor(93, -11)] # trees take damage from all sources, minus negative
+    flame_thrower.type_50.attacks = [AttackOrArmor(4,4) , AttackOrArmor(11,5), AttackOrArmor(21,3), AttackOrArmor(13,-5), AttackOrArmor(23,3), AttackOrArmor(20,3), AttackOrArmor(16,3), AttackOrArmor(93, -11)] # trees take damage from all sources, minus negative
                                         #melee,                 pierce,               siege                                          
     flame_thrower.type_50.armours = [AttackOrArmor(4,-3), AttackOrArmor(3,9), AttackOrArmor(20,20), AttackOrArmor(31,0)] # Leitis Armor
     # Flamethrower damage vs buildings per minute (with masonry, and architecture) 2400 (1440, 720)

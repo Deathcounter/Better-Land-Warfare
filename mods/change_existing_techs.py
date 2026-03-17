@@ -22,6 +22,7 @@ def run_change_existing_techs(df: DatFile):
     blacksmith_infantry_attack_upgrades (df)
     remove_throwing_infantry_from_arson (df)
     japanese_staggering_inf_attackspeed (df)
+    vietnamese_staggering_inf_HP (df)
     vikings_staggering_inf_HP (df)
     remove_chieftains_cavattack_for_throwers (df)
     chemistry_1attack_flamethrower(df)
@@ -99,9 +100,22 @@ def japanese_staggering_inf_attackspeed (df: DatFile):
         japanese_staggering_as_tech.name = f"C-Bonus, {technames [idx]} Inf Attack Spd"
         df.techs.append(japanese_staggering_as_tech)
 
+def vietnamese_staggering_inf_HP (df: DatFile):
+    agetechs = [101, 102, 103]
+    technames = [15, 20, 25]
+    for idx, viet_effect in enumerate(storage.vietStaggeredHP_IDs):
+        viet_staggering_HP_tech = helpers.create_empty_tech()
+        viet_staggering_HP_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
+        viet_staggering_HP_tech.effect_id = viet_effect
+        viet_staggering_HP_tech.civ = 31 # Vietnamese
+        viet_staggering_HP_tech.repeatable = 1
+        viet_staggering_HP_tech.required_tech_count = 1
+        viet_staggering_HP_tech.name = f"C-Bonus, +{technames [idx]}% Archer HP"
+        df.techs.append(viet_staggering_HP_tech)
+
 def vikings_staggering_inf_HP (df: DatFile):
     agetechs = [104, 101, 102, 103]
-    technames = [10, 15, 20, 25]
+    technames = [5, 10, 15, 20]
     for idx, vik_effect in enumerate(storage.vikingStaggeredHP_IDs):
         viking_staggering_HP_tech = helpers.create_empty_tech()
         viking_staggering_HP_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
@@ -109,7 +123,7 @@ def vikings_staggering_inf_HP (df: DatFile):
         viking_staggering_HP_tech.civ = 11 # Vikings
         viking_staggering_HP_tech.repeatable = 1
         viking_staggering_HP_tech.required_tech_count = 1
-        viking_staggering_HP_tech.name = f"C-Bonus, +{technames [idx]}% HP"
+        viking_staggering_HP_tech.name = f"C-Bonus, +{technames [idx]}% Infantry HP"
         df.techs.append(viking_staggering_HP_tech)
 
 

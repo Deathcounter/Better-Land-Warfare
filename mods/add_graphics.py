@@ -100,3 +100,12 @@ def change_yodit_death_scream (df: DatFile):
     yodit_death_scream.angle_count = 16
     df.graphics.append(yodit_death_scream)
     logging.info("Added Manly Yodit Death Scream")
+
+def heavy_lancer_lancer_attack (df: DatFile):
+    storage.heavylancerlancingID = len(df.graphics)
+    heavy_lancer_attack: Graphic = copy.deepcopy(df.graphics[15138]) # Imperial Cavalry (Attack)
+    heavy_lancer_attack.sound_id = 761 # companion cavalry attack
+    heavy_lancer_attack.wwise_sound_id = -633533558 # reversed engineered by getting the information from Militia Death (1099) Graphic
+    heavy_lancer_attack.angle_count = 16
+    df.graphics.append(heavy_lancer_attack)
+    logging.info("Heavy Lancer does lancing sound")

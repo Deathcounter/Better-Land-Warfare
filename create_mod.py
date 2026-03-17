@@ -182,7 +182,7 @@ def make_ingame_modifications():
         write_cache(dfBase, cache_file)
 
     # print(json.dumps(dataclasses.asdict(dfBase.civs[0].units[280]), indent=2)) Here you can show all data of a unit, very useful to reverse engineer
-    # print(json.dumps(dataclasses.asdict(dfBase.graphics[1099]), indent=2)) # needed for Yodit Death Scream graphic
+    # print(json.dumps(dataclasses.asdict(dfBase.graphics[15801]), indent=2)) # needed for Yodit Death Scream graphic
     print("Base data loaded")
     print("Applying modifications")
     

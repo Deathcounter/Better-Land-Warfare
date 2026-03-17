@@ -291,7 +291,7 @@ def tupi_change (df: DatFile):
 
 def vietnamese_change (df: DatFile):
     # @Civ bonus Vietnamese
-    # Foot Archers and Fire Lancers +25% HP
+    # Foot Archers and Fire Lancers +10/+15/+20% HP
     affected_vanilla_unit_list = [4, 24, 492, 7, 6, 1129, 1131, 1155, 1901, 1903] # Archer-line, Skirmisher-line, Rattan Archers, Fire Lancers
     df.effects[672].effect_commands.clear() # Current Vietnamese bonus is at ID 672
     for vanilla_unit in affected_vanilla_unit_list:
@@ -299,6 +299,13 @@ def vietnamese_change (df: DatFile):
 
     #Rattan Archers -5 HP in change_existing_units
     logging.debug ("Successfully changed Vietnamese")
+    multipliers = [1.1, 1.04545, 1.04348]
+    percentages = [10, 15, 20]
+    for idx, multiplier in enumerate(multipliers):
+        storage.vietStaggeredHP_IDs.append(len(df.effects))
+        viking_HP_effect: Effect = Effect (f"C-Bonus, Archer +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
+        df.effects.append(viking_HP_effect)
+    logging.debug ("Successfully changed Vikings")
 
 
 def vikings_change (df: DatFile):

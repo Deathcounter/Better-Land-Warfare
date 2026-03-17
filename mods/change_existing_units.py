@@ -94,7 +94,7 @@ def nerf_iron_pagoda (df: DatFile):
         civ.units[1908].type_50.armours.append (AttackOrArmor(91, 0))
         civ.units[1910].type_50.reload_time = 2.37
         civ.units[1910].type_50.displayed_reload_time = 2.37
-        civ.units[1908].type_50.armours.append (AttackOrArmor(91, 0))
+        civ.units[1910].type_50.armours.append (AttackOrArmor(91, 0))
     logging.debug("Nerfed Iron Pagoda Attack Speed")
 
 def nerf_rattan_archers (df: DatFile):
