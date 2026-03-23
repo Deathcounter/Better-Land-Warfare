@@ -225,7 +225,7 @@ def add_Lancer_line(df: DatFile):
     armor_list_heavylancer  = (AttackOrArmor(4,5), AttackOrArmor(3,1), AttackOrArmor(8,8), AttackOrArmor(91,0))
 
     storage.lancerUnitIcons = icon_list = (709, 612) # Companion Cavalry, Imperial Cavalry
-    attack_graphic_list = (15801, storage.heavylancerlancingID)
+    attack_graphic_list = (15801, storage.heavylancerAttackID)
     attack_graphic2_list = (-1, -1)
     dead_unit_list = (2392, storage.deadLancerUnitID)
     standing_graphic_list= ([15804, 15802], [15140, 15764]) # Keep in mind, standing_graphic, despite being singular, requires two int (or rather a tuple)
@@ -347,7 +347,7 @@ def add_Thrower_line(df: DatFile):
 
     name_list = ('Dart Thrower', 'Knife Thrower', 'Hatchet Thrower', 'Ninja')
     storage.throwerNames = name_list
-    hp_list = (35, 40, 50, 45)
+    hp_list = (30, 40, 50, 45)
     speed_list = (1, 1.05, 1.05, 1.1) 
     frame_delay_list = (16, 14, 14, 12)
 
@@ -412,6 +412,8 @@ def add_Thrower_line(df: DatFile):
             if idx == 0:
                 attack_dartthrower: AttackOrArmor = attack_list_dart_thrower [index] 
                 thrower_variant.type_50.attacks.append (attack_dartthrower)
+                base.type_50.reload_time = 1.7
+                base.type_50.displayed_reload_time = 1.7
             elif idx == 1:
                 attack_knifethrower: AttackOrArmor = attack_list_knife_thrower [index] 
                 thrower_variant.type_50.attacks.append (attack_knifethrower)

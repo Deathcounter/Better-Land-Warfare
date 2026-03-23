@@ -20,7 +20,8 @@ billmanAttackID: int # billman with Mace Attack Sound
 billmanAttackID2: int # second attack animation
 scythemanAttackID: int 
 yoditDeathScreamID: int
-heavylancerlancingID: int # heavy lancer lancing attack sound (not knight)
+heavylancerAttackID: int
+# heavy lancer lancing attack sound (not knight)
 
 #units
 deadLancerUnitID: int

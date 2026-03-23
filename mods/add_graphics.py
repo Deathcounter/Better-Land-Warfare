@@ -23,6 +23,7 @@ def run_add_graphics (df: DatFile):
     add_Billman_Maceman_attack (df)
     add_Scytheman_Sparabara_attack (df)
     change_yodit_death_scream (df)
+    heavy_lancer_lancer_attack (df)
     logging.info("Added all Graphics")
 
 
@@ -102,10 +103,13 @@ def change_yodit_death_scream (df: DatFile):
     logging.info("Added Manly Yodit Death Scream")
 
 def heavy_lancer_lancer_attack (df: DatFile):
-    storage.heavylancerlancingID = len(df.graphics)
-    heavy_lancer_attack: Graphic = copy.deepcopy(df.graphics[15138]) # Imperial Cavalry (Attack)
-    heavy_lancer_attack.sound_id = 761 # companion cavalry attack
-    heavy_lancer_attack.wwise_sound_id = -633533558 # reversed engineered by getting the information from Militia Death (1099) Graphic
+    storage.heavylancerAttackID = len(df.graphics)
+    heavy_lancer_attack: Graphic = copy.deepcopy(df.graphics[15138]) # Imperial Cavalry (Attack) Graphic
+    heavy_lancer_attack.angle_sounds.clear()
     heavy_lancer_attack.angle_count = 16
+    heavy_lancer_attack.angle_sounds_used = 1
+    heavy_lancer_attack.sound_id = -1 # 761 companion cavalry attack
+    heavy_lancer_attack.wwise_sound_id = 0 # -633533558  reversed engineered by getting the information from Companion Cavalry Attack Graphic
+    heavy_lancer_attack.angle_sounds = copy.deepcopy(df.graphics[15801].angle_sounds) # angle sounds of Companion Cavalry
     df.graphics.append(heavy_lancer_attack)
     logging.info("Heavy Lancer does lancing sound")

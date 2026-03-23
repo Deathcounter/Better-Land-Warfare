@@ -92,7 +92,7 @@ def burmese_change (df: DatFile):
             df.effects[effect].effect_commands.append (EffectCommand (4, vanilla_unit , -1, 9, helpers.amount_type_to_d(1, 4)))
 
         for billman in storage.BillmanIDs:         # Attr. Modifier +-(4), billman, Class -1, Attack (9), Amount (1), AttackClass Melee (4)
-            df.effects[effect].effect_commands.append (EffectCommand (4, billman, -1, 8, helpers.amount_type_to_d(1, 4)))
+            df.effects[effect].effect_commands.append (EffectCommand (4, billman, -1, 9, helpers.amount_type_to_d(1, 4)))
     logging.debug ("Successfully changed Burmese")
 
 
