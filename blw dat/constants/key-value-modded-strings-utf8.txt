@@ -1,0 +1,165 @@
+//NewLang=en
+
+300630 "Billman"
+301630 "Create Billman"
+321630 "Build <b>Billman<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers, Militia-line and Monks. Easier to convert. Gains additional attack when defeating military units.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor, to Scytheman (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300631 "Scytheman"
+301631 "Create Scytheman"
+321631 "Create <b>Scytheman<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers, Militia-line and Monks. Easier to convert. Gains additional attack when defeating military units.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor, to Flail Warrior (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300632 "Flail Warrior"
+301632 "Create Flail Warrior"
+321632 "Create <b>Flail Warrior<b> (<cost>)\nFast moving Anti-cavalry Shock Infantry with strong melee armor. Strong vs. Mounted and Armored Units. Weak vs. Ranged Soldiers, Militia-line and Monks. Easier to convert. Gains additional attack when defeating military units.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, pierce armor (Barracks); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300633 "Dart Thrower"
+301633 "Create Dart Thrower"
+321633 "Create <b>Dart Thrower<b> (<cost>)\nRanged Infantry with fast attack dealing melee damage. Strong vs. Skirmishers, buildings and Siege Weapons. Weak vs. Infantry, Lancers and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); range, missed attack damage, to Knife Thrower (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300634 "Knife Thrower"
+301634 "Create Knife Thrower"
+321634 "Create <b>Knife Thrower<b> (<cost>)\nRanged Infantry with fast attack dealing melee damage. Strong vs. Skirmishers, buildings and Siege Weapons. Weak vs. Infantry, Lancers and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); range, missed attack damage, to Hatchet Thrower or Ninja (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300635 "Hatchet Thrower" 
+301635 "Create Hatchet Thrower"
+321635 "Create <b>Hatchet Thrower<b> (<cost>)\nRanged Infantry with fast attack dealing melee damage. Strong vs. Skirmishers, buildings and Siege Weapons. Weak vs. Infantry, Lancers and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); range, missed attack damage (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300636 "Ninja"
+301636 "Create Ninja"
+321636 "Create <b>Ninja<b> (<cost>)\nJapanese unique ranged Infantry with fast attack dealing melee damage. Strong vs. Skirmishers, Unique Units, buildings and Siege Weapons. Weak vs. Infantry, Lancers and when outranged.\n<GREY><i>Upgrades: attack, range, armor, accuracy, minimum range, attack- and projectile speed (Blacksmith); attack, missed attack damage (Archery Range); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300637 "Lancer"
+301637 "Create Lancer"
+321637 "Create <b>Lancer<b> (<cost>)\nBulky armored Heavy Cavalry with longer reach. Strong vs Armored Units, Infantry. Weak vs. Spearman-line, Ranged Soldiers and Scorpions. Slight resistance to conversion.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP, to Heavy Lancer (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300638 "Heavy Lancer"
+301638 "Create Heavy Lancer"
+321638 "Create <b>Heavy Lancer<b> (<cost>)\nBulky armored Heavy Cavalry with longer reach. Strong vs Armored Units, Infantry. Weak vs. Spearman-line, Ranged Soldiers and Scorpions. Slight resistance to conversion.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300639 "Flamethrower"
+301639 "Build Flamethrower"
+321639 "Create <b>Flamethrower<b> (<cost>)\nSiege Weapon that spews fire at enemies but cannot attack at close range. Can cut Trees. Strong vs. Wooden Buildings, Siege, Gunpowder units and Ranged Soldiers. Weak vs. units at close range.\n<GREY><i>Upgrades: attack, range (University); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300640 "Hook Cart"
+301640 "Build Hook Cart"
+321640 "Create <b>Hook Cart<b> (<cost>)\nLarge ranged Siege Weapon that fires an attached piercing hook that tears down walls and deals area damage that reduces enemy speed. Strong vs. Stone Buildings, especially Walls, Gates and Castles. Bonus damage vs. Cavalry and Siege. Weak vs. Ranged Soldiers.\n<GREY><i>Upgrades: range (University); to Hook Ballista (Siege Workshop); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+300641 "Hook Ballista"
+301641 "Build Hook Ballista"
+321641 "Create <b>Hook Ballista<b> (<cost>)\nLarge ranged Siege Weapon that fires an attached piercing hook that tears down walls and deals area damage that reduces enemy speed. Strong vs. Stone Buildings, especially Walls, Gates and Castles. Bonus damage vs. Cavalry and Siege. Weak vs. Ranged Soldiers.\n<GREY><i>Upgrades: range (University); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+
+
+//Tech Tree Strings
+309630 "Billman"
+309631 "Scytheman"
+309632 "Flail\nWarrior"
+309633 "Dart\nThrower"
+309634 "Knife\nThrower"
+309635 "Hatchet\nThrower"
+309636 "Ninja"
+309637 "Lancer"
+309638 "Heavy\nLancer"
+309639 "Flamethrower"
+309640 "Hook Cart"
+309641 "Hook Ballista"
+
+41330 "Scytheman"
+41331 "Flail\nWarrior"
+41332 "Heavy\nLancer"
+41333 "Knife\nThrower"
+41334 "Hatchet\nThrower"
+41335 "Ninja"
+41336 "Throwing\nTechniques"
+41337 "Wooden\nGrip"
+41338 "Holster"
+41339 "Balanced\nWeaponry"
+41340 "Shield\nBoss"
+41341 "Hook\nBallista"
+
+32330 "Scytheman"
+32331 "Flail Warrior"
+32332 "Heavy Lancer"
+32333 "Knife Thrower"
+32334 "Hatchet Thrower"
+32335 "Ninja"
+32336 "Throwing Techniques"
+32337 "Wooden Grip"
+32338 "Holster"
+32339 "Balanced Weaponry"
+32340 "Shield Boss"
+32341 "Hook Ballista"
+
+33330 "Upgrade to Scytheman"
+33331 "Upgrade to Flail Warrior"
+33332 "Upgrade to Heavy Lancer"
+33333 "Upgrade to Knife Thrower"
+33334 "Upgrade to Hatchet Thrower"
+33335 "Upgrade to Ninja"
+33336 "Research Throwing Techniques (Thrower-line +1 range; Missed thrown weapons deal full damage)"
+33337 "Research Wooden Grip (Thrower-line +2 attack; Missed thrown weapons more accurate)"
+33338 "Research Holster (Thrower-line attacks 20% faster; No minimum range)"
+33339 "Research Balanced Weaponry (Thrower-line +1 attack, +1 range; Thrown weapons move faster)"
+33340 "Research Shield Boss (Militia- and Billman-line +1 pierce armor)"
+33341 "Upgrade to Hook Ballista"
+
+53330 "Upgrade to <b>Scytheman<b> (<cost>)\nUpgrades your Billmen and lets you create Scytheman, which are stronger."
+53331 "Upgrade to <b>Flail Warrior<b> (<cost>)\nUpgrades your Scythemen and lets you create Flail Warrior, which are stronger."
+53332 "Upgrade to <b>Heavy Lancer<b> (<cost>)\nUpgrades your Lancers and lets you create Heavy Lancers, which are stronger."
+53333 "Upgrade to <b>Knife Thrower<b> (<cost>)\nUpgrades your Dart Throwers and lets you create Knife Throwers, which are stronger."
+53334 "Upgrade to <b>Hatchet Thrower<b> (<cost>)\nUpgrades your Knife Throwers and lets you create Hatchet Throwers, which are stronger."
+53335 "Upgrade to <b>Ninja<b> (<cost>)\nUpgrades your Knife Throwers and lets you create Ninjas, which are stronger and deal bonus damage against Unique Units." 
+53336 "Research <b>Throwing Techniques<b> (<cost>)\nThrower-line +1 range; Missed thrown weapons deal full damage."
+53337 "Research <b>Wooden Grip<b> (<cost>)\nThrower-line +2 attack; Missed thrown weapons more accurate."
+53338 "Research <b>Holster<b> (<cost>)\nThrower-line attacks 20% faster; No minimum range."
+53339 "Research <b>Balanced Weaponry<b> (<cost>)\nThrower-line +1 attack, +1 range; Thrown weapons move faster."
+53340 "Research <b>Shield Boss<b> (<cost>)\nMilitia- and Billman-line +1 pierce armor."
+53341 "Upgrade to <b>Hook Ballista<b> (<cost>)\nUpgrades your Hook Carts and lets you create Hook Ballista, which are stronger, better armored, and fire farther."
+
+8450 "Research Gambesons (Militia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP)"
+28450 "Research <b>Gambesons<b> (<cost>)\nMilitia-line and Fire Lancers +1 pierce armor; Billman-line +10 HP."
+
+8258 "Research Arson (Melee Infantry +2 attack vs. buildings)"    
+28258 "Research <b>Arson<b> (<cost>)\nMelee Infantry +2 attack vs. buildings."
+
+//Armors
+12490 "Armored Units"
+12491 "Lancers"
+12492 "Billman"
+
+//Armenians
+120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"
+IDS_CIVTIPS_44_3 "Research Fereters in your Castle to nullify enemy bonus damage against your Barrack Units. Warrior Monks also receive less bonus damage, while also healing faster."
+8406 "Research Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)"
+28406 "Research <b>Fereters<b> (<cost>)\nBarrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster."
+
+//Burmese
+120179 "Infantry and Cavalry civilization\n\n• Lumber Camp technologies free\n• Barrack Units +1/+2/+3 attack in Feudal/Castle/Imperial Age\n• Battle Elephants +1 melee/+1 pierce armor\n• Monastery technologies cost -50%\n\n<b>Unique Unit:<b>\nArambai (Ranged Mounted Unit)\n\n<b>Unique Techs:<b>\n• Manipur Cavalry (Cavalry +4 attack vs. Ranged Soldiers)\n• Howdah (Battle Elephants +1 melee/+1 pierce armor)\n\n<b>Team Bonus:<b>\nRelics visible on the map at the start of the game"
+
+//Celts
+120162 "Infantry and Siege civilization\n\n• Lumberjacks work +15% faster\n• Livestock animals within Celt unit line of sight cannot be stolen\n• Infantry moves +6/12/18% faster in Feudal/Castle/Imperial Age\n• Siege Weapons attack +25% faster\n\n<b>Unique Unit:<b> \nWoad Raider (Infantry)\n\n<b>Unique Techs:<b> \n• Stronghold (Castles and Watch Tower-line attack +33% faster; Castles heal allied Infantry in a 7 tile radius)\n• Furor Celtica (Siege Weapons +40% HP)\n\n<b>Team Bonus:<b> \nSiege Workshops work +20% faster"
+
+//Franks
+120151 "Cavalry civilization\n\n• Foragers work +20% faster\n• Mill technologies free\n• Knights and Lancers +25% HP \n• Castles cost -15/25% in Castle/Imperial Age\n\n<b>Unique Unit:<b> \nThrowing Axeman (Infantry)\n\n<b>Unique Techs:<b> \n• Bearded Axe (Throwing Axemen +1 range)\n• Chivalry (Stables work +40% faster)\n\n<b>Team Bonus:<b> \nKnight-line +2 line of sight"
+
+//Goths
+120152 "Infantry civilization\n\n• Loom is researched instantly\n• Hunters carry +15; hunted animals last +20% longer\n• Infantry costs -5/10/15/20% in Dark/Feudal/Castle/\nImperial Age\n• Infantry +1/+2/+3 attack vs. buildings in Feudal/\nCastle/Imperial Age\n• +10 population space in Imperial Age\n\n<b>Unique Unit:<b> \nHuskarl (Infantry)\n\n<b>Unique Techs:<b> \n• Anarchy (Huskarls can be trained at Barracks)\n• Perfusion (Barracks work +100% faster)\n\n<b>Team Bonus:<b> \nBarracks work +20% faster"
+
+//Japanese
+120154 "Infantry civilization\n\n• Mills, Lumber- and Mining Camps cost -50%\n• Infantry attacks +10/15/20/25% faster Dark/Feudal/Castle/Imperial Age\n• Cavalry Archers +2 attack vs. Ranged Soldiers (except Skirmishers)\n• Fishing Ships work +5/10/15/20% faster in Dark/Feudal/Castle/Imperial Age; +100% HP and +2 pierce armor\n\n<b>Unique Unit:<b> \nSamurai (Infantry)\n\n<b>Unique Techs:<b> \n• Yasama (Watch Tower-line fires additional arrows)\n• Kataparuto (Trebuchets attack and pack/unpack faster)\n\n<b>Team Bonus:<b> \nGalley-line +4 line of sight"
+
+//Jurchens
+120201 "Cavalry and Gunpowder civilization\n\n• Meat of hunted and livestock animals doesn't decay\n• Lancers, Steppe Lancers, Fire Lancers and Iron Pagoda attack +25% faster\n• Siege Engineers available in Castle Age\n• Siege and Fortification upgrades cost -75% wood and research +100% faster\n• Units receive -50% friendly fire damage\n\n<b>Unique Units:<b>\nIron Pagoda (Cavalry), Grenadier (Gunpowder Unit)\n\n<b>Unique Techs:<b>\n• Fortified Bastions (Fortifications regenerate 500 HP per minute)\n• Thunderclap Bombs (Rocket Carts, Grenadiers and Lou Chuans detonate when defeated; projectiles produce additional explosions)\n\n<b>Team Bonus:<b>\nGunpowder Units +2 line of sight"
+26594 "Create <b>Iron Pagoda<b> (<cost>)\nJurchen unique Lancer Cavalry with durable armor that can completely block melee attacks. Strong vs. Infantry and Ranged Soldiers. Weak vs. Spearman-line and Camel Riders.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP (Stable); creation speed, to Elite Iron Pagoda (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+26595 "Create <b>Elite Iron Pagoda<b> (<cost>)\nJurchen unique Lancer Cavalry with durable armor that can completely block melee attacks. Strong vs. Infantry and Ranged Soldiers. Weak vs. Spearman-line and Camel Riders.\n<GREY><i>Upgrades: attack, armor (Blacksmith); speed, HP (Stable); creation speed (Castle); more resistant to Monks (Monastery).<i><DEFAULT>\n<hp> <attack> <armor> <piercearmor> <range>"
+
+//Khitans 
+120202 "Infantry and Cavalry civilization\n\n• Pastures replace Farms\n• Melee attack upgrade effects are doubled\n• Skirmishers, Spearman-, and Scout Cavalry-line train and upgrade +25% faster\n• Heavy Cavalry Archer upgrade available in Castle Age and costs -50%\n\n<b>Unique Units:<b>\nLiao Dao (Infantry), Mounted Trebuchet (Siege Cavalry)\n\n<b>Unique Techs:<b>\n• Lamellar Armor (Infantry and Skirmishers reflect 25% melee damage back to the attacker)\n• Ordo Cavalry (Cavalry regenerates HP in combat)\n\n<b>Team Bonus:<b>\nInfantry +1 attack vs. Ranged Soldiers"
+
+//Slavs
+120172 "Infantry and Siege civilization\n\n• Farmers work +15% faster\n• Arson, Gambesons free\n• Siege Workshop Units cost -15%\n• Monks move +20% faster\n\n<b>Unique Unit:<b> \nBoyar (Cavalry)\n\n<b>Unique Techs:<b> \n• Detinets (Replaces 40% of Castle and Watch Tower-line stone cost with additional wood cost)\n• Druzhina (Melee Infantry deals trample damage)\n\n<b>Team Bonus:<b> \nMilitary buildings provide +5 population space"
+IDS_CIVTIPS_23_2 "Research Druzhina in your Castle to allow melee infantry units, such as Halberdiers, to hit several adjacent enemies with each attack."
+8269 "Research Druzhina (Melee Infantry deals trample damage)"
+28269 "Research <b>Druzhina<b> (<cost>)\nMelee Infantry deals trample damage."
+
+//Poles
+120187 "Cavalry civilization\n\n• Folwark replaces Mill\n•Villagers regenerate 10/15/20 HP in Feudal/Castle/Imperial Age\n• Stone Miners generate gold in addition to stone\n• Stable technologies cost -60% gold\n\n<b>Unique Units:<b>\nObuch (Infantry), Winged Hussar (Cavalry)\n\n<b>Unique Techs:<b>\n• Szlachta Privileges (Knight-line costs -60% gold)\n• Lechitic Legacy (Scout Cavalry-line deals trample damage)\n\n<b>Team Bonus:<b>\nScout Cavalry-line +1 attack vs. Ranged Soldiers"
+
+//Romans
+120192 "Infantry civilization\n\n• Villagers gather, build, and repair +5% faster\n• Scale Mail Armor effect is doubled\n• Scorpions cost -60% gold\n• Galley-line and Dromons +1 melee/+1 pierce armor\n\n<b>Unique Unit:<b>\nCenturion (Cavalry), Legionary (Infantry)\n\n<b>Unique Techs:<b>\n• Ballistas (Scorpions attack +33% faster; Galley-line +2 attack)\n• Comitatenses (Militia-line, Knight-line, and Centurions train +50% faster and receive a charge attack)\n\n<b>Team Bonus:<b>\nScorpions minimum range reduced"
+
+//Vietnamese
+120180 "Archer civilization\n\n• Enemy Town Centers are revealed at the start of the game\n• Economic upgrades cost no wood and research +100% faster\n• Foot Archers and Fire Lancers +10/15/20% in Feudal/Castle/Imperial Age\n• Conscription free\n\n<b>Unique Units:<b>\nRattan Archer (Foot Archer), Imperial Skirmisher (Skirmisher)\n\n<b>Unique Techs:<b>\n• Chatras (Battle Elephants +100 HP)\n• Paper Money (Lumberjacks slowly generate gold in addition to wood)\n\n<b>Team Bonus:<b>\nImperial Skirmisher upgrade available in Imperial Age"
+
+//Vikings
+120160 "Infantry and Naval civilization\n\n• Wheelbarrow, Hand Cart free\n• Infantry +5/10/15/20% HP in Dark/Feudal/Castle/Imperial Age\n• Warships cost -10/15/20% in Feudal/Castle/Imperial Age\n\n<b>Unique Units:<b> \nBerserk (Infantry), Longboat (Warship)\n\n<b>Unique Techs:<b> \n• Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)\n• Bogsveigar (Archer-line and Longboats +1 attack)\n\n<b>Team Bonus:<b> \nDocks cost -15%"
+8312 "Research Chieftains (Melee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks)"
+28312 "Research <b>Chieftains<b> (<cost>)\nMelee Infantry +5 attack vs. Cavalry, +4 vs. Camel Units; generate +5 gold when defeating Villagers, Trade Units and Monks."
