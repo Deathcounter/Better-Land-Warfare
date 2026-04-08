@@ -114,7 +114,7 @@ def find_base_unit (df: DatFile, unit_id: int) -> int:
 def find_units_with_3_combined_armor (df: DatFile) -> list[Unit]:
     units_with_3_combined_armor: list[Unit] = []
     for unit in df.civs[0].units:
-        if (unit and unit.type == 70 and unit.class_ in (0, 4, 6, 12, 18, 23, 24, 25, 26, 35, 43, 44)): 
+        if (unit and unit.type == 70 and unit.class_ in (0, 4, 6, 12, 18, 23, 24, 25, 26, 35, 36, 43, 44)): 
             # if Unit is not None and is Combatant (70) or in one of the soldier classes (excludes siege, ships)
             unit_armor = 0
             base_unit_id = find_base_unit(df, unit.id) # does the !!BASE!! unit have 3 combined armor?

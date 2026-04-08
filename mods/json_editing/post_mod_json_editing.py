@@ -927,7 +927,7 @@ def build_BLW_siegeDict(civname: str) -> list [dict]:
 
     # Adding Flame Thrower
 
-    # NodeStatus = "NotAvailable" if not techAvailability[2] else "ResearchedCompleted"
+    # NodeStatus = "NotAvailable" if not techAvailability[12] else "ResearchedCompleted"
     flameThrowerDict = {
         "Age ID": 4,
         "Building ID": 49,
