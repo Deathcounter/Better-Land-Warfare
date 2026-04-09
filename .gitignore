@@ -2,6 +2,12 @@
 __pycache__/
 *.py[codz]
 *$py.class
+*.json
+logs_BLL.txt
+testing.py
+ToDo.txt
+Hotkey management.txt
+*.dat
 
 # C extensions
 *.so
