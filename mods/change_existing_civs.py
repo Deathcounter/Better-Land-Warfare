@@ -293,19 +293,21 @@ def vietnamese_change (df: DatFile):
     # @Civ bonus Vietnamese
     # Foot Archers and Fire Lancers +10/+15/+20% HP
     affected_vanilla_unit_list = [4, 24, 492, 7, 6, 1129, 1131, 1155, 1901, 1903] # Archer-line, Skirmisher-line, Rattan Archers, Fire Lancers
-    df.effects[672].effect_commands.clear() # Current Vietnamese bonus is at ID 672
-    for vanilla_unit in affected_vanilla_unit_list:
-        df.effects[672].effect_commands.append (EffectCommand (5, vanilla_unit, -1, 0, 1.25)) # Attr. Modifier Multiply(5), vanilla unit, Class -1, Hitpoints (0), Amount (x1.25)
-
+    df.effects[672].effect_commands.clear() # Current Vietnamese bonus is at ID 672, delete it's content
+  
     #Rattan Archers -5 HP in change_existing_units
     logging.debug ("Successfully changed Vietnamese")
     multipliers = [1.1, 1.04545, 1.04348]
     percentages = [10, 15, 20]
     for idx, multiplier in enumerate(multipliers):
         storage.vietStaggeredHP_IDs.append(len(df.effects))
-        viking_HP_effect: Effect = Effect (f"C-Bonus, Archer +{percentages[idx]}% HP", [EffectCommand (5, -1, 6, 0, multiplier), EffectCommand (5, 1831, -1, 0, multiplier)])
-        df.effects.append(viking_HP_effect)
-    logging.debug ("Successfully changed Vikings")
+        effectcmdlist: EffectCommand = []
+        for unit in affected_vanilla_unit_list:
+            effectcmdlist.append(EffectCommand (5, unit, -1, 0, multiplier))
+           
+        viet_HP_effect: Effect = Effect (f"C-Bonus, Foot Archer and Fire Lancer +{percentages[idx]}% HP", effectcmdlist)
+        df.effects.append(viet_HP_effect)
+    logging.debug ("Successfully changed Vietnamese")
 
 
 def vikings_change (df: DatFile):

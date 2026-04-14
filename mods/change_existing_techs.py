@@ -102,7 +102,7 @@ def japanese_staggering_inf_attackspeed (df: DatFile):
 
 def vietnamese_staggering_inf_HP (df: DatFile):
     agetechs = [101, 102, 103]
-    technames = [15, 20, 25]
+    technames = [10, 15, 20]
     for idx, viet_effect in enumerate(storage.vietStaggeredHP_IDs):
         viet_staggering_HP_tech = helpers.create_empty_tech()
         viet_staggering_HP_tech.required_techs = (agetechs[idx], -1, -1, -1, -1, -1)
@@ -110,7 +110,7 @@ def vietnamese_staggering_inf_HP (df: DatFile):
         viet_staggering_HP_tech.civ = 31 # Vietnamese
         viet_staggering_HP_tech.repeatable = 1
         viet_staggering_HP_tech.required_tech_count = 1
-        viet_staggering_HP_tech.name = f"C-Bonus, +{technames [idx]}% Archer HP"
+        viet_staggering_HP_tech.name = f"C-Bonus, Foot Archer and Fire Lancer +{technames [idx]}% HP"
         df.techs.append(viet_staggering_HP_tech)
 
 def vikings_staggering_inf_HP (df: DatFile):

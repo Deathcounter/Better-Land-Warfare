@@ -115,6 +115,20 @@
 12491 "Lancers"
 12492 "Billman"
 
+//Hotkey Page, really just changes the namestrings of Shipyard Units - sadly no better way
+419008 "Better Land Warfare"
+419020 "Thrower-line"
+419021 "Billman-line"
+419019 "Lancer-line"
+419024 "Flamethrower"
+419023 "Coming soon"
+419027 "Tech: Scytheman, Flail Warrior"
+419026 "Tech: Knife, Hatchet Thrower"
+419025 "Tech: Heavy Lancer"
+419030 "Tech: Throwing Techniques"
+419029 "Tech: Thrower Blacksmith Upgrades"
+
+
 //Armenians
 120193 "Infantry and Naval civilization\n\n• Mule Carts cost -25%\n• Mule Cart technologies are +40% more effective\n• Barrack technologies available one age earlier, starting in Feudal Age\n• First Fortified Church receives a free Relic\n• Galley-line and Dromons fire an additional projectile\n\n<b>Unique Unit:<b>\nComposite Bowman (Foot Archer), Warrior Priest (Infantry)\n\n<b>Unique Techs:<b>\n• Cilician Fleet (Demolition Ships +20% blast radius; Galley-line and Dromons +1 range)\n• Fereters (Barrack units no longer take bonus damage; Warrior Monks +5 Monk Armor and heal +100% faster)\n\n<b>Team Bonus:<b>\nInfantry +2 line of sight"
 IDS_CIVTIPS_44_3 "Research Fereters in your Castle to nullify enemy bonus damage against your Barrack Units. Warrior Monks also receive less bonus damage, while also healing faster."
