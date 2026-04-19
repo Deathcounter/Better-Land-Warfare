@@ -52,7 +52,7 @@ def add_Billman_line(df: DatFile):
     base.type_50.reload_time = 2.25
     base.type_50.displayed_reload_time = 2.25
 
-    base.creatable.min_conversion_time_mod = -2 # make Unit easier to convert
+    base.creatable.min_conversion_time_mod = -1 # make Unit easier to convert
     base.creatable.max_conversion_time_mod = -2
     
     base.creatable.idle_attack_graphic = -1

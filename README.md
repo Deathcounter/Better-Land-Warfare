@@ -9,7 +9,9 @@ blw dat folder content -
 
 datfiles folder content -
 5. Fill the folder "datfiles" with the game's .dat file empires2_x2_p1.dat located at the path of Step 1.
+
 6. Rename it to "base_game.dat"
+
 7. The code will generate a modded empires2_x2_p1.dat, therefore you have to do Step 6.
 
 With the folders now filled (the code will tell you if there is something missing) it is time to run create_mod.py in a Python Virtual environment and the libraries of requirements.txt running
