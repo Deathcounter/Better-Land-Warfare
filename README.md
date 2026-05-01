@@ -36,6 +36,8 @@ Feel free to add a readme.txt with the mod too linking to the Game Design docume
 Publishing Mod:
 Go to https://www.ageofempires.com/mods and publish a new mod/edit your current one.
 
-14. Go into finished_mods\Better Land Warfare (Official Data Mod) & the UI mod. Select the file as in Step 10 -> create a ZIP file and name it Better Land Warfare (Continued UI/Data Mod) - any info.json file does not need to be part of the zip
+14. Go into finished_mods\Better Land Warfare (Official Data Mod) & the UI mod. Select the file as in Step 10 -> create a ZIP file and name it Better Land Warfare (Continued UI/Data Mod) - any info.json file does not need to be part of the zip. 
+
+Note that the UI mod doesn't really need updates much often, compared to the Data Mod. So think whether you changed something about the files that the UI mod consists of.
 
 15. Publish the files in the mod center on the website above
